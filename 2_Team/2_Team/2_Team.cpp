@@ -43,6 +43,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 	msg.message = WM_NULL;
+	
+	DWORD _dwTime = GetTickCount();
 
     // 기본 메시지 루프입니다.
 	while (true)
@@ -58,7 +60,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-
+			if (_dwTime + 10 >= GetTickCount())
+			{
+				_dwTime = GetTickCount();
+			}
 		}
 	}
 
