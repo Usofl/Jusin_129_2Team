@@ -16,6 +16,9 @@
     <Filter Include="99. Header">
       <UniqueIdentifier>{da957f88-cfcf-44dc-9d60-4c96496d9a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. MainGame">
+      <UniqueIdentifier>{4dd63aa3-07a5-4eab-9262-4b5f2bf5ca69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,6 +51,9 @@
     <ClInclude Include="Include.h">
       <Filter>99. Header</Filter>
     </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>00. MainGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -55,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="2_Team.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>00. MainGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "2_Team.h"
+#include "MainGame.h"
 
 #define MAX_LOADSTRING 100
 
@@ -43,6 +44,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 	msg.message = WM_NULL;
+
+	CMainGame mainGame;
+
+	mainGame.Initialize();
 	
 	DWORD _dwTime = GetTickCount();
 
@@ -60,8 +65,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		else
 		{
-			if (_dwTime + 10 >= GetTickCount())
+			if (_dwTime + 10 < GetTickCount())
 			{
+				mainGame.Update();
+				mainGame.Late_Update();
+				mainGame.Render();
+
 				_dwTime = GetTickCount();
 			}
 		}
