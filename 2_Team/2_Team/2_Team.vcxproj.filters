@@ -16,6 +16,9 @@
     <Filter Include="99. Header">
       <UniqueIdentifier>{da957f88-cfcf-44dc-9d60-4c96496d9a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. CObj">
+      <UniqueIdentifier>{83aaddd4-9425-4e1e-98bf-9def519fb7ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
