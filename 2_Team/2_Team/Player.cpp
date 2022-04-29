@@ -45,7 +45,7 @@ const int& CPlayer::Update(void)
 	{
 		m_fJumpTime += 0.2f;
 
-		float fy = m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
+		float fy = 10.f + m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
 		float fx = m_fJumpPower * cosf(RADIAN(m_fJumpAngle));
 
 		m_tInfo.fX += (fx * m_iReverse);
@@ -65,7 +65,8 @@ const int& CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	if (m_tLeft_Leg.y > (WINCY - GAMESIZE))
+	//if (m_tLeft_Leg.y > (WINCY - GAMESIZE))
+	if(!m_bAir)
 	{
 		m_fJumpTime = 0.f;
 		m_bJump = false;

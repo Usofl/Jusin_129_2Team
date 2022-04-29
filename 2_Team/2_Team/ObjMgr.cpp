@@ -20,8 +20,8 @@ void CObjMgr::Initialize(void)
 {
 	LINEPOINT _Linepoint[2] = 
 	{
-		{200,400},
-		{600,400}
+		{000,400},
+		{800,400}
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 
