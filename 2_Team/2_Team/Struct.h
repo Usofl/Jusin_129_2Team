@@ -8,3 +8,14 @@ typedef struct tag_info
 	float fCY;
 	float fCX;
 }INFO;
+
+typedef struct tag_lineinfo
+{
+
+}LINEPOINT;
+
+typedef struct tag_lineinfo
+{
+	POINT tLeft;
+	POINT tRight;
+}LINE;

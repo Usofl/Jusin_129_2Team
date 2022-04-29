@@ -15,7 +15,7 @@ void CNotBeing::Initialize(void)
 {
 }
 
-int CNotBeing::Update(void)
+const int& CNotBeing::Update(void)
 {
 	return 0;
 }
@@ -24,7 +24,7 @@ void CNotBeing::Late_Update(void)
 {
 }
 
-void CNotBeing::Render(void)
+void CNotBeing::Render(HDC _hDC)
 {
 }
 
