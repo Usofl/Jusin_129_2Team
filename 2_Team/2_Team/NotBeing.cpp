@@ -10,3 +10,4 @@ CNotBeing::CNotBeing()
 CNotBeing::~CNotBeing()
 {
 }
+
