@@ -7,4 +7,6 @@ typedef struct tag_info
 
 	float fCY;
 	float fCX;
+
+	
 }INFO;

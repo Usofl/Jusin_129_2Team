@@ -1,4 +1,8 @@
 #pragma once
+#include "Cloud.h"
+#include "Koopa.h"
+#include "Warrior.h"
+
 class CMainGame
 {
 public:
@@ -21,5 +25,8 @@ private:
 	TCHAR		m_szFPS[64];	// 멀티 바이트 기반에서는 CHAR로 유니 코드 기반에서는 유니코드로 처리해주는 매크로
 	int			m_iFPS;
 	DWORD		m_dwFPSTime;
+
+	CCloud* Cloud;
+	CWarrior* Warrior;
 };
 

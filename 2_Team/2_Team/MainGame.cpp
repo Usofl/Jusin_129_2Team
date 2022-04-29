@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "MainGame.h"
+#include "ObjMgr.h"
+#include "MonsterFactory.h" 
 
 
 CMainGame::CMainGame() 
@@ -17,14 +19,24 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
+
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, CMonsterFactory::Create_Monster(CLOUD_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, CMonsterFactory::Create_Monster(BOSS_KOOPA));
+
+
 }
 
 void CMainGame::Update(void)
 {
+	CObjMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update(void)
 {
+
+
+	CObjMgr::Get_Instance()->Late_Update();
 }
 
 void CMainGame::Render(void)
@@ -41,6 +53,12 @@ void CMainGame::Render(void)
 		m_iFPS = 0;
 		m_dwFPSTime = GetTickCount();
 	}
+
+	/*Cloud->Render(m_hDC);
+	Warrior->Render(m_hDC);*/
+
+	CObjMgr::Get_Instance()->Render(m_hDC);
+	
 }
 
 void CMainGame::Release(void)

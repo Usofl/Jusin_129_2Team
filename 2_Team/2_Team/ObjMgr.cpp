@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjMgr.h"
 
+CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
 {
@@ -13,11 +14,12 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
+
 }
 
 void CObjMgr::Update(void)
 {
-	for (int i = NOTBEING_END; i < NOTBEING_END; ++i)
+	for (int i = 0; i < NOTBEING_END; ++i)
 	{
 		for (auto& iter = m_NotBeing_list[i].begin(); iter != m_NotBeing_list[i].end();)
 		{
@@ -35,7 +37,7 @@ void CObjMgr::Update(void)
 
 
 
-	for (int i = BEING_END; i < BEING_END; ++i)
+	for (int i = 0; i < BEING_END; ++i)
 	{
 		for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
 		{
@@ -58,7 +60,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 
@@ -66,7 +68,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 }
@@ -77,7 +79,7 @@ void CObjMgr::Render(HDC _hdc)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Render();
+			iter->Render(_hdc);
 		}
 	}
 
@@ -85,7 +87,7 @@ void CObjMgr::Render(HDC _hdc)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Render();
+			iter->Render(_hdc);
 		}
 	}
 }

@@ -1,20 +1,19 @@
 #pragma once
-#include "Obj.h"
-class CBeing :
-	public CObj
+#include "Being.h"
+#include "Monster.h"
+
+class CKoopa :
+	public CMonster
 {
 public:
-	CBeing();
-	virtual ~CBeing();
+	CKoopa();
+	virtual ~CKoopa();
 
-	
-
-	// CObj을(를) 통해 상속됨
+public:
 	virtual void Initialize(void) override;
-	virtual int Update(void) override;
+	virtual int  Update(void) override;
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
-
 };
 
