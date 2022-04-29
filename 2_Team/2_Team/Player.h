@@ -20,6 +20,8 @@ public:
 	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
 	inline bool& Get_Jumping(void) { return m_bJump; }
 
+	void Set_Body(void);
+
 private:
 	void Key_Input(void);
 	const bool& Front_Leg(void) { return m_tLeft_Leg.x > m_tRight_Leg.x; }

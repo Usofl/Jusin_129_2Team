@@ -55,6 +55,7 @@ const int& CPlayer::Update(void)
 
 		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+		Set_Body();
 	}
 
 	Update_Rect();
@@ -100,6 +101,15 @@ void CPlayer::Render(HDC _hDC)
 
 void CPlayer::Release(void)
 {
+}
+
+void CPlayer::Set_Body(void)
+{
+	float fX = m_tLeft_Leg.x - m_tInfo.fX;
+	m_fAngle = acosf(fX / LEGSIZE);
+
+	m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(m_fAngle);
+	m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
 }
 
 void CPlayer::Key_Input(void)
@@ -179,77 +189,4 @@ void CPlayer::Key_Input(void)
 	{
 		m_bJump = true;
 	}
-
-	/*if (GetAsyncKeyState('W'))
-	{
-	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x < m_Right_Leg.x)
-	{
-	m_Left_Leg.x += (LONG)m_fSpeed;
-
-	float fX = m_Left_Leg.x - m_tInfo.fX;
-	m_fAngle = acosf(fX / LEGSIZE);
-
-	if (m_tInfo.fY > m_Left_Leg.y)
-	{
-	m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX = m_Right_Leg.x + LEGSIZE * cos(m_fAngle);
-	m_tInfo.fY = m_Right_Leg.y - LEGSIZE * sin(m_fAngle);
-	}
-	}
-	else if (GetAsyncKeyState('S'))
-	{
-	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x > m_Right_Leg.x)
-	{
-	m_Right_Leg.x += (LONG)m_fSpeed;
-
-	float fX = m_Right_Leg.x - m_tInfo.fX;
-	m_fAngle = acosf(fX / LEGSIZE);
-
-	if (m_tInfo.fY > m_Right_Leg.y)
-	{
-	m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX = m_Left_Leg.x + LEGSIZE * cos(m_fAngle);
-	m_tInfo.fY = m_Left_Leg.y - LEGSIZE * sin(m_fAngle);
-	}
-	}
-	else if (GetAsyncKeyState('Q'))
-	{
-	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x > m_Right_Leg.x)
-	{
-	m_Left_Leg.x -= (LONG)m_fSpeed;
-
-	float fX = m_Left_Leg.x - m_tInfo.fX;
-	m_fAngle = acosf(fX / LEGSIZE);
-
-	if (m_tInfo.fY > m_Left_Leg.y)
-	{
-	m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX = m_Right_Leg.x + LEGSIZE * cos(m_fAngle);
-	m_tInfo.fY = m_Right_Leg.y - LEGSIZE * sin(m_fAngle);
-	}
-	}
-	else if (GetAsyncKeyState('A'))
-	{
-	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x < m_Right_Leg.x)
-	{
-	m_Right_Leg.x -= (LONG)m_fSpeed;
-
-	float fX = m_Right_Leg.x - m_tInfo.fX;
-	m_fAngle = acosf(fX / LEGSIZE);
-
-	if (m_tInfo.fY > m_Right_Leg.y)
-	{
-	m_fAngle *= -1.f;
-	}
-
-	m_tInfo.fX = m_Left_Leg.x + LEGSIZE * cos(m_fAngle);
-	m_tInfo.fY = m_Left_Leg.y - LEGSIZE * sin(m_fAngle);
-	}
-	}*/
 }
