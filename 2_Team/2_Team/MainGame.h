@@ -13,7 +13,7 @@ public:
 	void Release(void);
 
 public:
-	void Key_Input(void);
+	void Key_Input(void); 
 
 private:
 	HDC		m_hDC;
