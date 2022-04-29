@@ -19,6 +19,45 @@
     <Filter Include="00. MainGame">
       <UniqueIdentifier>{4dd63aa3-07a5-4eab-9262-4b5f2bf5ca69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj">
+      <UniqueIdentifier>{58c4ea74-3db6-4583-863e-eacc0f0bd8a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Being">
+      <UniqueIdentifier>{3d360cdd-262d-409f-b52f-cb57dc449c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Being\00. Player">
+      <UniqueIdentifier>{08846b78-31c4-41f6-a327-f6e2d8e98a49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster">
+      <UniqueIdentifier>{390c09e8-12df-401e-aa93-a1b817d78de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing">
+      <UniqueIdentifier>{245c5a23-7266-4ae6-b22d-5bf9fb84378c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\00. Block">
+      <UniqueIdentifier>{4ac1e9d6-a113-462d-8a00-c60a12ec4f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\01. Line">
+      <UniqueIdentifier>{fcad0786-f24b-471e-90e8-eeee4d21f6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item">
+      <UniqueIdentifier>{c317e8f7-93e4-4d38-9b9b-9693dd1b701c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Pattern">
+      <UniqueIdentifier>{8443745e-a0d7-43f2-aa96-dadbc7118b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager">
+      <UniqueIdentifier>{8940d562-6f89-428f-9f7d-1f9615119422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\00. ObjMgr">
+      <UniqueIdentifier>{65ba61b3-d6fc-41af-bec2-3a694265a454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Pattern\00. AbstractFactory">
+      <UniqueIdentifier>{63f6bc9b-83ae-4c04-8b46-d67ad2db6292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Pattern\01. Collisoin">
+      <UniqueIdentifier>{a8bfe11b-c159-403a-a3e2-82aa993541e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,6 +93,18 @@
     <ClInclude Include="MainGame.h">
       <Filter>00. MainGame</Filter>
     </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>01. Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMgr.h">
+      <Filter>01. Manager\00. ObjMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="NotBeing.h">
+      <Filter>01. Obj\01. NotBeing</Filter>
+    </ClInclude>
+    <ClInclude Include="Being.h">
+      <Filter>01. Obj\00. Being</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -64,6 +115,18 @@
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
+      <Filter>01. Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMgr.cpp">
+      <Filter>01. Manager\00. ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="NotBeing.cpp">
+      <Filter>01. Obj\01. NotBeing</Filter>
+    </ClCompile>
+    <ClCompile Include="Being.cpp">
+      <Filter>01. Obj\00. Being</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
