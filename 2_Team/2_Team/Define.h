@@ -6,6 +6,7 @@
 #define GAMESIZE 50
 
 #define PURE =0
+#define	VK_MAX 0xff
 
 #define PI 3.1415926535f
 #define GRAVITY 9.80665f
@@ -26,5 +27,9 @@
 #define DIAGONAL(x1,y1,x2,y2) sqrtf((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
 
 #define ACOSF(x1,y1,x2,y2) (x1-x2) / DIAGONAL(x1,y1,x2,y2)
+
+#define OBJMGR (CObjMgr::Get_Instance())
+#define LINEMGR (CLineMgr::Get_Instance())
+#define KEYMGR (CKeyMgr::Get_Instance())
 
 extern HWND g_hWnd;

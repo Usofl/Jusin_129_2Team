@@ -20,24 +20,26 @@ void CMainGame::Initialize(void)
 	m_hDC = GetDC(g_hWnd);
 
 	CBeing* player = new CPlayer;
-	CObjMgr::Get_Instance()->Add_Being(BEING_PLAYER, player);
+	OBJMGR->Add_Being(BEING_PLAYER, player);
 
-	CObjMgr::Get_Instance()->Initialize();
+	OBJMGR->Initialize();
 }
 
 void CMainGame::Update(void)
 {
-	CObjMgr::Get_Instance()->Update();
+	OBJMGR->Update();
 }
 
 void CMainGame::Late_Update(void)
 {
-	CObjMgr::Get_Instance()->Late_Update();
+	OBJMGR->Late_Update();
 }
 
 void CMainGame::Render(void)
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+
+	OBJMGR->Render(m_hDC);
 
 	++m_iFPS;
 
@@ -49,7 +51,6 @@ void CMainGame::Render(void)
 		m_iFPS = 0;
 		m_dwFPSTime = GetTickCount();
 	}
-	CObjMgr::Get_Instance()->Render(m_hDC);
 }
 
 void CMainGame::Release(void)

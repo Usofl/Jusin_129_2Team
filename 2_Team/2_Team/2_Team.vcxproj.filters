@@ -67,6 +67,9 @@
     <Filter Include="01. Manager\01. LIneMgr">
       <UniqueIdentifier>{de7d086b-3c20-43d7-ba7a-18e963c3f4bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\02. KeyMgr">
+      <UniqueIdentifier>{420896a1-6b89-46ed-9283-9b964ed795d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -138,6 +141,9 @@
     <ClInclude Include="Player.h">
       <Filter>01. Obj\00. Being\00. Player</Filter>
     </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>01. Manager\02. KeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -178,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>01. Obj\00. Being\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>01. Manager\02. KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

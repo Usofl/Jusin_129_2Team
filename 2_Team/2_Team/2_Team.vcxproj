@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerFactory.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Being.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />

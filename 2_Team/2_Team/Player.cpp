@@ -48,7 +48,7 @@ const int& CPlayer::Update(void)
 		float fy = m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
 		float fx = m_fJumpPower * cosf(RADIAN(m_fJumpAngle));
 
-		m_tInfo.fX += fx;
+		m_tInfo.fX += (fx * m_iReverse);
 		m_tInfo.fY -= fy;
 
 		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
@@ -106,6 +106,7 @@ void CPlayer::Key_Input(void)
 {
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
+		m_iReverse = 1;
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x += (LONG)m_fSpeed;
@@ -140,7 +141,7 @@ void CPlayer::Key_Input(void)
 
 	else if (GetAsyncKeyState(VK_LEFT))
 	{
-
+		m_iReverse = -1;
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;
