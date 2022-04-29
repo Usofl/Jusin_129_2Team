@@ -19,7 +19,7 @@ void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
 
-	CBeing* player = new CPlayer;
+	CObj* player = new CPlayer;
 	OBJMGR->Add_Being(BEING_PLAYER, player);
 
 	OBJMGR->Initialize();

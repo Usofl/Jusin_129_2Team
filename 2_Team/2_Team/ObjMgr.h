@@ -15,16 +15,16 @@ public:
 	void Render(HDC _hdc);
 	void Release(void);
 
-	void Add_Being(const BEINGOBJ_ID& _ID, CBeing*& _Instance)
+	void Add_Being(const BEINGOBJ_ID& _ID, CObj*& _Instance)
 	{
 		if (_ID >= BEING_END || _Instance == nullptr)
 			return;
 
 		m_Being_list[_ID].push_back(_Instance);
 	}
-	void Add_Notbeing(const NOTBEINGOBJ_ID& _ID, CNotBeing*& _Instance)
+	void Add_Notbeing(const NOTBEINGOBJ_ID& _ID, CObj*& _Instance)
 	{
-		if (_ID >= BEING_END || _Instance == nullptr)
+		if (_ID >= NOTBEING_END || _Instance == nullptr)
 			return;
 
 		m_NotBeing_list[_ID].push_back(_Instance);

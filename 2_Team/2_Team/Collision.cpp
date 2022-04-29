@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Collision.h"
 #include "Line.h"
+#include "Player.h"
 
 
 CCollision::CCollision()
@@ -53,10 +54,14 @@ void CCollision::Collision_Player_Line(std::list<CObj*>& m_Obj_List, std::list<C
 				if (_Obj->Get_Info().fX > _Line_Left.fX && _Obj->Get_Info().fX < _Line_Right.fX)
 				{
 					float _fY = ((_Line_Right.fY - _Line_Left.fY) / (_Line_Right.fX - _Line_Left.fX)) * (_Player_RightLeg.x - _Line_Left.fX) + _Line_Left.fY;
-					//_Obj->Set_Pos(_Obj->Get_Info().fX, _fY - (_Obj->Get_Info().fCY*0.5f));
-					_Player_RightLeg.y = (LONG)_fY;
-					_Player_LeftLeg.y = (LONG)_fY;
+					if (!(static_cast<CPlayer*>(m_Obj_List.front())->Get_Jumping()))
+					{						
+						_Player_RightLeg.y = (LONG)_fY;
+						_Player_LeftLeg.y = (LONG)_fY;
+						
+					}
 					_Obj->Set_Air(true);
+					//static_cast<CPlayer*>(m_Obj_List.front())->Set_Body();
 				}
 			}
 		}
@@ -65,5 +70,25 @@ void CCollision::Collision_Player_Line(std::list<CObj*>& m_Obj_List, std::list<C
 			continue;
 		}
 		_Obj->Set_Air(false);
+	}
+}
+
+void Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
+{
+	//float fWidth = m_Obj_List
+	for (auto& _player : m_Obj_List)
+	{
+		RECT _player_rc = _player->Get_Rect();
+		INFO _player_info = _player->Get_Info();
+		for (auto& _block : m_Block_List)
+		{
+			float fDistanceX = _player_info.fX + _block->Get_Info().fX;
+			float fDistanceY = _player_info.fY + _block->Get_Info().fY;
+
+			float fWidth = _player_info.fX + _player_info.fCX * 0.5f + _block->Get_Info().fX + _block->Get_Info().fCX;
+			float fHeight = _player_info.fY + _player_info.fCY * 0.5f + _block->Get_Info().fY + _block->Get_Info().fCY;
+
+
+		}
 	}
 }
