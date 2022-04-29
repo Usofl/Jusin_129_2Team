@@ -17,19 +17,30 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
+	
+	CBeing* player = new CPlayer;
+	player->Initialize();
+	CObjMgr::Get_Instance()->Add_Being(BEING_PLAYER, player);
+
+	CObjMgr::Get_Instance()->Initialize();
+	
 }
 
 void CMainGame::Update(void)
 {
+	CObjMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update(void)
 {
+	CObjMgr::Get_Instance()->Late_Update();
 }
 
 void CMainGame::Render(void)
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+
+	CObjMgr::Get_Instance()->Render(m_hDC);
 
 	++m_iFPS;
 
