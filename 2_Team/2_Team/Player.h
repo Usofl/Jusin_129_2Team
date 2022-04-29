@@ -1,43 +1,33 @@
 #pragma once
-#include "Obj.h"
-#include "Bullet.h"
-
-class CPlayer : public CObj
+#include "Being.h"
+class CPlayer :
+	public CBeing
 {
 public:
 	CPlayer();
 	virtual ~CPlayer();
 
-public:
+	// CBeing을(를) 통해 상속됨
 	virtual void Initialize(void) override;
-	virtual int		Update(void) override;
-	virtual		void	Late_Update(void);
-	virtual void Render(HDC hDC) override;
+	virtual const int& Update(void) override;
+	virtual void Late_Update(void) override;
+	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
 private:
-	void		Key_Input(void);
-	void		Jumping(void);
-	void		OffSet(void);
+	void Key_Input(void);
+	const bool& Front_Leg(void) { return m_tLeft_Leg.x > m_tRight_Leg.x; }
 
 private:
+	bool m_bChange;
+	bool m_bJump;
 
+	int   m_iReverse;
+	float m_fJumpTime;
+	float m_fJumpPower;
+	float m_fJumpAngle;
 
-	POINT					m_tPosin;
-	float					m_fDiagonal;
-
-
-	bool					m_bJump;		// 점프 상태 확인
-	float					m_fJumpPower;	// 점프 힘
-	float					m_fJumpTime;	// 점프 중 진행 시간
-
-
+	POINT m_tLeft_Leg;
+	POINT m_tRight_Leg;
 };
 
-// 1. 플레이어 쉴드 구현(플레이어 중심으로 공전하는 위성 구현하기)
-// 2. 스크류 미사일 구현
-// 3. 플레이어를 따라다니는 몬스터 구현(역함수 사용)
-
-
-// 함수		: 기능, Input과 Output이 존재		Y = F(X)	-> y = x + 1
-// 삼각 함수  : 수학자들이 찾은 빗변, 밑변, 높이 사이에 관계를 의미, 끼인 각을 알면 각 사이에 접변들의 관계를 정리해 놓은 함수

@@ -3,8 +3,17 @@
 #define WINCX 800
 #define WINCY 600
 
+#define GAMESIZE 50
+
 #define PURE =0
-#define PI 3.141592f
+
+#define PI 3.1415926535f
+#define GRAVITY 9.80665f
+
+#define LEGSIZE 40.f
+
+#define DEGREE (PI / 180.f)
+#define NLOG sqrtf(2.f)
 
 #define OBJ_DEAD 1
 #define OBJ_NOEVENT 0

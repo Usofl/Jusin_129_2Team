@@ -1,52 +1,63 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "AbstractFactory.h"
-#include "Shield.h"
-#include "ScrewBullet.h"
-#include "GuideBullet.h"
-#include "ObjMgr.h"
-#include "LineMgr.h"
-#include "KeyMgr.h"
-#include "ScrollMgr.h"
+
 
 CPlayer::CPlayer()
+	: m_bChange(false)
+	, m_bJump(false)
+	, m_iReverse(1)
+	, m_fJumpTime(0.f)
+	, m_fJumpAngle(45.f)
+	, m_tLeft_Leg({ 0,0 })
+	, m_tRight_Leg({ 0,0 })
 {
 }
 
 CPlayer::~CPlayer()
 {
-	Release();
 }
 
 void CPlayer::Initialize(void)
 {
-	m_tInfo.fX = 100.f;
-	m_tInfo.fY = 300.f;
+	//theta = 0.f;
 
-	m_tInfo.fCX = 100.f;
-	m_tInfo.fCY = 100.f;
+	m_tInfo.fX = WINCX * 0.5f;
+	m_tInfo.fY = WINCY - 100.f;
 
-	m_fSpeed = 10.f;
+	m_tInfo.fCX = 75.f;
+	m_tInfo.fCY = 75.f;
 
-	m_fDiagonal = 100.f;
+	m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
 
-	m_bJump = false;
-	m_fJumpPower = 15.f;
-	m_fJumpTime = 0.f;
+	m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 
+	m_iReverse = 1;
+
+	m_fJumpPower = 20.f;
+	m_fSpeed = 2.f;
 }
 
-int CPlayer::Update(void)
+const int& CPlayer::Update(void)
 {
-	if (m_bDead)
-		return OBJ_DEAD;
-
-	// 연산을 진행
 	Key_Input();
-	Jumping();
-	OffSet();
 
-	// 모든 연산이 끝난 뒤에 최종적인 좌표를 완성
+	if (m_bJump)
+	{
+		m_fJumpTime += 0.2f;
+
+		float fy = m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
+		float fx = m_fJumpPower * cosf(RADIAN(m_fJumpAngle));
+
+		m_tInfo.fX += fx;
+		m_tLeft_Leg.x += (LONG)fx;
+		m_tRight_Leg.x += (LONG)fx;
+
+		m_tInfo.fY -= fy;
+		m_tLeft_Leg.y -= (LONG)fy;
+		m_tRight_Leg.y -= (LONG)fy;
+	}
+
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -54,87 +65,191 @@ int CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	m_tPosin.x = long(m_tInfo.fX + m_fDiagonal * cosf((m_fAngle * PI) / 180.f));
-	m_tPosin.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
+	if (m_tLeft_Leg.y > (WINCY - GAMESIZE))
+	{
+		m_fJumpTime = 0.f;
+		m_bJump = false;
+	}
 }
 
-void CPlayer::Render(HDC hDC)
+void CPlayer::Render(HDC _hDC)
 {
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
-	// 포신 그리기
-	MoveToEx(hDC, (int)m_tInfo.fX + iScrollX, (int)m_tInfo.fY, nullptr);
-	LineTo(hDC, (int)m_tPosin.x + iScrollX, (int)m_tPosin.y);
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f), m_tRect.top - (int)(m_tInfo.fCY * 0.5f)
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f), m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
+
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.1f), m_tRect.top - (int)(m_tInfo.fCY * 0.4f)
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.1f), m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
+
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f), m_tRect.top - (int)(m_tInfo.fCY * 0.3f)
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f), m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f));
+
+	MoveToEx(_hDC, (int)(m_tInfo.fX), m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f), nullptr);
+	LineTo(_hDC, (int)(m_tInfo.fX), m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f));
+	// 왼팔
+	LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f), m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
+	MoveToEx(_hDC, (int)(m_tInfo.fX), m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+	// 오른팔
+	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f), m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
+	MoveToEx(_hDC, (int)(m_tInfo.fX), m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+	LineTo(_hDC, (int)(m_tInfo.fX), (int)(m_tInfo.fY));
+
+	LineTo(_hDC, m_tLeft_Leg.x, m_tLeft_Leg.y);
+	MoveToEx(_hDC, (int)(m_tInfo.fX), (int)(m_tInfo.fY), nullptr);
+	LineTo(_hDC, m_tRight_Leg.x, m_tRight_Leg.y);
 }
 
 void CPlayer::Release(void)
 {
-	
 }
 
 void CPlayer::Key_Input(void)
 {
-	float	fY = 0.f;
-
-	// GetKeyState
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		m_tInfo.fX -= m_fSpeed;
-	}
-
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_tInfo.fX += m_fSpeed;
-	}
-
-	if (GetAsyncKeyState(VK_UP))
-		m_tInfo.fY -= m_fSpeed;
-
-	if (GetAsyncKeyState(VK_DOWN))
-		m_tInfo.fY += m_fSpeed;
-
-	if (CKeyMgr::Get_Instance()->Key_Up(VK_SPACE))
-	{
-		m_bJump = true;
-		return;
-	}
-}
-
-void CPlayer::Jumping(void)
-{
-	float		fY = 0.f;
-
-	bool		bLineCol = CLineMgr::Get_Instance()->Collision_Line(m_tInfo.fX, &fY);
-
-	if (m_bJump)
-	{
-		m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;
-		m_fJumpTime += 0.2f;
-
-		if (bLineCol && (fY < m_tInfo.fY))
+		if (m_bChange)
 		{
-			m_bJump = false;
-			m_fJumpTime = 0.f;
-			m_tInfo.fY = fY;
+			m_tLeft_Leg.x += (LONG)m_fSpeed;
+
+			float fX = m_tLeft_Leg.x - m_tInfo.fX;
+			m_fAngle = acosf(fX / LEGSIZE);
+
+			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
+			{
+				m_bChange = false;
+			}
+
+			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(m_fAngle);
+			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
+		}
+		else
+		{
+			m_tRight_Leg.x += (LONG)m_fSpeed;
+
+			float fX = m_tRight_Leg.x - m_tInfo.fX;
+			m_fAngle = acosf(fX / LEGSIZE);
+
+			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
+			{
+				m_bChange = true;
+			}
+			
+			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cos(m_fAngle);
+			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sin(m_fAngle);
 		}
 	}
-	else if (bLineCol)
+
+	else if (GetAsyncKeyState(VK_LEFT))
 	{
-		m_tInfo.fY = fY;
+
+		if (m_bChange)
+		{
+			m_tLeft_Leg.x -= (LONG)m_fSpeed;
+
+			float fX = m_tLeft_Leg.x - m_tInfo.fX;
+			m_fAngle = acosf(fX / LEGSIZE);
+
+			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
+			{
+				m_bChange = false;
+			}
+
+			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(-m_fAngle);
+			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
+		}
+		else
+		{
+			m_tRight_Leg.x -= (LONG)m_fSpeed;
+
+			float fX = m_tRight_Leg.x - m_tInfo.fX;
+			m_fAngle = acosf(fX / LEGSIZE);
+
+			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
+			{
+				m_bChange = true;
+			}
+
+			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cos(-m_fAngle);
+			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sin(m_fAngle);
+		}
+
 	}
-}
 
-void CPlayer::OffSet(void)
-{
-	int		iOffSetX = WINCX >> 1;
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	int		iItv = 300;
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+		m_bJump = true;
+	}
 
+	/*if (GetAsyncKeyState('W'))
+	{
+	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x < m_Right_Leg.x)
+	{
+	m_Left_Leg.x += (LONG)m_fSpeed;
 
-	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
-		CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
+	float fX = m_Left_Leg.x - m_tInfo.fX;
+	m_fAngle = acosf(fX / LEGSIZE);
 
-	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
-		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
+	if (m_tInfo.fY > m_Left_Leg.y)
+	{
+	m_fAngle *= -1.f;
+	}
+
+	m_tInfo.fX = m_Right_Leg.x + LEGSIZE * cos(m_fAngle);
+	m_tInfo.fY = m_Right_Leg.y - LEGSIZE * sin(m_fAngle);
+	}
+	}
+	else if (GetAsyncKeyState('S'))
+	{
+	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x > m_Right_Leg.x)
+	{
+	m_Right_Leg.x += (LONG)m_fSpeed;
+
+	float fX = m_Right_Leg.x - m_tInfo.fX;
+	m_fAngle = acosf(fX / LEGSIZE);
+
+	if (m_tInfo.fY > m_Right_Leg.y)
+	{
+	m_fAngle *= -1.f;
+	}
+
+	m_tInfo.fX = m_Left_Leg.x + LEGSIZE * cos(m_fAngle);
+	m_tInfo.fY = m_Left_Leg.y - LEGSIZE * sin(m_fAngle);
+	}
+	}
+	else if (GetAsyncKeyState('Q'))
+	{
+	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x > m_Right_Leg.x)
+	{
+	m_Left_Leg.x -= (LONG)m_fSpeed;
+
+	float fX = m_Left_Leg.x - m_tInfo.fX;
+	m_fAngle = acosf(fX / LEGSIZE);
+
+	if (m_tInfo.fY > m_Left_Leg.y)
+	{
+	m_fAngle *= -1.f;
+	}
+
+	m_tInfo.fX = m_Right_Leg.x + LEGSIZE * cos(m_fAngle);
+	m_tInfo.fY = m_Right_Leg.y - LEGSIZE * sin(m_fAngle);
+	}
+	}
+	else if (GetAsyncKeyState('A'))
+	{
+	if (LEGSIZE * 1.9 > fabs(m_Right_Leg.x - m_Left_Leg.x) || m_Left_Leg.x < m_Right_Leg.x)
+	{
+	m_Right_Leg.x -= (LONG)m_fSpeed;
+
+	float fX = m_Right_Leg.x - m_tInfo.fX;
+	m_fAngle = acosf(fX / LEGSIZE);
+
+	if (m_tInfo.fY > m_Right_Leg.y)
+	{
+	m_fAngle *= -1.f;
+	}
+
+	m_tInfo.fX = m_Left_Leg.x + LEGSIZE * cos(m_fAngle);
+	m_tInfo.fY = m_Left_Leg.y - LEGSIZE * sin(m_fAngle);
+	}
+	}*/
 }
