@@ -8,7 +8,6 @@ public:
 	virtual ~CObj();
 
 public:
-
 	virtual void		Initialize	(void)		PURE;
 	virtual const int&	Update		(void)		PURE;
 	virtual void		Late_Update	(void)		PURE;

@@ -161,7 +161,6 @@
     <ClInclude Include="NotBeing.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="stdafx.h" />
@@ -179,7 +178,6 @@
     <ClCompile Include="NotBeing.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

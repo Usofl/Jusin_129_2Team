@@ -18,14 +18,7 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
-
-	
-	CBeing* player = new CPlayer;
-	player->Initialize();
-	CObjMgr::Get_Instance()->Add_Being(BEING_PLAYER, player);
-
 	CObjMgr::Get_Instance()->Initialize();
-
 }
 
 void CMainGame::Update(void)
@@ -42,11 +35,9 @@ void CMainGame::Render(void)
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
-	CObjMgr::Get_Instance()->Render(m_hDC);
-
 	++m_iFPS;
 
-	if (m_dwFPSTime + 1000 < GetTickCount())   // GetTickCount() 1000ÂºÃÃ€Ã‡ 1ÃƒÃŠ
+	if (m_dwFPSTime + 1000 < GetTickCount())   // GetTickCount() 1000ºÐÀÇ 1ÃÊ
 	{
 		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
 		SetWindowText(g_hWnd, m_szFPS);
