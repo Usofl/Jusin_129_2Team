@@ -2,9 +2,8 @@
 #include "ObjMgr.h"
 #include "Collision.h"
 
+
 #include "LineFactory.h"
-
-
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
@@ -72,7 +71,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 
@@ -80,7 +79,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 
