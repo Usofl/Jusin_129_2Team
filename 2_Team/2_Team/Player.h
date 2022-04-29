@@ -14,6 +14,9 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+	inline POINT& Get_Left_Leg(void) { return m_tLeft_Leg; }
+	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
+
 private:
 	void Key_Input(void);
 	const bool& Front_Leg(void) { return m_tLeft_Leg.x > m_tRight_Leg.x; }
