@@ -1,7 +1,4 @@
 #pragma once
-#include "Player.h"
-#include "ObjMgr.h"
-
 class CMainGame
 {
 public:

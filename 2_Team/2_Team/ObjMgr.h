@@ -30,14 +30,6 @@ public:
 		m_NotBeing_list[_ID].push_back(_Instance);
 	}
 
-	inline CObj*& Get_Player(void) 
-	{
-		if (nullptr != m_Being_list[BEING_PLAYER].front())
-		{
-			return m_Being_list[BEING_PLAYER].front();
-		}
-	}
-
 private:
 	std::list<CObj*> m_Being_list[BEING_END];
 	std::list<CObj*> m_NotBeing_list[NOTBEING_END];
