@@ -17,7 +17,7 @@ void CObjMgr::Initialize(void)
 
 void CObjMgr::Update(void)
 {
-	for (int i = NOTBEING_END; i < NOTBEING_END; ++i)
+	for (int i = 0; i < NOTBEING_END; ++i)
 	{
 		for (auto& iter = m_NotBeing_list[i].begin(); iter != m_NotBeing_list[i].end();)
 		{
@@ -35,7 +35,7 @@ void CObjMgr::Update(void)
 
 
 
-	for (int i = BEING_END; i < BEING_END; ++i)
+	for (int i = 0; i < BEING_END; ++i)
 	{
 		for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
 		{
