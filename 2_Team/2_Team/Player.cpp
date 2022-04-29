@@ -55,7 +55,6 @@ const int& CPlayer::Update(void)
 
 		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
-		Set_Body();
 	}
 
 	Update_Rect();
@@ -105,11 +104,34 @@ void CPlayer::Release(void)
 
 void CPlayer::Set_Body(void)
 {
-	float fX = m_tLeft_Leg.x - m_tInfo.fX;
-	m_fAngle = acosf(fX / LEGSIZE);
+	float fX = 0.f;
 
-	m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(m_fAngle);
-	m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
+	if (m_bChange)
+	{
+		fX = m_tLeft_Leg.x - m_tInfo.fX;
+		m_fAngle = acosf(fX / LEGSIZE);
+
+		if (m_tLeft_Leg.y < m_tInfo.fY)
+		{
+			m_fAngle *= -1.f;
+		}
+
+		m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(m_fAngle);
+		m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
+	}
+	else
+	{
+		fX = m_tRight_Leg.x - m_tInfo.fX;
+		m_fAngle = acosf(fX / LEGSIZE);
+
+		if (m_tLeft_Leg.y < m_tInfo.fY)
+		{
+			m_fAngle *= -1.f;
+		}
+
+		m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
+		m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
+	}
 }
 
 void CPlayer::Key_Input(void)
@@ -129,8 +151,8 @@ void CPlayer::Key_Input(void)
 				m_bChange = false;
 			}
 
-			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(m_fAngle);
-			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
+			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
+			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
 		}
 		else
 		{
@@ -144,8 +166,8 @@ void CPlayer::Key_Input(void)
 				m_bChange = true;
 			}
 			
-			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cos(m_fAngle);
-			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sin(m_fAngle);
+			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(m_fAngle);
+			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
 		}
 	}
 
@@ -164,8 +186,8 @@ void CPlayer::Key_Input(void)
 				m_bChange = false;
 			}
 
-			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cos(-m_fAngle);
-			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sin(m_fAngle);
+			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(-m_fAngle);
+			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
 		}
 		else
 		{
@@ -179,8 +201,8 @@ void CPlayer::Key_Input(void)
 				m_bChange = true;
 			}
 
-			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cos(-m_fAngle);
-			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sin(m_fAngle);
+			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(-m_fAngle);
+			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
 		}
 
 	}
