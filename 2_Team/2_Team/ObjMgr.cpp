@@ -24,6 +24,22 @@ void CObjMgr::Initialize(void)
 		{600,400}
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
+
+	for (auto& iterlist : m_NotBeing_list)
+	{
+		for (auto& iter : iterlist)
+		{
+			iter->Initialize();
+		}
+	}
+
+	for (auto& iterlist : m_Being_list)
+	{
+		for (auto& iter : iterlist)
+		{
+			iter->Initialize();
+		}
+	}
 }
 
 void CObjMgr::Update(void)
@@ -72,7 +88,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 
@@ -80,7 +96,7 @@ void CObjMgr::Late_Update(void)
 	{
 		for (auto& iter : iterlist)
 		{
-			iter->Update();
+			iter->Late_Update();
 		}
 	}
 

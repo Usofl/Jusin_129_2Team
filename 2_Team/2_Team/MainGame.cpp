@@ -18,6 +18,10 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_hDC = GetDC(g_hWnd);
+
+	CBeing* player = new CPlayer;
+	CObjMgr::Get_Instance()->Add_Being(BEING_PLAYER, player);
+
 	CObjMgr::Get_Instance()->Initialize();
 }
 

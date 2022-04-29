@@ -18,6 +18,6 @@ void CObj::Update_Rect(void)
 	m_tRect.left	= m_tInfo.fX - (m_tInfo.fCX*0.5f);
 	m_tRect.top		= m_tInfo.fY - (m_tInfo.fCY*0.5f);
 	m_tRect.right	= m_tInfo.fX + (m_tInfo.fCX*0.5f);
-	m_tRect.left	= m_tInfo.fY + (m_tInfo.fCY*0.5f);
+	m_tRect.bottom	= m_tInfo.fY + (m_tInfo.fCY*0.5f);
 }
 

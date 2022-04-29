@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
 
-
 CPlayer::CPlayer()
 	: m_bChange(false)
 	, m_bJump(false)
