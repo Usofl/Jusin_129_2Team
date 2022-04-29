@@ -25,4 +25,5 @@ public:
 
 private:
 	LINE m_tLine;
+	bool m_bWall;
 };

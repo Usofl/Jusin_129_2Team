@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ObjMgr.h"
 #include "Collision.h"
-
+#include "Player.h"
 #include "LineFactory.h"
 
 
@@ -100,7 +100,11 @@ void CObjMgr::Late_Update(void)
 		}
 	}
 
-	CCollision::Collision_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE]);
+	//CCollision::Collision_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE]);
+	CCollision::Collision_Player_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE],
+		static_cast<CPlayer*>(m_Being_list[BEING_PLAYER].front())->Get_Right_Leg(),
+		static_cast<CPlayer*>(m_Being_list[BEING_PLAYER].front())->Get_Left_Leg()
+	);
 
 }
 
