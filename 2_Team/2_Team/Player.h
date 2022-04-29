@@ -1,5 +1,7 @@
 #pragma once
 #include "Being.h"
+#include "KeyMgr.h"
+
 class CPlayer :
 	public CBeing
 {
@@ -16,6 +18,7 @@ public:
 
 	inline POINT& Get_Left_Leg(void) { return m_tLeft_Leg; }
 	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
+	inline bool& Get_Jumping(void) { return m_bJump; }
 
 private:
 	void Key_Input(void);

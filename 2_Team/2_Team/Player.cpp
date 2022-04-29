@@ -175,7 +175,7 @@ void CPlayer::Key_Input(void)
 
 	}
 
-	if (GetAsyncKeyState(VK_SPACE))
+	if (KEYMGR->Key_Up(VK_SPACE))
 	{
 		m_bJump = true;
 	}
