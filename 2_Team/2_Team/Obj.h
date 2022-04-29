@@ -21,16 +21,20 @@ public:
 	inline	void		Set_Att		(const int& _iAtt)		{ m_iAtt = _iAtt; }
 	inline	void		Set_Speed	(const float& _fSpeed)	{ m_fSpeed = _fSpeed; }
 	inline	void		Set_Angle	(const float& _fAngle)	{ m_fAngle = _fAngle; }
+	inline	void		Set_Air		(const bool& _bAir)		{ m_bAir = _bAir; }
 
 public:
 	inline const int&	Get_Hp		(void)					{ return m_iHp; }
 	inline const int&	Get_Att		(void)					{ return m_iAtt; }
 	inline const float& Get_Speed	(void)					{ return m_fSpeed; }
 	inline const float& Get_Angle	(void)					{ return m_fAngle; }
+	inline const bool&	Get_Air		(void)					{ return m_bAir; }
 
 public:
 	inline const INFO&	Get_Info	(void)					{ return m_tInfo; }
 	inline const RECT&	Get_Rect	(void)					{ return m_tRect; }
+
+	inline void Set_Pos(float _fX, float _fY) { m_tInfo.fX = _fX; m_tInfo.fY = _fY; }
 
 protected:
 	INFO m_tInfo;
@@ -40,5 +44,7 @@ protected:
 	int m_iAtt;
 	float m_fSpeed;
 	float m_fAngle;
+
+	bool m_bAir;
 };
 

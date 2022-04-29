@@ -146,13 +146,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="LineFactory.h" />
+    <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="Being.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Functor.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="LineMgr.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="NotBeing.h" />
     <ClInclude Include="Obj.h" />
@@ -167,7 +171,9 @@
     <ClCompile Include="2_Team.cpp" />
     <ClCompile Include="Being.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="NotBeing.cpp" />
     <ClCompile Include="Obj.cpp" />

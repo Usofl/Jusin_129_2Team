@@ -15,4 +15,3 @@ public:
 	virtual void			Render			(HDC _hDC)	PURE;
 	virtual void			Release			(void)		PURE;
 };
-
