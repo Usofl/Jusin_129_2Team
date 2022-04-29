@@ -49,12 +49,12 @@ const int& CPlayer::Update(void)
 		float fx = m_fJumpPower * cosf(RADIAN(m_fJumpAngle));
 
 		m_tInfo.fX += fx;
-		m_tLeft_Leg.x += (LONG)fx;
-		m_tRight_Leg.x += (LONG)fx;
-
 		m_tInfo.fY -= fy;
-		m_tLeft_Leg.y -= (LONG)fy;
-		m_tRight_Leg.y -= (LONG)fy;
+
+		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
+
+		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 	}
 
 	Update_Rect();
