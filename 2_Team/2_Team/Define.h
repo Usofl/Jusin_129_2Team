@@ -32,5 +32,9 @@
 #define LINEMGR (CLineMgr::Get_Instance())
 #define KEYMGR (CKeyMgr::Get_Instance())
 #define SCROLLMGR (CScrollMgr::Get_Instance())
+#define UIMGR (CUiMgr::Get_Instance())
+#define ITEMGR (CItemMgr::Get_Instance())
+
+#define PLAYER (CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())
 
 extern HWND g_hWnd;

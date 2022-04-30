@@ -1,12 +1,11 @@
 #pragma once
 #include "Player.h"
 #include "State.h"
-#include "Cloud.h"
+#include "M_Cloud.h"
 #include "Koopa.h"
 #include "Warrior.h"
+#include "CoinMgr.h"
 
-#include "UI.h"
-#include "Coin.h"
 class CMainGame
 {
 public:
@@ -32,8 +31,7 @@ private:
 
 	CState*		m_pState;
 	bool        m_Pause;
-	DWORD         m_dwTime;
+	DWORD       m_dwTime;
 
-	CUI*		m_pUI;
 };
 

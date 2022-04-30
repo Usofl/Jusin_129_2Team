@@ -2,7 +2,8 @@
 #include "MainGame.h"
 #include "ObjMgr.h"
 #include "MonsterFactory.h" 
-#include "CoinMgr.h"
+#include "ItemMgr.h"
+#include "UiMgr.h"
 
 
 CMainGame::CMainGame() 
@@ -22,20 +23,17 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize(void)
 {
 	m_pState = new CState;
-	m_pUI = new CUI;
 	m_hDC = GetDC(g_hWnd);
 
 	CObj* player = new CPlayer;
-	CObj* Coin = new CCoin;
 	OBJMGR->Add_Being(BEING_PLAYER, *player);
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *Coin);
 
 	OBJMGR->Initialize();
 	m_pState->Initialize();
-	m_pUI->Initialize();
-	CCoinMgr::Get_Instance()->Initialize();
+	UIMGR->Initialize();
+	ITEMGR->Initialize();
 
-	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(CLOUD_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
 
@@ -48,28 +46,35 @@ void CMainGame::Update(void)
 {
 	
 	Key_Input();
-	CCoinMgr::Get_Instance()->Update();
 	if (m_pState->Get_State() == STATE_GAME)
 	{
 		OBJMGR->Update();
-		m_pUI->Update();
+		UIMGR->Update();
+		ITEMGR->Update();
 	}
 	else
 	{
 		m_pState->Update();
 	}
+	
+	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Life());
+	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Coin());
+	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Life());
 }
 
 void CMainGame::Late_Update(void)
 {
-	OBJMGR->Late_Update();
-	CCoinMgr::Get_Instance()->LateUpdate();
 	if (m_pState->Get_State() == STATE_GAME)
 	{
-		m_pUI->Late_Update();
+		OBJMGR->Late_Update();
+		UIMGR->Late_Update();
+		ITEMGR->Late_Update();
 	}
 	else
 		m_pState->Late_Update();
+
+	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, CCoinMgr::Get_Instance()->Get_Coin_List());
 }
 
 void CMainGame::Render(void)
@@ -89,8 +94,8 @@ void CMainGame::Render(void)
 	if (m_pState->Get_State() == STATE_GAME)
 	{
 		OBJMGR->Render(m_hDC);
-		m_pUI->Render(m_hDC);
-		CCoinMgr::Get_Instance()->Render(m_hDC);
+		CItemMgr::Get_Instance()->Render(m_hDC);
+		UIMGR->Render(m_hDC);
 	}
 	else
 		m_pState->Render(m_hDC);
@@ -104,6 +109,7 @@ void CMainGame::Release(void)
 	CScrollMgr::Get_Instance()->Destroy_Instance();
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CLineMgr::Get_Instance()->Destroy_Instance();
+	ITEMGR->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)
@@ -115,6 +121,8 @@ void CMainGame::Key_Input(void)
 			if (m_pState->Get_State() == STATE_GAME)
 				m_pState->Set_Pause(STATE_PAUSE);
 			else if (m_pState->Get_State() == STATE_PAUSE)
+				m_pState->Set_Pause(STATE_GAME);
+			else if (m_pState->Get_State() == STATE_OVER)
 				m_pState->Set_Pause(STATE_GAME);
 		}
 		m_dwTime = GetTickCount();
