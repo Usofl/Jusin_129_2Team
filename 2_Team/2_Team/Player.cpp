@@ -34,6 +34,8 @@ void CPlayer::Initialize(void)
 	m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 
+	m_bAir = true;
+
 	m_iReverse = 1;
 
 	m_fJumpPower = 25.f;
@@ -58,7 +60,6 @@ void CPlayer::Late_Update(void)
 
 void CPlayer::Render(HDC _hDC)
 {
-
 	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f), m_tRect.top - (int)(m_tInfo.fCY * 0.5f)
 		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f), m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
 
@@ -94,8 +95,9 @@ void CPlayer::Jumping(void)
 	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
 	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
 	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
+	fLineY -= (m_tInfo.fCY * 0.5f);
 
-	if (m_bJump)
+	if (m_bJump && m_bAir)
 	{
 		m_fJumpTime += 0.2f;
 
@@ -105,21 +107,39 @@ void CPlayer::Jumping(void)
 		m_tInfo.fX += (fx * m_iReverse);
 		m_tInfo.fY -= fy;
 
-		if (bLineCol && m_tInfo.fY >= fLineY)
+		if (bLineCol && m_tInfo.fY - 10.f > fLineY)
 		{
 			m_fJumpTime = 0.f;
 			m_bJump = false;
+			m_bAir = false;
 
-			m_tInfo.fY = fLineY - (m_tInfo.fCY * 0.5f);
+			m_tInfo.fY = fLineY;
 		}
 
 		SetBody();
 
 		return;
 	}
-	else if (bLineCol)
+	else if (m_bAir)
 	{
+		m_fJumpTime += 0.2f;
+		m_tInfo.fY += (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
 
+		if (bLineCol && m_tInfo.fY - 10.f > fLineY)
+		{
+			m_fJumpTime = 0.f;
+			m_bJump = false;
+			m_bAir = false;
+
+			m_tInfo.fY = fLineY;
+		}
+
+		SetBody();
+	}
+
+	if (m_tInfo.fY < fLineY - 20.f)
+	{
+		m_bAir = true;
 	}
 }
 
@@ -144,6 +164,23 @@ void CPlayer::Key_Input(void)
 		m_fSpeed = 2.f;
 		m_fJumpPower = 15.f;
 		m_fJumpAngle = 90.f;
+	}
+
+	if (KEYMGR->Key_Pressing(VK_DOWN))
+	{
+		if (KEYMGR->Key_Up(VK_SPACE))
+		{
+			m_bAir = true;
+			m_tInfo.fY += 30.f;
+		}
+	}
+	else
+	{
+		if (KEYMGR->Key_Up(VK_SPACE))
+		{
+			m_bJump = true;
+			m_bAir = true;
+		}
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT))
@@ -220,11 +257,5 @@ void CPlayer::Key_Input(void)
 			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(-m_fAngle);
 			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
 		}
-
-	}
-
-	if (KEYMGR->Key_Up(VK_SPACE))
-	{
-		m_bJump = true;
 	}
 }
