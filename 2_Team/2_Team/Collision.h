@@ -13,6 +13,7 @@ public:
 	static void Collision_Block_Block();
 
 public:
+	// 총알 몬스터 충돌
 	static void Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<CObj*>& _pBullet);
 
 };

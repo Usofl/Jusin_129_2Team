@@ -1,6 +1,7 @@
 #pragma once
 #include "Being.h"
 #include "Monster.h"
+#include "Koopa_Bullet.h"
 
 
 class CKoopa :
@@ -16,5 +17,17 @@ public:
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
+
+private:
+	void		Jumping();
+
+private:
+	bool					m_bJump;		// 점프 상태 확인
+	float					m_fJumpPower;	// 점프 힘
+	float					m_fJumpTime;	// 점프 중 진행 시간
+
+	float					m_fShootPower;	// 총 쏘는 힘
+	float					m_fShootTime;	// 총알 채공 시간
+	float					m_fShootAngle;
 };
 

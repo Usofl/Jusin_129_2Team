@@ -100,6 +100,9 @@
     <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet">
       <UniqueIdentifier>{954223f5-d882-49da-80bd-6a17f3da7cab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet">
+      <UniqueIdentifier>{f1e33c11-c729-44c0-8594-5aa39d4aee5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -216,6 +219,9 @@
     <ClInclude Include="Cloud_Bullet.h">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Koopa_Bullet.h">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -292,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="Cloud_Bullet.cpp">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

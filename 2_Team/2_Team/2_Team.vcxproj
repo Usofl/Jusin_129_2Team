@@ -152,6 +152,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="BlockFactory.h" />
     <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="Koopa_Bullet.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerFactory.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="Koopa_Bullet.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="Cloud_Bullet.cpp" />

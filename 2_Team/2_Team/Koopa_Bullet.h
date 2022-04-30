@@ -1,14 +1,11 @@
 #pragma once
 #include "Being.h"
-#include "Monster.h"
-#include "ObjMgr.h"
-
-class CWarrior :
-	public CMonster
+class CKoopa_Bullet :
+	public CBeing
 {
 public:
-	CWarrior();
-	virtual ~CWarrior();
+	CKoopa_Bullet();
+	virtual ~CKoopa_Bullet();
 
 public:
 	virtual void Initialize(void) override;
@@ -18,14 +15,8 @@ public:
 	virtual void Release(void) override;
 
 private:
-	POINT		m_tSword;
-
-	// ´ë°¢¼±? ¼Òµå±æÀÌ
-	float		m_fDiagonal;
-
-	// ¹ÝÀü, ¸÷ µÚÁý±â
-	int			m_iTurn;
-
-	RECT rc{ 250, 280 , 350, 320 };
+	float					m_fShootPower;	// ÃÑ ½î´Â Èû
+	float					m_fShootTime;	// ÃÑ¾Ë Ã¤°ø ½Ã°£
+	float					m_fShootAngle;
 };
 

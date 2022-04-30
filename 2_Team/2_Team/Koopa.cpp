@@ -24,6 +24,9 @@ void CKoopa::Initialize(void)
 	m_iAtt = 3;
 
 	m_fSpeed = 2.f;
+
+	m_fJumpPower = 15.f;
+	m_fJumpTime = 0.f;
 }
 
 const int& CKoopa::Update(void)
@@ -32,6 +35,9 @@ const int& CKoopa::Update(void)
 	{
 		return OBJ_DEAD;
 	}
+
+	m_fJumpTime += 0.2f;
+	m_tInfo.fY -= m_fJumpPower * m_fJumpTime - 9.8f * m_fJumpTime * m_fJumpTime * 0.5f;	
 
 	m_tInfo.fX += m_fSpeed;
 
@@ -45,6 +51,7 @@ void CKoopa::Late_Update(void)
 	{
 		m_fSpeed *= -1.f;
 	}
+
 }
 
 void CKoopa::Render(HDC _hDC)
@@ -53,6 +60,12 @@ void CKoopa::Render(HDC _hDC)
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
+void CKoopa::Jumping()
+{
+}
+
 void CKoopa::Release(void)
 {
 }
+
+

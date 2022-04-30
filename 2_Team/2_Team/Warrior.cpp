@@ -6,6 +6,7 @@ CWarrior::CWarrior()
 	: m_tSword({0,0})
 	, m_iTurn(1)
 	, m_fDiagonal(0.f)
+	
 {
 }
 
@@ -18,7 +19,7 @@ CWarrior::~CWarrior()
 void CWarrior::Initialize(void)
 {
 	m_tInfo.fX = 300.f;
-	m_tInfo.fY = 500.f;
+	m_tInfo.fY = 300.f;
 
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
@@ -31,8 +32,6 @@ void CWarrior::Initialize(void)
 
 	m_fAngle = 0.f;
 	
-	
-
 	m_fDiagonal = 50.f;
 }
 
@@ -44,6 +43,13 @@ const int& CWarrior::Update(void)
 	}
 	// 몬스터 움직이는 스피드값
 	m_tInfo.fX += m_fSpeed;
+	
+	if(rc.left)
+	m_fAngle += 1.f;
+	
+	// 칼 x 좌표 * -1 곱해서 반대로
+	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));
+	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -63,16 +69,17 @@ void CWarrior::Late_Update(void)
 		m_iTurn *= -1;
 		m_fSpeed *= -1.f;
 	}
-	// 칼 x 좌표 * -1 곱해서 반대로
-	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));	
-	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
 
+	if (m_fAngle >= 25.f)
+	{
+		m_fAngle *= -2.f;
+	}
 
 }
 
 void CWarrior::Render(HDC _hDC)
 {
-	
+	Rectangle(_hDC, m_tRect.left - (20 * m_iTurn), m_tRect.top, m_tRect.right - (20 * m_iTurn), m_tRect.bottom);
 	Ellipse(_hDC, m_tRect.left, m_tRect.top - 20, m_tRect.right, m_tRect.bottom - 20);
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn), (LONG)m_tInfo.fY - 10, nullptr);	// 중심 x 반전 * -1
