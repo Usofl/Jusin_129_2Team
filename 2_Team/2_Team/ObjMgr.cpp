@@ -2,6 +2,7 @@
 #include "ObjMgr.h"
 
 
+
 CObjMgr::CObjMgr()
 {
 }
