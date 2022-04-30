@@ -28,7 +28,11 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
 
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 300));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(300, 200));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
+
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
@@ -105,7 +109,7 @@ void CObjMgr::Late_Update(void)
 		}
 	}
 
-	//CCollision::Collision_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE]);
+	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 }
 
 void CObjMgr::Render(HDC _hdc)
