@@ -19,5 +19,6 @@ private:
 	float					m_fShootTime;	// 총알 채공 시간
 	float					m_fShootAngle;
 
+	
 };
 

@@ -40,7 +40,6 @@ public:
 		pObj->Initialize();
 		pObj->Set_Pos(_fX, _fY);
 		
-
 		return pObj;
 	}
 };

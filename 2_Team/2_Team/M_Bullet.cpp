@@ -19,10 +19,10 @@ void CM_Bullet::Initialize(void)
 	m_tInfo.fCX = 10.f;
 	m_tInfo.fCY = 10.f;
 
-	m_fSpeed = 2.f;
-
-	m_fShootPower = 10.f;
+	m_fShootPower = 5.f;
 	m_fShootTime = 0.f;
+
+
 }
 
 const int& CM_Bullet::Update(void)
@@ -30,8 +30,8 @@ const int& CM_Bullet::Update(void)
 	if (!m_iHp)
 		return OBJ_DEAD;
 
-	//m_tInfo.fX += m_fSpeed;
-	m_fShootTime += 0.2f;
+
+	m_fShootTime += 0.05f;
 	m_tInfo.fY -= m_fShootPower * m_fShootTime - (GRAVITY * m_fShootTime * m_fShootTime * 0.5f);
 
 	Update_Rect();
