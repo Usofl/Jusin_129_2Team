@@ -143,18 +143,18 @@ bool CCollision::Collision_Block_Block(CObj* _Obj, std::list<CObj*>& m_Block_Lis
 	
 	for (auto& _block : m_Block_List)
 	{
+		if (_block == _Obj)
+		{
+			continue;
+		}
+
 		float fWidth = abs(_Obj->Get_Info().fX - _block->Get_Info().fX);
 		float fHeight = abs(_Obj->Get_Info().fY - _block->Get_Info().fY);
 
 		float fCX = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f;
 		float fCY = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f;
 
-		if (_block == _Obj)
-		{
-			continue;
-		}
-
-		if (fCX > fWidth && fCY > fHeight)
+		if (fCX >= fWidth && fCY >= fHeight)
 		{
 			float _fChangeX(fCX - fWidth);
 			float _fChangeY(fCY - fHeight);
@@ -164,26 +164,25 @@ bool CCollision::Collision_Block_Block(CObj* _Obj, std::list<CObj*>& m_Block_Lis
 				if (_Obj->Get_Info().fY > _block->Get_Info().fY)
 				{
 					_fCollisionY = _block->Get_Info().fY - _block->Get_Info().fCY * 0.5f;
-				}
-				else//하충돌
-				{
+					return true;
 				}
 
-				return true;
+				
 			}
 			else
 			{
 				//우
 				if (_Obj->Get_Info().fX > _block->Get_Info().fX)
 				{
-					_Obj->Set_Pos(_block->Get_Info().fX + fCX, _Obj->Get_Info().fY);
+					_Obj->Set_Pos(_block->Get_Info().fX + fCX + 1, _Obj->Get_Info().fY);
 				}
 				else//좌충돌
 				{
-					_Obj->Set_Pos(_block->Get_Info().fX - fCX, _Obj->Get_Info().fY);
+					_Obj->Set_Pos(_block->Get_Info().fX - fCX - 1, _Obj->Get_Info().fY);
 				}
-				return false;
 			}
+
+			return false;
 		}
 		else
 		{

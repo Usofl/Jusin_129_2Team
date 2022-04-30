@@ -30,6 +30,7 @@ const int& CBlock::Update(void)
 	float _fCollisionY(0.f);
 	//안착할 라인이 있다 없다.
 	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), _fY);
+	
 	if (CCollision::Collision_Block_Block(this, OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK), _fCollisionY))
 	{
 		_fY = _fCollisionY;
@@ -47,7 +48,7 @@ const int& CBlock::Update(void)
 			m_tInfo.fY = _fY;
 		}
 	}
-	else if(m_tInfo.fY < _fY)
+	else if(m_tInfo.fY < _fY || _fY == 0.fv)
 	{
 		m_bAir = true;
 	}
