@@ -100,6 +100,10 @@ void CMainGame::Release(void)
 {
 	Safe_Delete(m_pState);
 	CCoinMgr::Get_Instance()->Destroy_Instance();
+	CObjMgr::Get_Instance()->Destroy_Instance();
+	CScrollMgr::Get_Instance()->Destroy_Instance();
+	CKeyMgr::Get_Instance()->Destroy_Instance();
+	CLineMgr::Get_Instance()->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)

@@ -3,11 +3,15 @@
 
 
 CObj::CObj()
+	: m_iHp(1)
+	, m_iAtt(1)
+	, m_fSpeed(0.f)
+	, m_fAngle(0.f)
+	, m_bAir(false)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));
 }
-
 
 CObj::~CObj()
 {

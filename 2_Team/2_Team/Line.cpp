@@ -33,8 +33,10 @@ void CLine::Late_Update(void)
 
 void CLine::Render(HDC _hDC)
 {
-	MoveToEx(_hDC, (LONG)m_tLine.tLeft.fX, (LONG)m_tLine.tLeft.fY, nullptr);
-	LineTo(_hDC, (LONG)m_tLine.tRight.fX, (LONG)m_tLine.tRight.fY);
+	int	iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	MoveToEx(_hDC, (LONG)m_tLine.tLeft.fX + iScrollX, (LONG)m_tLine.tLeft.fY, nullptr);
+	LineTo(_hDC, (LONG)m_tLine.tRight.fX + iScrollX, (LONG)m_tLine.tRight.fY);
 }
 
 void CLine::Release(void)

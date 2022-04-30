@@ -27,8 +27,14 @@ const int& CBlock::Update(void)
 	// TODO: 여기에 반환 구문을 삽입합니다.
 
 	float _fY(0.f); // 라인이 있는 좌표
-	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), _fY);
+	float _fCollisionY(0.f);
 	//안착할 라인이 있다 없다.
+	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), _fY);
+	if (CCollision::Collision_Block_Block(this, OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK), _fCollisionY))
+	{
+		_fY = _fCollisionY;
+	}
+	
 	_fY -= m_tInfo.fCY * 0.5f;
 	if (m_bAir)
 	{
@@ -55,12 +61,14 @@ const int& CBlock::Update(void)
 
 void CBlock::Late_Update(void)
 {
-
+		
 }
 
 void CBlock::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CBlock::Release(void)

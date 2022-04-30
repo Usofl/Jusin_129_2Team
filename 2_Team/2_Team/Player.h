@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Collision.h"
 #include "ObjMgr.h"
+#include "ScrollMgr.h"
 #include "LineMgr.h"
 #include "KeyMgr.h"
 
@@ -25,6 +26,11 @@ public:
 
 	void Jumping(void);
 	void SetBody(void);
+	void OffSet(void);
+
+	bool Get_Pool() { return m_bPool;}
+
+	void Set_Jump() { m_bJump = false; }
 
 private:
 	void Key_Input(void);
@@ -33,6 +39,7 @@ private:
 private:
 	bool m_bChange;
 	bool m_bJump;
+	bool m_bPool;
 
 	int   m_iReverse;
 	float m_fJumpTime;

@@ -10,6 +10,7 @@ CLineMgr::CLineMgr()
 
 CLineMgr::~CLineMgr()
 {
+	Release();
 }
 
 void CLineMgr::Initialize(void)
