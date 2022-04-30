@@ -1,11 +1,18 @@
 #pragma once
 #include "Being.h"
-class CM_Bullet :
-	public CBeing
+#include "Obj.h"
+#include "Monster.h"
+#include "Player.h"
+#include "Cloud_Bullet.h"
+#include "ObjMgr.h"
+#include "Collision.h"
+
+class CM_Cloud :
+	public CMonster
 {
 public:
-	CM_Bullet();
-	virtual ~CM_Bullet();
+	CM_Cloud();
+	virtual ~CM_Cloud();
 
 public:
 	virtual void Initialize(void) override;
@@ -15,10 +22,9 @@ public:
 	virtual void Release(void) override;
 
 private:
-	float					m_fShootPower;	// ÃÑ ½î´Â Èû
-	float					m_fShootTime;	// ÃÑ¾Ë Ã¤°ø ½Ã°£
-	float					m_fShootAngle;
-
-	
+	// ½Ã°£ ÀúÀåÇÏ´Â º¯¼ö
+	DWORD m_dwCount;
 };
+
+
 

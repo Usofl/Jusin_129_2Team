@@ -97,6 +97,9 @@
     <Filter Include="01. Manager\05. ScrollMgr">
       <UniqueIdentifier>{3a4cb81e-c358-4511-9e24-2fa473591d70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet">
+      <UniqueIdentifier>{954223f5-d882-49da-80bd-6a17f3da7cab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -174,9 +177,6 @@
     <ClInclude Include="State.h">
       <Filter>02.State</Filter>
     </ClInclude>
-    <ClInclude Include="Cloud.h">
-      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
-    </ClInclude>
     <ClInclude Include="Warrior.h">
       <Filter>01. Obj\00. Being\01. Monster\Warrior</Filter>
     </ClInclude>
@@ -188,9 +188,6 @@
     </ClInclude>
     <ClInclude Include="MonsterFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
-    </ClInclude>
-    <ClInclude Include="M_Bullet.h">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BlockFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
@@ -212,6 +209,12 @@
     </ClInclude>
     <ClInclude Include="ScrollMgr.h">
       <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Cloud.h">
+      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud_Bullet.h">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +275,6 @@
     <ClCompile Include="CoinMgr.cpp">
       <Filter>01. Manager\02.CoinMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Cloud.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
-    </ClCompile>
     <ClCompile Include="Warrior.cpp">
       <Filter>01. Obj\00. Being\01. Monster\Warrior</Filter>
     </ClCompile>
@@ -284,11 +284,14 @@
     <ClCompile Include="Monster.cpp">
       <Filter>01. Obj\00. Being\01. Monster</Filter>
     </ClCompile>
-    <ClCompile Include="M_Bullet.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="ScrollMgr.cpp">
       <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Cloud.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

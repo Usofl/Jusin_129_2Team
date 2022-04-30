@@ -113,6 +113,7 @@ void CObjMgr::Late_Update(void)
 		}
 	}
 
+	CCollision::Collision_Player_Bullet(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_Being_list(BEING_MONSTERBULLET));
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 }
 

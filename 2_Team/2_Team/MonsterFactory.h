@@ -1,6 +1,6 @@
 #pragma once
 #include "Obj.h"
-#include "Cloud.h"
+#include "M_Cloud.h"
 #include "Warrior.h"
 #include "Koopa.h"
 
@@ -18,8 +18,8 @@ public:
 		CObj* pObj = nullptr;
 		switch (_Type)
 		{
-		case CLOUD_TURTLE:
-			pObj = new CCloud;
+		case M_Cloud_TURTLE:
+			pObj = new CM_Cloud;
 			break;
 		case WARRIOR_TURTLE:
 			pObj = new CWarrior;
@@ -36,7 +36,7 @@ public:
 
 	static CObj*	Create_Bullet(float _fX, float _fY)
 	{
-		CObj*	pObj = new CM_Bullet;
+		CObj*	pObj = new CCloud_Bullet;
 		pObj->Initialize();
 		pObj->Set_Pos(_fX, _fY);
 		

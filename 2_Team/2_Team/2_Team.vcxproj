@@ -158,8 +158,8 @@
     <ClInclude Include="Being.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="M_Bullet.h" />
-    <ClInclude Include="Cloud.h" />
+    <ClInclude Include="Cloud_Bullet.h" />
+    <ClInclude Include="M_Cloud.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Functor.h" />
@@ -194,8 +194,8 @@
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
-    <ClCompile Include="M_Bullet.cpp" />
-    <ClCompile Include="Cloud.cpp" />
+    <ClCompile Include="Cloud_Bullet.cpp" />
+    <ClCompile Include="M_Cloud.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Monster.cpp" />

@@ -191,3 +191,23 @@ bool CCollision::Collision_Block_Block(CObj* _Obj, std::list<CObj*>& m_Block_Lis
 		}
 	}
 }
+
+void CCollision::Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<CObj*>& _pBullet)
+{
+	RECT rc{};
+
+	for (auto& Player : _pPlayer)
+	{
+		for (auto& Bullet : _pBullet)
+		{
+			if (IntersectRect(&rc, &(Player->Get_Rect()), &(Bullet->Get_Rect())))
+			{
+				Bullet->Set_Hp(0);
+			}
+		}
+	}
+}
+
+
+
+
