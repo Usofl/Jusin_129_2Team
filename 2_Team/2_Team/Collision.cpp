@@ -2,6 +2,8 @@
 #include "Collision.h"
 #include "Line.h"
 #include "Player.h"
+#include "ObjMgr.h"
+#include "Block.h"
 
 
 CCollision::CCollision()
@@ -40,7 +42,12 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 
 			if (_Obj.Get_Info().fY - 20.f <= _fLine_Y)
 			{
-				if (_fY > _fLine_Y)
+				if (pTarget ||_fY > _fLine_Y)
+				{
+					pTarget = line;
+					_fY = _fLine_Y;
+				}
+				else if (!pTarget)
 				{
 					pTarget = line;
 					_fY = _fLine_Y;
@@ -51,6 +58,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 
 	if (nullptr == pTarget)
 	{
+		_fY = WINCY;
 		return false;
 	}
 
@@ -69,7 +77,7 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 			float fHeight = abs(_player_info.fY - _block->Get_Info().fY);
 
 			float fCX = (_player_info.fCX + _block->Get_Info().fCX) * 0.5f;
-			float fCY = (_player_info.fCX + _block->Get_Info().fCX) * 0.5f;
+			float fCY = (_player_info.fCY + _block->Get_Info().fCY) * 0.5f;
 
 			if (fCX > fWidth && fCY > fHeight)
 			{
@@ -77,15 +85,6 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 				float _fChangeY(fCY - fHeight);
 				if (_fChangeX > _fChangeY)
 				{
-					////상충돌
-					//if (_player_info.fY > _block->Get_Info().fY)
-					//{
-					//	_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY + _fChangeY);
-					//}
-					//else//하충돌
-					//{
-					//	_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY - _fChangeY);
-					//}
 					if (_player_info.fY > _block->Get_Info().fY)
 					{
 
@@ -133,55 +132,55 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 	}
 }
 
-bool CCollision::Collision_Block_Block(CObj* _Obj, std::list<CObj*>& m_Block_List, float& _fCollisionY)
+void CCollision::Collision_Block_Block()
 {
-	
+	//for (auto& _block : m_Block_List)
+	std::list<CObj*>& m_Block_List = OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK);
+	//for (auto& _block = m_Block_List.begin(); _block != m_Block_List.end(); ++_block)
 	for (auto& _block : m_Block_List)
 	{
-		if (_block == _Obj)
+		//for (auto& _block_2 = _block; _block_2 != m_Block_List.end(); ++_block_2)
+		for (auto& _block_2 : m_Block_List)
 		{
-			continue;
-		}
-
-		float fWidth = abs(_Obj->Get_Info().fX - _block->Get_Info().fX);
-		float fHeight = abs(_Obj->Get_Info().fY - _block->Get_Info().fY);
-
-		float fCX = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f;
-		float fCY = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f;
-
-		if (fCX >= fWidth && fCY >= fHeight)
-		{
-			float _fChangeX(fCX - fWidth);
-			float _fChangeY(fCY - fHeight);
-			if (_fChangeX > _fChangeY)
+			if (_block == _block_2)
 			{
-				//상충돌
-				if (_Obj->Get_Info().fY > _block->Get_Info().fY)
-				{
-					_fCollisionY = _block->Get_Info().fY - _block->Get_Info().fCY * 0.5f;
-					return true;
-				}
-
-				
-			}
-			else
-			{
-				//우
-				if (_Obj->Get_Info().fX > _block->Get_Info().fX)
-				{
-					_Obj->Set_Pos(_block->Get_Info().fX + fCX + 1, _Obj->Get_Info().fY);
-				}
-				else//좌충돌
-				{
-					_Obj->Set_Pos(_block->Get_Info().fX - fCX - 1, _Obj->Get_Info().fY);
-				}
+				continue;
 			}
 
-			return false;
-		}
-		else
-		{
-			return false;
+			float fWidth = fabs((_block)->Get_Info().fX - (_block_2)->Get_Info().fX);
+			float fHeight = fabs((_block)->Get_Info().fY - (_block_2)->Get_Info().fY);
+
+			float fCX = ((_block)->Get_Info().fCX + (_block_2)->Get_Info().fCX) * 0.5f;
+			float fCY = ((_block)->Get_Info().fCY + (_block_2)->Get_Info().fCY) * 0.5f;
+
+			if (fCX > fWidth && fCY > fHeight)
+			{
+				float _fChangeX(fCX - fWidth);
+				float _fChangeY(fCY - fHeight);
+
+				if (_fChangeX > _fChangeY)
+				{
+					if ((_block)->Get_Info().fY > (_block_2)->Get_Info().fY)
+					{
+						(_block)->Set_Pos((_block_2)->Get_Info().fX, (_block)->Get_Info().fY + fCY + 1);
+						static_cast<CBlock*>(_block)->Set_BlockCol();
+					}
+					else
+					{
+					}
+				}
+				else
+				{
+					if ((_block)->Get_Info().fX > (_block_2)->Get_Info().fX)
+					{
+						(_block)->Set_Pos((_block_2)->Get_Info().fX + fCX + 1, (_block)->Get_Info().fY);
+					}
+					else if ((_block)->Get_Info().fX < (_block_2)->Get_Info().fX)
+					{
+						(_block)->Set_Pos((_block_2)->Get_Info().fX - fCX - 1, (_block)->Get_Info().fY);
+					}
+				}
+			}
 		}
 	}
-}*/
+}
