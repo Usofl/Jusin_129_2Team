@@ -22,8 +22,10 @@ const int& CBlock::Update(void)
 	// TODO: 여기에 반환 구문을 삽입합니다.
 
 	
-	CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->);
+	//bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), );
 	
+
+
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
