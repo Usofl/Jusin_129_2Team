@@ -91,7 +91,13 @@
     <Filter Include="01. Obj\01. NotBeing\02. Item\00.Coin">
       <UniqueIdentifier>{4675cc75-3103-43bc-b9b7-15b35c5ce6a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Manager\02.CoinMgr">
+    <Filter Include="01. Manager\03.ItemMgr">
+      <UniqueIdentifier>{9890a241-3c94-4343-b196-03e4a942c46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\04.UiMgr">
+      <UniqueIdentifier>{6ab627b5-128e-4328-87d2-2f3e2543e413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\03.ItemMgr\02.CoinMgr">
       <UniqueIdentifier>{810a2c6f-54c5-4fc2-9f66-a906243ac99d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -205,7 +211,13 @@
       <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
     <ClInclude Include="CoinMgr.h">
-      <Filter>01. Manager\02.CoinMgr</Filter>
+      <Filter>01. Manager\03.ItemMgr\02.CoinMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="UiMgr.h">
+      <Filter>01. Manager\04.UiMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMgr.h">
+      <Filter>01. Manager\03.ItemMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -264,7 +276,7 @@
       <Filter>01. Obj\01. NotBeing\02. Item\00.Coin</Filter>
     </ClCompile>
     <ClCompile Include="CoinMgr.cpp">
-      <Filter>01. Manager\02.CoinMgr</Filter>
+      <Filter>01. Manager\03.ItemMgr\02.CoinMgr</Filter>
     </ClCompile>
     <ClCompile Include="Cloud.cpp">
       <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
@@ -280,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="M_Bullet.cpp">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UiMgr.cpp">
+      <Filter>01. Manager\04.UiMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemMgr.cpp">
+      <Filter>01. Manager\03.ItemMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

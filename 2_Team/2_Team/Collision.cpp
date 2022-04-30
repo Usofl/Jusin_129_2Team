@@ -2,6 +2,7 @@
 #include "Collision.h"
 #include "Line.h"
 #include "Player.h"
+#include "Coin.h"
 
 
 CCollision::CCollision()
@@ -108,4 +109,26 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 			}
 		}
 	}
+}
+
+bool CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List)
+{
+		RECT Player_Rc = (_Obj.Get_Rect());
+		INFO _Player_Info = _Obj.Get_Info();
+		for (auto& _Coin : m_Coin_List)
+		{
+			INFO Coin_Info = _Coin->Get_Info();
+			RECT Collision;
+			Collision.left = Player_Rc.left - Coin_Info.fCX;
+			Collision.right = Player_Rc.right + Coin_Info.fCX;
+			Collision.top = Player_Rc.top - Coin_Info.fCY;
+			Collision.bottom = Player_Rc.bottom - Coin_Info.fCY;
+			if ((Coin_Info.fX > Collision.left && Coin_Info.fX < Collision.right) && (Coin_Info.fY > Collision.bottom && Coin_Info.fY < Collision.top))
+			{
+				return true;
+			}
+			else
+				bool;
+		}
+
 }

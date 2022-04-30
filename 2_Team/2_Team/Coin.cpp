@@ -19,8 +19,6 @@ CCoin::~CCoin()
 
 void CCoin::Initialize(void)
 {
-	//m_tInfo.fX = 400;
-	//m_tInfo.fY = 150;
 	m_tInfo.fCX = 20;
 	m_tInfo.fCY = 20;
 

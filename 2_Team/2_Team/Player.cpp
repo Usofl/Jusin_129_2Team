@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "CoinMgr.h"
 
 CPlayer::CPlayer()
 	: m_bChange(false)
@@ -9,6 +10,8 @@ CPlayer::CPlayer()
 	, m_fJumpAngle(45.f)
 	, m_tLeft_Leg({ 0,0 })
 	, m_tRight_Leg({ 0,0 })
+	, m_iCoin(0)
+	, m_iLife(10)
 {
 }
 
@@ -47,6 +50,8 @@ const int& CPlayer::Update(void)
 	Jumping();
 
 	Update_Rect();
+
+	CCollision::Collision_Player_Coin(*this, CCoinMgr::Get_Instance()->Get_Coin_List());
 
 	return OBJ_NOEVENT;
 }
@@ -129,6 +134,16 @@ void CPlayer::SetBody(void)
 
 	m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+}
+
+void CPlayer::PlayerCoinColli()
+{
+	m_iCoin++;
+	if (m_iCoin == 10)
+	{
+		m_iCoin = 0;
+		m_iLife++;
+	}
 }
 
 void CPlayer::Key_Input(void)

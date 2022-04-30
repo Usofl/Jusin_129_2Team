@@ -16,8 +16,8 @@ void CState::Initialize()
 	m_tMouseInfo.fCY = 20;
 	m_fMouseAngle = 1.f;
 
-	m_tStartRect = { 200, 450, 350, 520 };
-	m_tExitRect = { 450, 450, 600, 520 };
+	m_tStartRect = { 200, 430, 350, 500 };
+	m_tExitRect = { 450, 430, 600, 500 };
 }
 
 void CState::Update()
@@ -60,9 +60,9 @@ void CState::Render(HDC hDC)
 	else
 	{
 		Rectangle(hDC, m_tStartRect.left, m_tStartRect.top, m_tStartRect.right, m_tStartRect.bottom);
-		TextOut(hDC, (LONG)((m_tStartRect.left + m_tStartRect.right) * 0.5) - 20, (LONG)((m_tStartRect.top + m_tStartRect.bottom) * 0.5), TEXT("Start!"), 6);
+		TextOut(hDC, (LONG)((m_tStartRect.left + m_tStartRect.right) * 0.5) - 20, (LONG)((m_tStartRect.top + m_tStartRect.bottom) * 0.5 - 10), TEXT("Start!"), 6);
 		Rectangle(hDC, m_tExitRect.left, m_tExitRect.top, m_tExitRect.right, m_tExitRect.bottom);
-		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5), TEXT("Exit"), 4);
+		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5 - 10), TEXT("Exit"), 4);
 
 		Rectangle(hDC, m_tMouseRect.left, m_tMouseRect.top, m_tMouseRect.right, m_tMouseRect.bottom);
 	}

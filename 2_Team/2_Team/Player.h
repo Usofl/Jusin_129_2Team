@@ -25,6 +25,9 @@ public:
 
 	void Jumping(void);
 	void SetBody(void);
+	int Set_Coin() { return m_iCoin; }
+	int Set_Life() { return m_iLife; }
+	void PlayerCoinColli();
 
 private:
 	void Key_Input(void);
@@ -35,6 +38,8 @@ private:
 	bool m_bJump;
 
 	int   m_iReverse;
+	int   m_iCoin;
+	int   m_iLife;
 	float m_fJumpTime;
 	float m_fJumpPower;
 	float m_fJumpAngle;

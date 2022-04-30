@@ -5,8 +5,6 @@
 #include "Koopa.h"
 #include "Warrior.h"
 
-#include "UI.h"
-#include "Coin.h"
 class CMainGame
 {
 public:
@@ -32,8 +30,7 @@ private:
 
 	CState*		m_pState;
 	bool        m_Pause;
-	DWORD         m_dwTime;
+	DWORD       m_dwTime;
 
-	CUI*		m_pUI;
 };
 
