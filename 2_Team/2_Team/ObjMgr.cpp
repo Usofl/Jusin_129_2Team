@@ -14,6 +14,7 @@ CObjMgr::CObjMgr()
 
 CObjMgr::~CObjMgr()
 {
+	Release();
 }
 
 void CObjMgr::Initialize(void)
@@ -133,4 +134,19 @@ void CObjMgr::Render(HDC _hdc)
 
 void CObjMgr::Release(void)
 {
+	for (auto& iterlist : m_NotBeing_list)
+	{
+		for (auto& iter : iterlist)
+		{
+			iter->Release();
+		}
+	}
+
+	for (auto& iterlist : m_Being_list)
+	{
+		for (auto& iter : iterlist)
+		{
+			iter->Release();
+		}
+	}
 }

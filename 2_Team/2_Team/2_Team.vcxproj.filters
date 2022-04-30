@@ -94,6 +94,9 @@
     <Filter Include="01. Manager\02.CoinMgr">
       <UniqueIdentifier>{810a2c6f-54c5-4fc2-9f66-a906243ac99d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\05. ScrollMgr">
+      <UniqueIdentifier>{3a4cb81e-c358-4511-9e24-2fa473591d70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -207,6 +210,9 @@
     <ClInclude Include="CoinMgr.h">
       <Filter>01. Manager\02.CoinMgr</Filter>
     </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="M_Bullet.cpp">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>01. Manager\05. ScrollMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

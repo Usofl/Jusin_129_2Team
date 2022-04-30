@@ -60,7 +60,9 @@ void CBlock::Late_Update(void)
 
 void CBlock::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CBlock::Release(void)

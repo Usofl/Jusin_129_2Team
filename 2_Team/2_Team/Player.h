@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Collision.h"
 #include "ObjMgr.h"
+#include "ScrollMgr.h"
 #include "LineMgr.h"
 #include "KeyMgr.h"
 
@@ -25,6 +26,7 @@ public:
 
 	void Jumping(void);
 	void SetBody(void);
+	void OffSet(void);
 
 private:
 	void Key_Input(void);

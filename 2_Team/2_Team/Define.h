@@ -31,5 +31,6 @@
 #define OBJMGR (CObjMgr::Get_Instance())
 #define LINEMGR (CLineMgr::Get_Instance())
 #define KEYMGR (CKeyMgr::Get_Instance())
+#define SCROLLMGR (CScrollMgr::Get_Instance())
 
 extern HWND g_hWnd;
