@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "LineFactory.h"
 #include "BlockFactory.h"
+#include "TrapFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -40,6 +41,7 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
 
+	m_NotBeing_list[NOTBEING_TRAP].push_back(CTrapFactory::Create_Thorn());
 
 	for (auto& iterlist : m_NotBeing_list)
 	{

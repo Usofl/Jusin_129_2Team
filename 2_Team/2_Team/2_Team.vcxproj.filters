@@ -106,6 +106,12 @@
     <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet">
       <UniqueIdentifier>{954223f5-d882-49da-80bd-6a17f3da7cab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap">
+      <UniqueIdentifier>{2a33391f-f034-42dc-a541-badfb37cfea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap\00. Thorn">
+      <UniqueIdentifier>{ca1d3c5a-af07-4877-8953-fefb17af73b1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01. Obj\00. Being\00. Player\00. Gomu_Fistol">
       <UniqueIdentifier>{e118e877-efa2-4f39-b55c-caf22a72cea1}</UniqueIdentifier>
     </Filter>
@@ -231,6 +237,12 @@
     <ClInclude Include="Cloud_Bullet.h">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Thorn.h">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
+    </ClInclude>
+    <ClInclude Include="TrapFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
     <ClInclude Include="Gomu_Fistol.h">
       <Filter>01. Obj\00. Being\00. Player\00. Gomu_Fistol</Filter>
     </ClInclude>
@@ -319,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="ItemMgr.cpp">
       <Filter>01. Manager\03.ItemMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Thorn.cpp">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
     </ClCompile>
     <ClCompile Include="Gomu_Fistol.cpp">
       <Filter>01. Obj\00. Being\00. Player\00. Gomu_Fistol</Filter>
