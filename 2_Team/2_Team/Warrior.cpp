@@ -3,6 +3,9 @@
 
 
 CWarrior::CWarrior()
+	: m_tSword({0,0})
+	, m_iTurn(1)
+	, m_fDiagonal(0.f)
 {
 }
 
@@ -27,8 +30,8 @@ void CWarrior::Initialize(void)
 	m_fSpeed = 2.f;
 
 	m_fAngle = 0.f;
-
-	DIAGONAL((float)m_tRect.right, (float)m_tRect.top, (float)m_tRect.right + 20, (float)m_tRect.top + 20);
+	
+	
 
 	m_fDiagonal = 50.f;
 }
@@ -39,7 +42,7 @@ const int& CWarrior::Update(void)
 	{
 		return OBJ_DEAD;
 	}
-
+	// 몬스터 움직이는 스피드값
 	m_tInfo.fX += m_fSpeed;
 
 	Update_Rect();
@@ -48,13 +51,20 @@ const int& CWarrior::Update(void)
 
 void CWarrior::Late_Update(void)
 {
+	// 일정 수치 벽에 박으면
 	if ( 200 >= m_tRect.left || WINCX -200  <= m_tRect.right)
 	{
-		
+		// 스왑
+		long lTemp = m_tRect.left;
+		m_tRect.left = m_tRect.right;
+		m_tRect.right = lTemp;
+
+		// 반전을 위한 변수
+		m_iTurn *= -1;
 		m_fSpeed *= -1.f;
 	}
-
-	m_tSword.x = long(m_tInfo.fX + m_fDiagonal * cosf((m_fAngle * PI) / 180.f));
+	// 칼 x 좌표 * -1 곱해서 반대로
+	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));	
 	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
 
 
@@ -62,14 +72,11 @@ void CWarrior::Late_Update(void)
 
 void CWarrior::Render(HDC _hDC)
 {
+	
 	Ellipse(_hDC, m_tRect.left, m_tRect.top - 20, m_tRect.right, m_tRect.bottom - 20);
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	MoveToEx(_hDC, (LONG)m_tInfo.fX + 20, (LONG)m_tInfo.fY - 10, nullptr);
-	LineTo(_hDC, (LONG)m_tSword.x, (LONG)m_tSword.y);
-
-	
-	//m_fAngle -= 2.f;
-
+	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn), (LONG)m_tInfo.fY - 10, nullptr);	// 중심 x 반전 * -1
+	LineTo(_hDC, (LONG)m_tSword.x , (LONG)m_tSword.y);
 
 }
 

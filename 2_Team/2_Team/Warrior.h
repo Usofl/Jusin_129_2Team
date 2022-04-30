@@ -19,8 +19,10 @@ public:
 private:
 	POINT		m_tSword;
 
+	// 대각선? 소드길이
 	float		m_fDiagonal;
 
-	bool		m_bTurn;
+	// 반전, 몹 뒤집기
+	int			m_iTurn;
 };
 
