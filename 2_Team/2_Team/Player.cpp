@@ -50,12 +50,7 @@ const int& CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-	//if (m_tLeft_Leg.y > (WINCY - GAMESIZE))
-	if(!m_bAir)
-	{
-		m_fJumpTime = 0.f;
-		m_bJump = false;
-	}
+	
 }
 
 void CPlayer::Render(HDC _hDC)
@@ -89,43 +84,11 @@ void CPlayer::Release(void)
 {
 }
 
-void CPlayer::Set_Body(void)
-{
-	float fX = 0.f;
-
-	if (m_bChange)
-	{
-		fX = m_tLeft_Leg.x - m_tInfo.fX;
-		m_fAngle = acosf(fX / LEGSIZE);
-
-		if (m_tLeft_Leg.y < m_tInfo.fY)
-		{
-			m_fAngle *= -1.f;
-		}
-
-		m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(m_fAngle);
-		m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
-	}
-	else
-	{
-		fX = m_tRight_Leg.x - m_tInfo.fX;
-		m_fAngle = acosf(fX / LEGSIZE);
-
-		if (m_tLeft_Leg.y < m_tInfo.fY)
-		{
-			m_fAngle *= -1.f;
-		}
-
-		m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
-		m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
-	}
-}
-
 void CPlayer::Jumping(void)
 {
-	float		fY = 0.f;
+	float		fLineY = 0.f;
 
-	//bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->, &fY);
+	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeight_list(NOTBEING_LINE), fLineY);
 
 	if (m_bJump)
 	{
@@ -137,10 +100,22 @@ void CPlayer::Jumping(void)
 		m_tInfo.fX += (fx * m_iReverse);
 		m_tInfo.fY -= fy;
 
+		if (bLineCol && m_tInfo.fY > fLineY)
+		{
+			m_fJumpTime = 0.f;
+			m_bJump = false;
+
+			m_tInfo.fY = fLineY - (m_tInfo.fCY * 0.5f);
+		}
+
 		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
 
 		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+	}
+	else if (bLineCol)
+	{
+
 	}
 }
 

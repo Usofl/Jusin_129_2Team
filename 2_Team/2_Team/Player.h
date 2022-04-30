@@ -23,7 +23,6 @@ public:
 	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
 	inline bool& Get_Jumping(void) { return m_bJump; }
 
-	void Set_Body(void);
 	void Jumping(void);
 
 private:

@@ -22,7 +22,7 @@ const int& CBlock::Update(void)
 	// TODO: 여기에 반환 구문을 삽입합니다.
 
 	
-	CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->);
+	//CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->);
 	
 	Update_Rect();
 	return OBJ_NOEVENT;

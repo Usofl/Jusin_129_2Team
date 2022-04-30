@@ -13,7 +13,7 @@ CCollision::~CCollision()
 {
 }
 
-bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CLine*>& m_Line_List, float& _fY)
+bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line_List, float& _fY)
 {
 	LINEPOINT _Line_Left{0,0};
 	LINEPOINT _Line_Right{0,0};
@@ -28,8 +28,11 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CLine*>& m_Lin
 
 	for (auto& _Line : m_Line_List)
 	{
-		_Line_Left = _Line->Get_LinePoint().tLeft;
-		_Line_Right = _Line->Get_LinePoint().tRight;
+		CLine* line = static_cast<CLine*>(_Line);
+
+		_Line_Left = line->Get_LinePoint().tLeft;
+		_Line_Right = line->Get_LinePoint().tRight;
+
 		if (_Obj.Get_Info().fX > _Line_Left.fX && _Obj.Get_Info().fX < _Line_Right.fX)
 		{
 			_fLine_Y = ((_Line_Right.fY - _Line_Left.fY) / (_Line_Right.fX - _Line_Left.fX)) 
@@ -41,13 +44,13 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CLine*>& m_Lin
 				{
 					if (pTarget->Get_Info().fY > _Line->Get_Info().fY)
 					{
-						pTarget = _Line;
+						pTarget = line;
 						_fY = _fLine_Y;
 					}
 				}
 				else
 				{
-					pTarget = _Line;
+					pTarget = line;
 					_fY = _fLine_Y;
 				}
 			}
