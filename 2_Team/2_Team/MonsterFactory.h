@@ -34,5 +34,14 @@ public:
 
 	}
 
+	static CObj*	Create_Bullet(float _fX, float _fY)
+	{
+		CObj*	pObj = new CM_Bullet;
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+		
+
+		return pObj;
+	}
 };
 

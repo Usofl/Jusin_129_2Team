@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Cloud.h"
-
-
+#include "ObjMgr.h"
+#include "MonsterFactory.h"
+#include "M_Bullet.h"
 
 CCloud::CCloud()
 {
@@ -16,18 +17,18 @@ CCloud::~CCloud()
 void CCloud::Initialize(void)
 {
 	m_tInfo.fX = 250.f;
-	m_tInfo.fY = 100.f;
+	m_tInfo.fY = 400.f;
 
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
+	m_fAngle = 45.f;
+		
 	m_fSpeed = 3.f;
 
 	m_iHp = 5;
 
 	m_iAtt = 1;
-
-
 }
 
 const int& CCloud::Update(void)
@@ -39,7 +40,11 @@ const int& CCloud::Update(void)
 
 	m_tInfo.fX += m_fSpeed;
 
-	
+	if (GetAsyncKeyState('D'))
+	{
+		CObjMgr::Get_Instance()->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Bullet(m_tInfo.fX, m_tInfo.fY));
+		
+	}
 
 	Update_Rect();
 

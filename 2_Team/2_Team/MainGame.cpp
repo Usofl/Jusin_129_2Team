@@ -34,6 +34,7 @@ void CMainGame::Initialize(void)
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
 
 
+
 }
 
 void CMainGame::Update(void)
