@@ -1,5 +1,8 @@
 #pragma once
 #include "Being.h"
+#include "Collision.h"
+#include "ObjMgr.h"
+#include "LineMgr.h"
 #include "KeyMgr.h"
 
 class CPlayer :
@@ -21,6 +24,7 @@ public:
 	inline bool& Get_Jumping(void) { return m_bJump; }
 
 	void Set_Body(void);
+	void Jumping(void);
 
 private:
 	void Key_Input(void);

@@ -41,21 +41,7 @@ const int& CPlayer::Update(void)
 {
 	Key_Input();
 
-	if (m_bJump)
-	{
-		m_fJumpTime += 0.2f;
-
-		float fy = 10.f + m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
-		float fx = m_fJumpPower * cosf(RADIAN(m_fJumpAngle));
-
-		m_tInfo.fX += (fx * m_iReverse);
-		m_tInfo.fY -= fy;
-
-		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
-
-		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
-		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
-	}
+	Jumping();
 
 	Update_Rect();
 
@@ -132,6 +118,29 @@ void CPlayer::Set_Body(void)
 
 		m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
 		m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
+	}
+}
+
+void CPlayer::Jumping(void)
+{
+	float		fY = 0.f;
+
+	//bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->, &fY);
+
+	if (m_bJump)
+	{
+		m_fJumpTime += 0.2f;
+
+		float fy = 10.f + m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
+		float fx = (m_fSpeed * 2.f) * cosf(RADIAN(m_fJumpAngle));
+
+		m_tInfo.fX += (fx * m_iReverse);
+		m_tInfo.fY -= fy;
+
+		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
+
+		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 	}
 }
 
