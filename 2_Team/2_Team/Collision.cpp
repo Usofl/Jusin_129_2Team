@@ -82,14 +82,22 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 				float _fChangeY(fCY - fHeight);
 				if (_fChangeX > _fChangeY)
 				{
-					//상충돌
+					////상충돌
+					//if (_player_info.fY > _block->Get_Info().fY)
+					//{
+					//	_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY + _fChangeY);
+					//}
+					//else//하충돌
+					//{
+					//	_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY - _fChangeY);
+					//}
 					if (_player_info.fY > _block->Get_Info().fY)
 					{
-						_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY + _fChangeY);
+
 					}
 					else//하충돌
 					{
-						_block->Set_Pos(_block->Get_Info().fX, _block->Get_Info().fY - _fChangeY);
+
 					}
 				}
 				else
