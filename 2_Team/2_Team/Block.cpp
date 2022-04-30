@@ -21,10 +21,13 @@ const int& CBlock::Update(void)
 {
 	// TODO: 여기에 반환 구문을 삽입합니다.
 
+	float 
+	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), );
 	
-	//bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), );
-	
+	if (bLineCol)
+	{
 
+	}
 
 	Update_Rect();
 	return OBJ_NOEVENT;
