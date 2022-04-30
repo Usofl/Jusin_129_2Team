@@ -88,7 +88,7 @@ void CPlayer::Jumping(void)
 {
 	float		fLineY = 0.f;
 
-	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeight_list(NOTBEING_LINE), fLineY);
+	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
 
 	if (m_bJump)
 	{
