@@ -26,7 +26,7 @@ void CKoopa::Initialize(void)
 	m_fSpeed = 2.f;
 }
 
-int CKoopa::Update(void)
+const int& CKoopa::Update(void)
 {
 	if (m_iHp <= 0)
 	{
@@ -36,6 +36,7 @@ int CKoopa::Update(void)
 	m_tInfo.fX += m_fSpeed;
 
 	Update_Rect();
+	return OBJ_NOEVENT;
 }
 
 void CKoopa::Late_Update(void)

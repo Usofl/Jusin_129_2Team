@@ -33,7 +33,7 @@ void CWarrior::Initialize(void)
 	m_fDiagonal = 100.f;
 }
 
-int CWarrior::Update(void)
+const int& CWarrior::Update(void)
 {
 	if (m_iHp <= 0)
 	{
@@ -43,6 +43,7 @@ int CWarrior::Update(void)
 	//m_tInfo.fX += m_fSpeed;
 
 	Update_Rect();
+	return OBJ_NOEVENT;
 }
 
 void CWarrior::Late_Update(void)
@@ -62,8 +63,8 @@ void CWarrior::Render(HDC _hDC)
 {
 	Ellipse(_hDC, m_tRect.left, m_tRect.top - 20, m_tRect.right, m_tRect.bottom - 20);
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	MoveToEx(_hDC, (float)m_tInfo.fX + 20.f, (float)m_tInfo.fY - 10.f, nullptr);
-	LineTo(_hDC, (int)m_tSword.x, (int)m_tSword.y);
+	MoveToEx(_hDC, (LONG)m_tInfo.fX + 20, (LONG)m_tInfo.fY - 10, nullptr);
+	LineTo(_hDC, (LONG)m_tSword.x, (LONG)m_tSword.y);
 
 	
 	//m_fAngle -= 2.f;

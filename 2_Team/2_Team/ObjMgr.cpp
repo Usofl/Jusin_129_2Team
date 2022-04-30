@@ -6,8 +6,6 @@
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
-CObjMgr* CObjMgr::m_pInstance = nullptr;
-
 CObjMgr::CObjMgr()
 {
 }

@@ -19,7 +19,7 @@ void CBullet::Initialize(void)
 	m_fSpeed = 5.f;
 }
 
-int CBullet::Update(void)
+const int& CBullet::Update(void)
 {
 	if (m_iHp)
 		return OBJ_DEAD;

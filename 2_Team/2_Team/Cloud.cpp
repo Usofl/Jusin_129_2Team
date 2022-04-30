@@ -30,7 +30,7 @@ void CCloud::Initialize(void)
 
 }
 
-int CCloud::Update(void)
+const int& CCloud::Update(void)
 {
 	if (m_iHp <= 0)
 	{
