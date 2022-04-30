@@ -24,15 +24,15 @@ public:
 	inline	void		Set_Air		(const bool& _bAir)		{ m_bAir = _bAir; }
 
 public:
-	inline const int&	Get_Hp		(void)					{ return m_iHp; }
-	inline const int&	Get_Att		(void)					{ return m_iAtt; }
-	inline const float& Get_Speed	(void)					{ return m_fSpeed; }
-	inline const float& Get_Angle	(void)					{ return m_fAngle; }
-	inline const bool&	Get_Air		(void)					{ return m_bAir; }
+	inline const int&	Get_Hp		(void)	const				{ return m_iHp; }
+	inline const int&	Get_Att		(void)	const				{ return m_iAtt; }
+	inline const float& Get_Speed	(void)	const 				{ return m_fSpeed; }
+	inline const float& Get_Angle	(void)	const				{ return m_fAngle; }
+	inline const bool&	Get_Air		(void)	const				{ return m_bAir; }
 
 public:
-	inline const INFO&	Get_Info	(void)					{ return m_tInfo; }
-	inline const RECT&	Get_Rect	(void)					{ return m_tRect; }
+	inline const INFO&	Get_Info	(void)	const				{ return m_tInfo; }
+	inline const RECT&	Get_Rect	(void)	const				{ return m_tRect; }
 
 	inline void Set_Pos(float _fX, float _fY) { m_tInfo.fX = _fX; m_tInfo.fY = _fY; }
 

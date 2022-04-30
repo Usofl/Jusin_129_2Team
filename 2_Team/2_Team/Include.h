@@ -6,3 +6,4 @@
 #include "Struct.h"
 
 #include <list>
+#include <vector>
