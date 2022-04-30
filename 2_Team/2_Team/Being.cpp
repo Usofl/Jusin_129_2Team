@@ -24,7 +24,7 @@ void CBeing::Late_Update(void)
 {
 }
 
-void CBeing::Render(HDC _hDC)
+void CBeing::Render(void)
 {
 }
 

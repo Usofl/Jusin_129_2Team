@@ -146,13 +146,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="LineFactory.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="Being.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="M_Bullet.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Functor.h" />
     <ClInclude Include="Include.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="LineMgr.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Monster.h" />
@@ -161,6 +169,8 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SavePoint.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
@@ -169,6 +179,11 @@
   <ItemGroup>
     <ClCompile Include="2_Team.cpp" />
     <ClCompile Include="Being.cpp" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="M_Bullet.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Koopa.cpp" />
@@ -177,6 +192,9 @@
     <ClCompile Include="NotBeing.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SavePoint.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,4 +1,6 @@
 #pragma once
+#include "Player.h"
+#include "State.h"
 #include "Cloud.h"
 #include "Koopa.h"
 #include "Warrior.h"
@@ -26,5 +28,8 @@ private:
 	int			m_iFPS;
 	DWORD		m_dwFPSTime;
 
+	CState*		m_pState;
+	bool        m_Pause;
+	int         m_iTime;
 };
 
