@@ -48,7 +48,7 @@ const int& CBlock::Update(void)
 			m_tInfo.fY = _fY;
 		}
 	}
-	else if(m_tInfo.fY < _fY || _fY == 0.fv)
+	else if(m_tInfo.fY < _fY || _fY == 0.f)
 	{
 		m_bAir = true;
 	}
