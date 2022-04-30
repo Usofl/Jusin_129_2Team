@@ -1,12 +1,15 @@
 #include "stdafx.h"
 #include "MainGame.h"
 #include "ObjMgr.h"
+#include "MonsterFactory.h" 
 #include "CoinMgr.h"
 
 
 CMainGame::CMainGame() 
 	: m_dwFPSTime(GetTickCount())
-	, m_iFPS(0), m_Pause(false), m_iTime(GetTickCount())
+	, m_iFPS(0)
+	, m_Pause(false)
+	, m_dwTime(GetTickCount())
 {
 	ZeroMemory(m_szFPS, sizeof(TCHAR) * 64);
 }
@@ -24,13 +27,19 @@ void CMainGame::Initialize(void)
 
 	CObj* player = new CPlayer;
 	CObj* Coin = new CCoin;
-	OBJMGR->Add_Being(BEING_PLAYER, player);
+	OBJMGR->Add_Being(BEING_PLAYER, *player);
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, Coin);
 
 	OBJMGR->Initialize();
 	m_pState->Initialize();
 	m_pUI->Initialize();
 	CCoinMgr::Get_Instance()->Initialize();
+
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(CLOUD_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
+
+
 }
 
 
@@ -94,7 +103,7 @@ void CMainGame::Release(void)
 
 void CMainGame::Key_Input(void)
 {
-	if (m_iTime + 200 < GetTickCount())
+	if (m_dwTime + 200 < GetTickCount())
 	{
 		if (GetAsyncKeyState('R'))
 		{
@@ -103,6 +112,6 @@ void CMainGame::Key_Input(void)
 			else if (m_pState->Get_State() == STATE_PAUSE)
 				m_pState->Set_Pause(STATE_GAME);
 		}
-		m_iTime = GetTickCount();
+		m_dwTime = GetTickCount();
 	}
 }

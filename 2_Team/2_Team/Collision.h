@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj.h"
+#include "Line.h"
 class CCollision
 {
 public:
@@ -7,8 +8,6 @@ public:
 	~CCollision();
 
 public:
-	static void Collision_Line(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Line_List);
-	static bool Collision_Player_Line(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Line_List, POINT& _Player_RightLeg, POINT& _Player_LeftLeg);
+	static bool Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line_List, float& _fX);
 	static void Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List);
 };
-

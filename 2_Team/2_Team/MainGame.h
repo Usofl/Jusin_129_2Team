@@ -1,6 +1,10 @@
 #pragma once
 #include "Player.h"
 #include "State.h"
+#include "Cloud.h"
+#include "Koopa.h"
+#include "Warrior.h"
+
 #include "UI.h"
 #include "Coin.h"
 class CMainGame
@@ -28,7 +32,7 @@ private:
 
 	CState*		m_pState;
 	bool        m_Pause;
-	int         m_iTime;
+	DWORD         m_dwTime;
 
 	CUI*		m_pUI;
 };

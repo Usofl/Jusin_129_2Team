@@ -1,5 +1,8 @@
 #pragma once
 #include "Being.h"
+#include "Collision.h"
+#include "ObjMgr.h"
+#include "LineMgr.h"
 #include "KeyMgr.h"
 
 class CPlayer :
@@ -20,7 +23,8 @@ public:
 	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
 	inline bool& Get_Jumping(void) { return m_bJump; }
 
-	void Set_Body(void);
+	void Jumping(void);
+	void SetBody(void);
 
 private:
 	void Key_Input(void);

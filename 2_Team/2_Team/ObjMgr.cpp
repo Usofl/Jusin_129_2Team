@@ -3,7 +3,7 @@
 #include "Collision.h"
 #include "Player.h"
 #include "LineFactory.h"
-
+#include "BlockFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -18,12 +18,17 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-	LINEPOINT _Linepoint[2] = 
+	LINEPOINT _Linepoint[4] = 
 	{
 		{000,400},
-		{800,400}
+		{800,400},
+		{ 000,350 },
+		{ 400,350 }
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
+	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
+
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 300));
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
@@ -101,11 +106,6 @@ void CObjMgr::Late_Update(void)
 	}
 
 	//CCollision::Collision_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE]);
-	CCollision::Collision_Player_Line(m_Being_list[BEING_PLAYER], m_NotBeing_list[NOTBEING_LINE],
-		static_cast<CPlayer*>(m_Being_list[BEING_PLAYER].front())->Get_Right_Leg(),
-		static_cast<CPlayer*>(m_Being_list[BEING_PLAYER].front())->Get_Left_Leg()
-	);
-
 }
 
 void CObjMgr::Render(HDC _hdc)
