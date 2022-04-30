@@ -23,6 +23,9 @@ void CPlayer::Initialize(void)
 	m_tInfo.fX = WINCX * 0.5f;
 	m_tInfo.fY = WINCY - 100.f;
 
+	m_tInfo.fX = WINCX * 0.5f;
+	m_tInfo.fY = WINCY - 100.f;
+
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 

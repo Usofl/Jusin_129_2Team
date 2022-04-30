@@ -28,7 +28,7 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
 
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(500, 600));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 300));
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
