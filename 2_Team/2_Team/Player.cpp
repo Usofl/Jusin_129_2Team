@@ -22,11 +22,6 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize(void)
 {
-	//theta = 0.f;
-
-	m_tInfo.fX = WINCX * 0.5f;
-	m_tInfo.fY = WINCY - 100.f;
-
 	m_tInfo.fX = WINCX * 0.5f;
 	m_tInfo.fY = WINCY * 0.5f;
 
@@ -56,8 +51,6 @@ const int& CPlayer::Update(void)
 	OffSet();
 
 	Update_Rect();
-
-
 
 	return OBJ_NOEVENT;
 }
@@ -249,16 +242,12 @@ void CPlayer::Key_Input(void)
 		m_fSpeed = 2.f;
 	}
 
-	if (KEYMGR->Key_Pressing('S'))
+	if (KEYMGR->Key_Up('D'))
 	{
-		m_bBalloon = true;
-		m_fJumpPower = 15.f;
-		m_fSpeed = 1.f;
+		OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(m_tInfo));
 	}
 	else
 	{
-		m_bBalloon = false;
-		m_fSpeed = 2.f;
 	}
 
 	if (KEYMGR->Key_Pressing(VK_DOWN))

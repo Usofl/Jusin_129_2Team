@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Collision.h"
 #include "ObjMgr.h"
+#include "GomuFactory.h"
 #include "ScrollMgr.h"
 #include "LineMgr.h"
 #include "KeyMgr.h"
