@@ -97,6 +97,12 @@
     <Filter Include="01. Manager\05. ScrollMgr">
       <UniqueIdentifier>{3a4cb81e-c358-4511-9e24-2fa473591d70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap">
+      <UniqueIdentifier>{2a33391f-f034-42dc-a541-badfb37cfea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap\00. Thorn">
+      <UniqueIdentifier>{ca1d3c5a-af07-4877-8953-fefb17af73b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -213,6 +219,12 @@
     <ClInclude Include="ScrollMgr.h">
       <Filter>01. Manager\05. ScrollMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Thorn.h">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
+    </ClInclude>
+    <ClInclude Include="TrapFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -289,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="ScrollMgr.cpp">
       <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Thorn.cpp">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
