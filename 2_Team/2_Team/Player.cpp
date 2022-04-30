@@ -29,6 +29,8 @@ void CPlayer::Initialize(void)
 
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
+	
+	m_iHp = 10;
 
 	m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
 
@@ -77,6 +79,7 @@ void CPlayer::Render(HDC _hDC)
 
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f), nullptr);
 	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f));
+
 	// ¿ÞÆÈ
 	LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
@@ -88,6 +91,19 @@ void CPlayer::Render(HDC _hDC)
 	LineTo(_hDC, m_tLeft_Leg.x + iScrollX, m_tLeft_Leg.y);
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY), nullptr);
 	LineTo(_hDC, m_tRight_Leg.x + iScrollX, m_tRight_Leg.y);
+
+	if (m_bBalloon)
+	{
+		Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top + (int)(m_tInfo.fCY * 0.1f)
+			, m_tRect.right + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.1f));
+
+		// ¿ÞÆÈ
+		MoveToEx(_hDC, (int)m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		LineTo(_hDC, m_tRect.left - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
+		MoveToEx(_hDC, (int)m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		// ¿À¸¥ÆÈ
+		LineTo(_hDC, m_tRect.right + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
+	}
 }
 
 void CPlayer::Release(void)
@@ -204,6 +220,30 @@ void CPlayer::Key_Input(void)
 	else
 	{
 		m_bPool = false;
+	}
+
+	if (KEYMGR->Key_Pressing('S'))
+	{
+		m_bBalloon = true;
+		m_fJumpPower = 15.f;
+		m_fSpeed = 1.f;
+	}
+	else
+	{
+		m_bBalloon = false;
+		m_fSpeed = 2.f;
+	}
+
+	if (KEYMGR->Key_Pressing('S'))
+	{
+		m_bBalloon = true;
+		m_fJumpPower = 15.f;
+		m_fSpeed = 1.f;
+	}
+	else
+	{
+		m_bBalloon = false;
+		m_fSpeed = 2.f;
 	}
 
 	if (KEYMGR->Key_Pressing(VK_DOWN))
