@@ -28,7 +28,7 @@ void CKoopa::Initialize(void)
 
 const int& CKoopa::Update(void)
 {
-	if (m_iHp <= 0)
+	if (!m_iHp)
 	{
 		return OBJ_DEAD;
 	}

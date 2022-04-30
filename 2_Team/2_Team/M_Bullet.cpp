@@ -2,46 +2,53 @@
 #include "M_Bullet.h"
 
 
-CBullet::CBullet()
+CM_Bullet::CM_Bullet()
 {
 }
 
 
-CBullet::~CBullet()
+CM_Bullet::~CM_Bullet()
 {
+	Release();
 }
 
-void CBullet::Initialize(void)
+void CM_Bullet::Initialize(void)
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_iHp = 1;
 
-	m_fSpeed = 5.f;
+	m_tInfo.fCX = 10.f;
+	m_tInfo.fCY = 10.f;
+
+	m_fSpeed = 2.f;
+
+	m_fShootPower = 10.f;
+	m_fShootTime = 0.f;
 }
 
-const int& CBullet::Update(void)
+const int& CM_Bullet::Update(void)
 {
-	if (m_iHp)
+	if (!m_iHp)
 		return OBJ_DEAD;
 
-
-	m_tInfo.fX -= m_fSpeed;
+	//m_tInfo.fX += m_fSpeed;
+	m_fShootTime += 0.2f;
+	m_tInfo.fY -= m_fShootPower * m_fShootTime - (GRAVITY * m_fShootTime * m_fShootTime * 0.5f);
 
 	Update_Rect();
 
 	return OBJ_NOEVENT;
 }
 
-void CBullet::Late_Update(void)
+void CM_Bullet::Late_Update(void)
 {
 
 }
 
-void CBullet::Render(HDC _hDC)
+void CM_Bullet::Render(HDC _hDC)
 {
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
-void CBullet::Release(void)
+void CM_Bullet::Release(void)
 {
 }
