@@ -28,6 +28,10 @@ public:
 	void SetBody(void);
 	void OffSet(void);
 
+	bool Get_Pool() { return m_bPool;}
+
+	void Set_Jump() { m_bJump = false; }
+
 private:
 	void Key_Input(void);
 	const bool& Front_Leg(void) { return m_tLeft_Leg.x > m_tRight_Leg.x; }
