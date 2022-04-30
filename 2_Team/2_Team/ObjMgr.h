@@ -30,6 +30,9 @@ public:
 		m_NotBeing_list[_ID].push_back(_Instance);
 	}
 
+	std::list<CObj*>& Get_Beight_list(BEINGOBJ_ID _ID) { return m_Being_list[_ID]; }
+	std::list<CObj*>& Get_NotBeight_list(NOTBEINGOBJ_ID _ID) { return m_Being_list[_ID]; }
+
 private:
 	std::list<CObj*> m_Being_list[BEING_END];
 	std::list<CObj*> m_NotBeing_list[NOTBEING_END];
