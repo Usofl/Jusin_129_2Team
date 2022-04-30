@@ -33,9 +33,12 @@ void CMainGame::Initialize(void)
 	UIMGR->Initialize();
 	ITEMGR->Initialize();
 
-	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(CLOUD_TURTLE));
+	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
+
+
+
 }
 
 
@@ -101,6 +104,11 @@ void CMainGame::Render(void)
 void CMainGame::Release(void)
 {
 	Safe_Delete(m_pState);
+	CCoinMgr::Get_Instance()->Destroy_Instance();
+	CObjMgr::Get_Instance()->Destroy_Instance();
+	CScrollMgr::Get_Instance()->Destroy_Instance();
+	CKeyMgr::Get_Instance()->Destroy_Instance();
+	CLineMgr::Get_Instance()->Destroy_Instance();
 	ITEMGR->Destroy_Instance();
 }
 

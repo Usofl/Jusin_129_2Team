@@ -1,14 +1,18 @@
 #pragma once
 #include "Being.h"
-class CBullet :
-	public CBeing
+#include "Obj.h"
+#include "Monster.h"
+#include "Player.h"
+#include "Cloud_Bullet.h"
+#include "ObjMgr.h"
+#include "Collision.h"
+
+class CM_Cloud :
+	public CMonster
 {
 public:
-	CBullet();
-	virtual ~CBullet();
-
-public:
-
+	CM_Cloud();
+	virtual ~CM_Cloud();
 
 public:
 	virtual void Initialize(void) override;
@@ -17,5 +21,10 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+private:
+	// 시간 저장하는 변수
+	DWORD m_dwCount;
 };
+
+
 
