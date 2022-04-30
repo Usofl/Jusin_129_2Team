@@ -180,6 +180,9 @@
     <ClInclude Include="M_Bullet.h">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="BlockFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

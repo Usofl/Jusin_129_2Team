@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="BlockFactory.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />

@@ -3,6 +3,7 @@
 #include "Collision.h"
 #include "Player.h"
 #include "LineFactory.h"
+#include "BlockFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -17,12 +18,17 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-	LINEPOINT _Linepoint[2] = 
+	LINEPOINT _Linepoint[4] = 
 	{
 		{000,400},
-		{800,400}
+		{800,400},
+		{ 000,350 },
+		{ 400,350 }
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
+	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
+
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(500, 600));
 
 	for (auto& iterlist : m_NotBeing_list)
 	{

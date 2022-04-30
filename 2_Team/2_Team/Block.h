@@ -14,5 +14,9 @@ public:
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
+
+private:
+	float m_fJumpPower;
+	float m_fJumpTime;
 };
 
