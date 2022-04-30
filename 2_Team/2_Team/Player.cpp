@@ -33,7 +33,7 @@ void CPlayer::Initialize(void)
 
 	m_iReverse = 1;
 
-	m_fJumpPower = 20.f;
+	m_fJumpPower = 25.f;
 	m_fSpeed = 2.f;
 }
 
@@ -88,13 +88,15 @@ void CPlayer::Jumping(void)
 {
 	float		fLineY = 0.f;
 
+	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
 	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
+	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
 
 	if (m_bJump)
 	{
 		m_fJumpTime += 0.2f;
 
-		float fy = 10.f + m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
+		float fy = m_fJumpPower * m_fJumpTime * sinf(RADIAN(m_fJumpAngle)) - (0.5f * GRAVITY * (m_fJumpTime * m_fJumpTime));
 		float fx = (m_fSpeed * 2.f) * cosf(RADIAN(m_fJumpAngle));
 
 		m_tInfo.fX += (fx * m_iReverse);
@@ -110,6 +112,7 @@ void CPlayer::Jumping(void)
 
 		SetBody();
 
+		return;
 	}
 	else if (bLineCol)
 	{
@@ -130,15 +133,22 @@ void CPlayer::Key_Input(void)
 	if (KEYMGR->Key_Pressing(VK_SHIFT))
 	{
 		m_fSpeed = 5.f;
+		m_fJumpPower = 27.f;
+		m_fJumpAngle = 30.f;
 	}
 	else
 	{
 		m_fSpeed = 2.f;
+		m_fJumpPower = 15.f;
+		m_fJumpAngle = 90.f;
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		m_iReverse = 1;
+		m_fJumpPower = 20.f;
+		m_fJumpAngle = 45.f;
+
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x += (LONG)m_fSpeed;
@@ -174,6 +184,9 @@ void CPlayer::Key_Input(void)
 	else if (GetAsyncKeyState(VK_LEFT))
 	{
 		m_iReverse = -1;
+		m_fJumpPower = 20.f;
+		m_fJumpAngle = 45.f;
+
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;
