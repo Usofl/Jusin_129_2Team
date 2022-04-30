@@ -7,6 +7,7 @@
 CBlock::CBlock()
 	: m_fJumpTime(0.f)
 	, m_fJumpPower(20)
+	, m_bBlockCol(false)
 {
 }
 
@@ -17,8 +18,8 @@ CBlock::~CBlock()
 
 void CBlock::Initialize(void)
 {
-	m_tInfo.fCX = 40;
-	m_tInfo.fCY = 40;
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
 	m_bAir = false;
 }
 
@@ -30,30 +31,29 @@ const int& CBlock::Update(void)
 	float _fCollisionY(0.f);
 	//안착할 라인이 있다 없다.
 	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), _fY);
-	if (CCollision::Collision_Block_Block(this, OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK), _fCollisionY))
+	//bool bBlockCol = CCollision::Collision_Block_Block(*this, OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK), _fCollisionY);
+	if (m_bBlockCol)
 	{
 		_fY = _fCollisionY;
 	}
-	
+
 	_fY -= m_tInfo.fCY * 0.5f;
+
 	if (m_bAir)
 	{
-		m_tInfo.fY += GRAVITY * m_fJumpTime * m_fJumpTime * 0.5f;
+		m_tInfo.fY += GRAVITY * m_fJumpTime * m_fJumpTime * 0.5f * 0.1f;
 		m_fJumpTime += 0.2f;
-		if (bLineCol && m_tInfo.fY - m_tInfo.fCY * 0.5f >= _fY)
+		if (bLineCol && m_tInfo.fY - 10.f > _fY)
 		{
 			m_bAir = false;
 			m_fJumpTime = 0.f;
 			m_tInfo.fY = _fY;
 		}
 	}
-	else if(m_tInfo.fY < _fY)
+	else if(m_tInfo.fY < _fY && !m_bBlockCol)
 	{
 		m_bAir = true;
 	}
-
-	
-	
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -61,7 +61,7 @@ const int& CBlock::Update(void)
 
 void CBlock::Late_Update(void)
 {
-		
+	m_bBlockCol = false;
 }
 
 void CBlock::Render(HDC _hDC)

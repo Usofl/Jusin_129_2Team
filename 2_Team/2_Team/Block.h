@@ -15,8 +15,11 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+	void Set_BlockCol() { m_bBlockCol = true; }
+
 private:
-	float m_fJumpPower;
-	float m_fJumpTime;
+	float	m_fJumpPower;
+	float	m_fJumpTime;
+	bool	m_bBlockCol;
 };
 

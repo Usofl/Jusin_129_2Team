@@ -64,7 +64,7 @@ void CPlayer::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	//Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.5f)
 		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
@@ -96,12 +96,17 @@ void CPlayer::Release(void)
 
 void CPlayer::Jumping(void)
 {
-	float		fLineY = 0.f;
+	float		fLineY = WINCY;
 
 	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
 	bool		bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
 	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
 	fLineY -= (m_tInfo.fCY * 0.5f);
+
+	if (fLineY - 20.f > m_tInfo.fY)
+	{
+		m_bAir = true;
+	}
 
 	if (m_bJump && m_bAir)
 	{
@@ -143,9 +148,11 @@ void CPlayer::Jumping(void)
 		SetBody();
 	}
 
-	if (m_tInfo.fY < fLineY - 20.f)
+	else if (bLineCol)
 	{
-		m_bAir = true;
+		m_tInfo.fY = fLineY;
+		m_tRight_Leg.y = (LONG)(fLineY + (m_tInfo.fCY * 0.5f));
+		m_tLeft_Leg.y = (LONG)(fLineY + (m_tInfo.fCY * 0.5f));
 	}
 }
 
