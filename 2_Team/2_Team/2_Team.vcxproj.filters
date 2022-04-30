@@ -73,6 +73,15 @@
     <Filter Include="02.State">
       <UniqueIdentifier>{746e819e-ceff-4027-9c5d-44c74ab78e71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Ui">
+      <UniqueIdentifier>{d5e8f9fc-835d-411a-8a22-fd2e9eaae2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\00.Coin">
+      <UniqueIdentifier>{4675cc75-3103-43bc-b9b7-15b35c5ce6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\02.CoinMgr">
+      <UniqueIdentifier>{810a2c6f-54c5-4fc2-9f66-a906243ac99d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -150,6 +159,21 @@
     <ClInclude Include="State.h">
       <Filter>02.State</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>03.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>01. Obj\01. NotBeing\02. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\00.Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinMgr.h">
+      <Filter>01. Manager\02.CoinMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -196,6 +220,18 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>02.State</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>03.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\00.Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinMgr.cpp">
+      <Filter>01. Manager\02.CoinMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,15 +18,15 @@ public:
 	void Set_Pause(int _State) { m_iState = _State; }
 
 private:
-	POINT m_Mouse;
-	INFO m_MouseInfo;
-	RECT m_MouseRect;
+	POINT m_tMouse;
+	INFO m_tMouseInfo;
+	RECT m_tMouseRect;
 	float m_fMouseAngle;
 
-	RECT m_StartRect;
-	RECT m_ExitRect;
+	RECT m_tStartRect;
+	RECT m_tExitRect;
 
-	RECT m_Colli;
+	RECT m_tColli;
 
 	int        m_iState;
 

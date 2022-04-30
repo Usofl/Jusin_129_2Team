@@ -1,6 +1,8 @@
 #pragma once
 #include "Player.h"
 #include "State.h"
+#include "UI.h"
+#include "Coin.h"
 class CMainGame
 {
 public:
@@ -27,5 +29,7 @@ private:
 	CState*		m_pState;
 	bool        m_Pause;
 	int         m_iTime;
+
+	CUI*		m_pUI;
 };
 
