@@ -2,6 +2,7 @@
 #include "Cloud.h"
 
 
+
 CCloud::CCloud()
 {
 }
@@ -15,7 +16,7 @@ CCloud::~CCloud()
 void CCloud::Initialize(void)
 {
 	m_tInfo.fX = 250.f;
-	m_tInfo.fY = 200.f;
+	m_tInfo.fY = 100.f;
 
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
@@ -38,6 +39,8 @@ int CCloud::Update(void)
 
 	m_tInfo.fX += m_fSpeed;
 
+	
+
 	Update_Rect();
 
 	return OBJ_NOEVENT;
@@ -54,6 +57,7 @@ void CCloud::Late_Update(void)
 void CCloud::Render(HDC _hDC)
 {
 	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+
 }
 void CCloud::Release(void)
 {

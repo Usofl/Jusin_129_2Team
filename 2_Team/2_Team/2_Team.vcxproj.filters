@@ -67,6 +67,9 @@
     <Filter Include="01. Obj\00. Being\01. Monster\Koopa">
       <UniqueIdentifier>{e54d1fae-f7ad-4cf4-a440-442f1845b1b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet">
+      <UniqueIdentifier>{b036d46f-8c0c-4ce1-9109-ecd5e3546bd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -129,6 +132,9 @@
     <ClInclude Include="MonsterFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
+    <ClInclude Include="M_Bullet.h">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>01. Obj\00. Being\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

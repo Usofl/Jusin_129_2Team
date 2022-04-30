@@ -26,7 +26,5 @@ private:
 	int			m_iFPS;
 	DWORD		m_dwFPSTime;
 
-	CCloud* Cloud;
-	CWarrior* Warrior;
 };
 

@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Obj.h"
 #include "Monster.h"
+#include "M_Bullet.h"
 
 class CCloud :
 	public CMonster
@@ -17,6 +18,10 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+private:
+	CObj*		Create_Bullet();
+
+	
 };
 
 

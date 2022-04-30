@@ -1,14 +1,14 @@
 #pragma once
 #include "Being.h"
-#include "Monster.h"
-
-
-class CKoopa :
-	public CMonster
+class CBullet :
+	public CBeing
 {
 public:
-	CKoopa();
-	virtual ~CKoopa();
+	CBullet();
+	virtual ~CBullet();
+
+public:
+
 
 public:
 	virtual void Initialize(void) override;
@@ -16,5 +16,6 @@ public:
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
+
 };
 

@@ -40,5 +40,7 @@ protected:
 	int m_iAtt;
 	float m_fSpeed;
 	float m_fAngle;
+
+
 };
 

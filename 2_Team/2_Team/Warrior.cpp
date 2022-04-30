@@ -40,17 +40,17 @@ int CWarrior::Update(void)
 		return OBJ_DEAD;
 	}
 
-	m_tInfo.fX += m_fSpeed;
+	//m_tInfo.fX += m_fSpeed;
 
 	Update_Rect();
 }
 
 void CWarrior::Late_Update(void)
 {
-	if ( 200 >= m_tRect.left || WINCX -200  <= m_tRect.right)
+	/*if ( 200 >= m_tRect.left || WINCX -200  <= m_tRect.right)
 	{
 		m_fSpeed *= -1.f;
-	}
+	}*/
 
 	m_tSword.x = long(m_tInfo.fX + m_fDiagonal * cosf((m_fAngle * PI) / 180.f));
 	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
@@ -66,23 +66,8 @@ void CWarrior::Render(HDC _hDC)
 	LineTo(_hDC, (int)m_tSword.x, (int)m_tSword.y);
 
 	
-	m_fAngle -= 2.f;
-	if (!m_bTurn)
-	{
-		m_fAngle -= 5.f;
-		if (m_fAngle <= 120.f)
-		{
-			m_bTurn = true;
-		}
-		else
-		{
-			m_fAngle += 5.f;
-			if (m_fAngle >= 240.f)
-			{
-				m_bTurn = false;
-			}
-		}
-	}
+	//m_fAngle -= 2.f;
+
 
 }
 

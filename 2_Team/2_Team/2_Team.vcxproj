@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
     <ClInclude Include="Being.h" />
+    <ClInclude Include="M_Bullet.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="2_Team.cpp" />
     <ClCompile Include="Being.cpp" />
+    <ClCompile Include="M_Bullet.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="MainGame.cpp" />
