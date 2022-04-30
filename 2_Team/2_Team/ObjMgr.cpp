@@ -35,6 +35,7 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(300, 200));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
 
 
 	for (auto& iterlist : m_NotBeing_list)
