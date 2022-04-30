@@ -121,6 +121,15 @@ void CPlayer::Jumping(void)
 
 void CPlayer::Key_Input(void)
 {
+	if (KEYMGR->Key_Pressing(VK_SHIFT))
+	{
+		m_fSpeed = 5.f;
+	}
+	else
+	{
+		m_fSpeed = 2.f;
+	}
+
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		m_iReverse = 1;
