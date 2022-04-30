@@ -50,9 +50,17 @@ void CCoinMgr::Initialize(void)
 
 void CCoinMgr::Update(void)
 {
-	for (auto& iter : m_CoinList)
+	for (auto& iter = m_CoinList.begin(); iter != m_CoinList.end();)
 	{
-		iter->Update();
+		if ((*iter)->Update() == OBJ_DEAD)
+		{
+			Safe_Delete<CCoin*>(*iter);
+			iter = m_CoinList.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
@@ -72,6 +80,5 @@ void CCoinMgr::Render(HDC hDC)
 
 void CCoinMgr::Release(void)
 {
-	//m_CoinList.clear();
 }
 

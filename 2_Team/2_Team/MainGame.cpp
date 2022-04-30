@@ -56,7 +56,7 @@ void CMainGame::Update(void)
 	
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Life());
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Coin());
-
+	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Set_Life());
 }
 
 void CMainGame::Late_Update(void)
@@ -69,6 +69,9 @@ void CMainGame::Late_Update(void)
 	}
 	else
 		m_pState->Late_Update();
+
+	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, CCoinMgr::Get_Instance()->Get_Coin_List());
 }
 
 void CMainGame::Render(void)
@@ -110,6 +113,8 @@ void CMainGame::Key_Input(void)
 			if (m_pState->Get_State() == STATE_GAME)
 				m_pState->Set_Pause(STATE_PAUSE);
 			else if (m_pState->Get_State() == STATE_PAUSE)
+				m_pState->Set_Pause(STATE_GAME);
+			else if (m_pState->Get_State() == STATE_OVER)
 				m_pState->Set_Pause(STATE_GAME);
 		}
 		m_dwTime = GetTickCount();

@@ -4,6 +4,7 @@
 #include "Cloud.h"
 #include "Koopa.h"
 #include "Warrior.h"
+#include "CoinMgr.h"
 
 class CMainGame
 {

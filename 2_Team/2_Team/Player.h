@@ -27,7 +27,7 @@ public:
 	void SetBody(void);
 	int Set_Coin() { return m_iCoin; }
 	int Set_Life() { return m_iLife; }
-	void PlayerCoinColli();
+	void PlayerCoinColli(void);
 
 private:
 	void Key_Input(void);

@@ -30,8 +30,8 @@ void CState::Update()
 		}
 		else if (IntersectRect(&m_tColli, &m_tExitRect, &m_tMouseRect))
 		{
-			m_iState = STATE_END;
-			DestroyWindow(g_hWnd);
+			m_iState = STATE_OVER;
+			//DestroyWindow(g_hWnd);
 		}
 	}
 
@@ -56,6 +56,35 @@ void CState::Render(HDC hDC)
 	{
 		TextOut(hDC, WINCX / 2 - 50, WINCY / 2 - 40, TEXT("PAUSE"), 5);
 		TextOut(hDC, WINCX / 2 - 100, WINCY / 2, TEXT("PRESS 'R' TO RESTART"), 20);
+	}
+	else if (m_iState == STATE_OVER)
+	{
+		RECT m_tLifeRect;
+		m_tLifeRect.left = 345;
+		m_tLifeRect.right = 360;
+		m_tLifeRect.top = 235;
+		m_tLifeRect.bottom = 250;
+		Ellipse(hDC, m_tLifeRect.left, m_tLifeRect.top, m_tLifeRect.right, m_tLifeRect.bottom);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10);
+
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 20);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 20);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 10);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 10);
+
+		TCHAR	Temp[64];
+		TextOut(hDC, WINCX / 2 - 100, WINCY / 2, TEXT("PRESS 'R' TO RESTART"), 20);
+		wsprintf(Temp, L"%d", m_iLife);
+		TextOut(hDC, WINCX / 2 - 20, WINCY / 2 - 50, TEXT("X"), 1);
+		TextOut(hDC, WINCX / 2, WINCY / 2 - 50, Temp, lstrlen(Temp));
 	}
 	else
 	{

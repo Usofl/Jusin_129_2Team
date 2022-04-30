@@ -11,7 +11,7 @@ CPlayer::CPlayer()
 	, m_tLeft_Leg({ 0,0 })
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
-	, m_iLife(10)
+	, m_iLife(3)
 {
 }
 
@@ -51,14 +51,14 @@ const int& CPlayer::Update(void)
 
 	Update_Rect();
 
-	PlayerCoinColli();
+
 
 	return OBJ_NOEVENT;
 }
 
 void CPlayer::Late_Update(void)
 {
-	
+
 }
 
 void CPlayer::Render(HDC _hDC)
@@ -138,16 +138,11 @@ void CPlayer::SetBody(void)
 
 void CPlayer::PlayerCoinColli()
 {
-	bool bTemp = CCollision::Collision_Player_Coin(*this, CCoinMgr::Get_Instance()->Get_Coin_List());
-	if (bTemp)
+	++m_iCoin;
+	if (m_iCoin == 10)
 	{
-		m_iCoin++;
-		if (m_iCoin == 10)
-		{
-			m_iCoin = 0;
-			m_iLife++;
-		}
-		bTemp = false;
+		m_iCoin = 0;
+		m_iLife++;
 	}
 }
 
