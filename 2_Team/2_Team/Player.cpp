@@ -24,7 +24,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fY = WINCY - 100.f;
 
 	m_tInfo.fX = WINCX * 0.5f;
-	m_tInfo.fY = WINCY - 100.f;
+	m_tInfo.fY = WINCY * 0.5f;
 
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
@@ -105,7 +105,7 @@ void CPlayer::Jumping(void)
 		m_tInfo.fX += (fx * m_iReverse);
 		m_tInfo.fY -= fy;
 
-		if (bLineCol && m_tInfo.fY > fLineY)
+		if (bLineCol && m_tInfo.fY >= fLineY)
 		{
 			m_fJumpTime = 0.f;
 			m_bJump = false;

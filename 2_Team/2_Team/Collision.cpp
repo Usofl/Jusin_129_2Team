@@ -38,17 +38,14 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 			_fLine_Y = ((_Line_Right.fY - _Line_Left.fY) / (_Line_Right.fX - _Line_Left.fX)) 
 						* (_Obj.Get_Info().fX - _Line_Left.fX)	+ _Line_Left.fY;
 
-			if (_Obj.Get_Info().fY <= _fLine_Y)
+			if (_Obj.Get_Info().fY - 20.f <= _fLine_Y)
 			{
-				if (pTarget)
+				if (pTarget && _fY >= _fLine_Y)
 				{
-					if (_fY > _fLine_Y)
-					{
-						pTarget = line;
-						_fY = _fLine_Y;
-					}
+					pTarget = line;
+					_fY = _fLine_Y;
 				}
-				else
+				else if(nullptr == pTarget)
 				{
 					pTarget = line;
 					_fY = _fLine_Y;
