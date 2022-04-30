@@ -95,11 +95,11 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 					//¿ì
 					if (_player_info.fX > _block->Get_Info().fX)
 					{
-						_block->Set_Pos((-1)*(fWidth - fDistanceX),_block->Get_Info().fX);
+						_block->Set_Pos((-1)*(fWidth - fDistanceX), _block->Get_Info().fX);
 					}
 					else//ÁÂÃæµ¹
 					{
-						_block->Set_Pos((fWidth - fDistanceX),_block->Get_Info().fY);
+						_block->Set_Pos((fWidth - fDistanceX), _block->Get_Info().fY);
 					}
 				}
 			}

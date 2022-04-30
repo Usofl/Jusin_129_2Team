@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj.h"
+#include "Line.h"
 class CCollision
 {
 public:
