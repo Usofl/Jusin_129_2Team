@@ -4,6 +4,7 @@
 CPlayer::CPlayer()
 	: m_bChange(false)
 	, m_bJump(false)
+	, m_bPool(false)
 	, m_iReverse(1)
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(45.f)
@@ -166,12 +167,24 @@ void CPlayer::Key_Input(void)
 		m_fJumpAngle = 90.f;
 	}
 
+	if (KEYMGR->Key_Pressing('A'))
+	{
+		m_bPool = true;
+	}
+	else
+	{
+		m_bPool = false;
+	}
+
 	if (KEYMGR->Key_Pressing(VK_DOWN))
 	{
 		if (KEYMGR->Key_Up(VK_SPACE))
 		{
-			m_bAir = true;
-			m_tInfo.fY += 30.f;
+			if (!m_bAir)
+			{
+				m_bAir = true;
+				m_tInfo.fY += 30.f;
+			}
 		}
 	}
 	else
