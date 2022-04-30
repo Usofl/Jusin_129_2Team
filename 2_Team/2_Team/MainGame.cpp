@@ -16,15 +16,31 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize(void)
 {
+	m_pUi = new CUi;
 	m_hDC = GetDC(g_hWnd);
+	m_pUi->Initialize();
 }
 
 void CMainGame::Update(void)
 {
+	Key_Input();
+	if (m_pUi->Get_State() == STATE_GAME)
+	{
+	}
+	else
+	{
+		m_pUi->Update();
+	}
 }
 
 void CMainGame::Late_Update(void)
 {
+
+	if (m_pUi->Get_State() == STATE_GAME)
+	{
+	}
+	else
+		m_pUi->Late_Update();
 }
 
 void CMainGame::Render(void)

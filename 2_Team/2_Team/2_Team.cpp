@@ -70,7 +70,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				mainGame.Update();
 				mainGame.Late_Update();
 				mainGame.Render();
-
 				_dwTime = GetTickCount();
 			}
 		}
