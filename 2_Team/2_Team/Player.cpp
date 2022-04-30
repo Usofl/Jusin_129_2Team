@@ -51,7 +51,7 @@ const int& CPlayer::Update(void)
 
 	Update_Rect();
 
-	CCollision::Collision_Player_Coin(*this, CCoinMgr::Get_Instance()->Get_Coin_List());
+	PlayerCoinColli();
 
 	return OBJ_NOEVENT;
 }
@@ -138,11 +138,16 @@ void CPlayer::SetBody(void)
 
 void CPlayer::PlayerCoinColli()
 {
-	m_iCoin++;
-	if (m_iCoin == 10)
+	bool bTemp = CCollision::Collision_Player_Coin(*this, CCoinMgr::Get_Instance()->Get_Coin_List());
+	if (bTemp)
 	{
-		m_iCoin = 0;
-		m_iLife++;
+		m_iCoin++;
+		if (m_iCoin == 10)
+		{
+			m_iCoin = 0;
+			m_iLife++;
+		}
+		bTemp = false;
 	}
 }
 
