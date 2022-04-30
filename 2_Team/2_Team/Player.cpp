@@ -246,6 +246,8 @@ void CPlayer::Key_Input(void)
 		m_iReverse = 1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
+		if (CCollision::Collision_Player_LeftWall())
+			return;
 
 		if (m_bChange)
 		{
@@ -284,7 +286,8 @@ void CPlayer::Key_Input(void)
 		m_iReverse = -1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
-
+		if (CCollision::Collision_Player_RightWall())
+			return;
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;

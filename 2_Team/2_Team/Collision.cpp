@@ -66,6 +66,50 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 	return true;
 }
 
+bool CCollision::Collision_Player_RightWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX > line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool CCollision::Collision_Player_LeftWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX < line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
 	for (auto& _player : m_Obj_List)

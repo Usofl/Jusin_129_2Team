@@ -19,17 +19,20 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-	LINEPOINT _Linepoint[5] = 
+	LINEPOINT _Linepoint[6] = 
 	{
 		{ 000,400 },
 		{ 800,400 },
 		{ 000,320 },
 		{ 400,320 },
-		{ 700,100 }
+		{ 700,100 },
+		{ 700,400 }
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[3], _Linepoint[4]));
+
+	m_NotBeing_list[NOTBEING_WALL].push_back(CLineFactory::Create_Line(_Linepoint[4], _Linepoint[5]));
 
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
