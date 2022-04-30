@@ -46,10 +46,10 @@ void CState::Update()
 
 	m_fMouseAngle += 4.f;
 
-	m_MouseRect.left = m_Mouse.x - m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f);
-	m_MouseRect.right = m_Mouse.x + m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f);
-	m_MouseRect.top = m_Mouse.y - m_MouseInfo.fCY;
-	m_MouseRect.bottom = m_Mouse.y + m_MouseInfo.fCY;
+	m_MouseRect.left = m_Mouse.x - (LONG)(m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
+	m_MouseRect.right = m_Mouse.x + (LONG)(m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
+	m_MouseRect.top = m_Mouse.y - (LONG)(m_MouseInfo.fCY);
+	m_MouseRect.bottom = m_Mouse.y + (LONG)(m_MouseInfo.fCY);
 }
 
 void CState::Late_Update()
@@ -66,9 +66,9 @@ void CState::Render(HDC hDC)
 	else
 	{
 		Rectangle(hDC, m_StartRect.left, m_StartRect.top, m_StartRect.right, m_StartRect.bottom);
-		TextOut(hDC, (m_StartRect.left + m_StartRect.right) * 0.5f - 20, (m_StartRect.top + m_StartRect.bottom) * 0.5f, TEXT("Start!"), 6);
+		TextOut(hDC, (LONG)((m_StartRect.left + m_StartRect.right) * 0.5) - 20, (LONG)((m_StartRect.top + m_StartRect.bottom) * 0.5), TEXT("Start!"), 6);
 		Rectangle(hDC, m_ExitRect.left, m_ExitRect.top, m_ExitRect.right, m_ExitRect.bottom);
-		TextOut(hDC, (m_ExitRect.left + m_ExitRect.right) * 0.5f - 20, (m_ExitRect.top + m_ExitRect.bottom) * 0.5f, TEXT("Exit"), 4);
+		TextOut(hDC, (LONG)((m_ExitRect.left + m_ExitRect.right) * 0.5) - 20, (LONG)((m_ExitRect.top + m_ExitRect.bottom) * 0.5), TEXT("Exit"), 4);
 
 		Rectangle(hDC, m_MouseRect.left, m_MouseRect.top, m_MouseRect.right, m_MouseRect.bottom);
 	}
