@@ -40,12 +40,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 
 			if (_Obj.Get_Info().fY - 20.f <= _fLine_Y)
 			{
-				if (pTarget && _fY >= _fLine_Y)
-				{
-					pTarget = line;
-					_fY = _fLine_Y;
-				}
-				else if(nullptr == pTarget)
+				if (_fY > _fLine_Y)
 				{
 					pTarget = line;
 					_fY = _fLine_Y;
@@ -189,4 +184,4 @@ bool CCollision::Collision_Block_Block(CObj* _Obj, std::list<CObj*>& m_Block_Lis
 			return false;
 		}
 	}
-}
+}*/
