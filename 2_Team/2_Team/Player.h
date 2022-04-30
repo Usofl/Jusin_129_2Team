@@ -24,6 +24,7 @@ public:
 	inline bool& Get_Jumping(void) { return m_bJump; }
 
 	void Jumping(void);
+	void SetBody(void);
 
 private:
 	void Key_Input(void);

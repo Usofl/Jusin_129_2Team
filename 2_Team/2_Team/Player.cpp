@@ -108,15 +108,21 @@ void CPlayer::Jumping(void)
 			m_tInfo.fY = fLineY - (m_tInfo.fCY * 0.5f);
 		}
 
-		m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
+		SetBody();
 
-		m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
-		m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 	}
 	else if (bLineCol)
 	{
 
 	}
+}
+
+void CPlayer::SetBody(void)
+{
+	m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
+
+	m_tLeft_Leg = { (LONG)(m_tInfo.fX - LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
+	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 }
 
 void CPlayer::Key_Input(void)
@@ -137,7 +143,7 @@ void CPlayer::Key_Input(void)
 		{
 			m_tLeft_Leg.x += (LONG)m_fSpeed;
 
-			float fX = m_tLeft_Leg.x - m_tInfo.fX;
+			float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
 			m_fAngle = acosf(fX / LEGSIZE);
 
 			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
@@ -151,8 +157,8 @@ void CPlayer::Key_Input(void)
 		else
 		{
 			m_tRight_Leg.x += (LONG)m_fSpeed;
-
-			float fX = m_tRight_Leg.x - m_tInfo.fX;
+			
+			float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
 			m_fAngle = acosf(fX / LEGSIZE);
 
 			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
@@ -172,7 +178,7 @@ void CPlayer::Key_Input(void)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;
 
-			float fX = m_tLeft_Leg.x - m_tInfo.fX;
+			float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
 			m_fAngle = acosf(fX / LEGSIZE);
 
 			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
@@ -187,7 +193,7 @@ void CPlayer::Key_Input(void)
 		{
 			m_tRight_Leg.x -= (LONG)m_fSpeed;
 
-			float fX = m_tRight_Leg.x - m_tInfo.fX;
+			float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
 			m_fAngle = acosf(fX / LEGSIZE);
 
 			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
