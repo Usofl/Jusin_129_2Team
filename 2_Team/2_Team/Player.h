@@ -33,6 +33,7 @@ private:
 private:
 	bool m_bChange;
 	bool m_bJump;
+	bool m_bPool;
 
 	int   m_iReverse;
 	float m_fJumpTime;
