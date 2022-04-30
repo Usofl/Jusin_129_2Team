@@ -70,6 +70,9 @@
     <Filter Include="01. Manager\02. KeyMgr">
       <UniqueIdentifier>{420896a1-6b89-46ed-9283-9b964ed795d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.State">
+      <UniqueIdentifier>{746e819e-ceff-4027-9c5d-44c74ab78e71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -144,6 +147,9 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>01. Manager\02. KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>02.State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>01. Manager\02. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>02.State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
