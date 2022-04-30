@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "ObjMgr.h"
 #include "Block.h"
+#include "Coin.h"
 
 
 CCollision::CCollision()
@@ -63,6 +64,50 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 	}
 
 	return true;
+}
+
+bool CCollision::Collision_Player_RightWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX > line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool CCollision::Collision_Player_LeftWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX < line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
@@ -201,6 +246,28 @@ void CCollision::Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<C
 	}
 }
 
+void CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List)
+{
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	RECT Player_Rc = _Obj.Get_Rect();
+	INFO _Player_Info = _Obj.Get_Info();
 
+	INFO Coin_Info;
+	RECT Collision = { 0,0,0,0 };
 
+	for (auto& _Coin : m_Coin_List)
+	{
+		Coin_Info = _Coin->Get_Info();
+		
+		Collision.left = Player_Rc.left - Coin_Info.fCX;
+		Collision.right = Player_Rc.right + Coin_Info.fCX;
+		Collision.top = Player_Rc.top - Coin_Info.fCY;
+		Collision.bottom = Player_Rc.bottom + Coin_Info.fCY;
 
+		if ((Coin_Info.fX > Collision.left && Coin_Info.fX < Collision.right) && (Coin_Info.fY < Collision.bottom && Coin_Info.fY > Collision.top))
+		{
+			player->PlayerCoinColli();
+			_Coin->Dead();
+		}
+	}
+}

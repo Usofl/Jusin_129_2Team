@@ -19,18 +19,20 @@ CCoin::~CCoin()
 
 void CCoin::Initialize(void)
 {
-	//m_tInfo.fX = 400;
-	//m_tInfo.fY = 150;
 	m_tInfo.fCX = 20;
 	m_tInfo.fCY = 20;
 
+	m_iHp = 1;
 	m_fAngle = 1.f;
 }
 
 const int & CCoin::Update(void)
 {
+	if (m_iHp <= 0)
+		return OBJ_DEAD;
+
 	m_fAngle += 4.f;
-	return 0;
+	return OBJ_NOEVENT;
 }
 
 void CCoin::Late_Update(void)
@@ -49,4 +51,9 @@ void CCoin::Render(HDC _hDC)
 
 void CCoin::Release(void)
 {
+}
+
+void const CCoin::Dead(void)
+{
+	m_iHp = 0;
 }

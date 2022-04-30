@@ -16,6 +16,8 @@ public:
 	virtual void			Render(HDC _hDC);
 	virtual void			Release(void);
 
+	void	const			Dead(void);
+
 	INFO	m_tCoinInfo;
 };
 

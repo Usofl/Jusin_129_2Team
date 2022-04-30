@@ -29,6 +29,9 @@ public:
 	void OffSet(void);
 
 	bool Get_Pool() { return m_bPool;}
+	int Set_Coin() { return m_iCoin; }
+	int Set_Life() { return m_iLife; }
+	void PlayerCoinColli(void);
 
 	void Set_Jump() { m_bJump = false; }
 
@@ -43,6 +46,8 @@ private:
 	bool m_bBalloon;
 
 	int   m_iReverse;
+	int   m_iCoin;
+	int   m_iLife;
 	float m_fJumpTime;
 	float m_fJumpPower;
 	float m_fJumpAngle;

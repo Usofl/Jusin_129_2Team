@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "CoinMgr.h"
 
 CPlayer::CPlayer()
 	: m_bChange(false)
@@ -10,6 +11,8 @@ CPlayer::CPlayer()
 	, m_fJumpAngle(45.f)
 	, m_tLeft_Leg({ 0,0 })
 	, m_tRight_Leg({ 0,0 })
+	, m_iCoin(0)
+	, m_iLife(3)
 {
 }
 
@@ -54,12 +57,14 @@ const int& CPlayer::Update(void)
 
 	Update_Rect();
 
+
+
 	return OBJ_NOEVENT;
 }
 
 void CPlayer::Late_Update(void)
 {
-	
+
 }
 
 void CPlayer::Render(HDC _hDC)
@@ -198,6 +203,16 @@ void CPlayer::OffSet(void)
 	}
 }
 
+void CPlayer::PlayerCoinColli()
+{
+	++m_iCoin;
+	if (m_iCoin == 10)
+	{
+		m_iCoin = 0;
+		m_iLife++;
+	}
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (KEYMGR->Key_Pressing(VK_SHIFT))
@@ -271,6 +286,8 @@ void CPlayer::Key_Input(void)
 		m_iReverse = 1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
+		if (CCollision::Collision_Player_LeftWall())
+			return;
 
 		if (m_bChange)
 		{
@@ -309,7 +326,8 @@ void CPlayer::Key_Input(void)
 		m_iReverse = -1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
-
+		if (CCollision::Collision_Player_RightWall())
+			return;
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;

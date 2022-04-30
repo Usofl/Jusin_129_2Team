@@ -151,6 +151,7 @@
     <ClInclude Include="CoinMgr.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="BlockFactory.h" />
+    <ClInclude Include="ItemMgr.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UiMgr.h" />
     <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +193,7 @@
     <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
@@ -213,6 +216,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UiMgr.cpp" />
     <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>

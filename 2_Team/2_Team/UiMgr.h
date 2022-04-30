@@ -1,28 +1,24 @@
 #pragma once
-#include "Include.h"
-#include "Coin.h"
-
-class CCoinMgr
+#include "UI.h"
+class CUiMgr
 {
 private:
-	CCoinMgr();
-	~CCoinMgr();
-
+	CUiMgr();
+	~CUiMgr();
 public:
 	void		Initialize(void);
 	void		Update(void);
 	void		Late_Update(void);
 	void		Render(HDC hDC);
 	void		Release(void);
-	void		Delete(void);
-	std::list<CCoin*>	Get_Coin_List() { return m_CoinList; }
 
+	std::list<CUI*>& Get_Uilist() { return m_UiList; }
 
-	static		CCoinMgr*		Get_Instance(void)
+	static		CUiMgr*		Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{
-			m_pInstance = new CCoinMgr;
+			m_pInstance = new CUiMgr;
 		}
 
 		return m_pInstance;
@@ -37,7 +33,7 @@ public:
 		}
 	}
 private:
-	static CCoinMgr*	m_pInstance;
-	std::list<CCoin*>	m_CoinList;
+	static CUiMgr*	m_pInstance;
+	std::list<CUI*>	m_UiList;
 };
 
