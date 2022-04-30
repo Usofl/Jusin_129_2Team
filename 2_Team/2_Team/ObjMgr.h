@@ -15,23 +15,23 @@ public:
 	void Render(HDC _hdc);
 	void Release(void);
 
-	void Add_Being(const BEINGOBJ_ID& _ID, CObj*& _Instance)
+	void Add_Being(const BEINGOBJ_ID& _ID, CObj& _Instance)
 	{
-		if (_ID >= BEING_END || _Instance == nullptr)
+		if (_ID >= BEING_END)
 			return;
 
-		m_Being_list[_ID].push_back(_Instance);
+		m_Being_list[_ID].push_back(&_Instance);
 	}
-	void Add_Notbeing(const NOTBEINGOBJ_ID& _ID, CObj*& _Instance)
+	void Add_Notbeing(const NOTBEINGOBJ_ID& _ID, CObj& _Instance)
 	{
-		if (_ID >= NOTBEING_END || _Instance == nullptr)
+		if (_ID >= NOTBEING_END)
 			return;
 
-		m_NotBeing_list[_ID].push_back(_Instance);
+		m_NotBeing_list[_ID].push_back(&_Instance);
 	}
 
-	std::list<CObj*>& Get_Beight_list(BEINGOBJ_ID _ID) { return m_Being_list[_ID]; }
-	std::list<CObj*>& Get_NotBeight_list(NOTBEINGOBJ_ID _ID) { return m_NotBeing_list[_ID]; }
+	std::list<CObj*>& Get_Being_list(BEINGOBJ_ID _ID) { return m_Being_list[_ID]; }
+	std::list<CObj*>& Get_NotBeing_list(NOTBEINGOBJ_ID _ID) { return m_NotBeing_list[_ID]; }
 
 private:
 	std::list<CObj*> m_Being_list[BEING_END];

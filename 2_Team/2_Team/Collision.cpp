@@ -23,8 +23,8 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 	{
 		return false;
 	}
-
-	CLine*		pTarget = nullptr;
+	
+	CObj*		pTarget = nullptr;
 
 	for (auto& _Line : m_Line_List)
 	{

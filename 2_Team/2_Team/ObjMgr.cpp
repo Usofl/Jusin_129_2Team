@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "LineFactory.h"
 
-
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
