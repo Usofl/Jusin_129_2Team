@@ -19,8 +19,10 @@ void CItem::Initialize(void)
 
 const int & CItem::Update(void)
 {
+	if (m_iHp <= 0)
+		OBJ_DEAD;
 	CCoinMgr::Get_Instance()->Update();
-	return 0;
+	return OBJ_NOEVENT;
 }
 
 void CItem::Late_Update(void)
