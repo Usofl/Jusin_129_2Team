@@ -35,10 +35,10 @@ const int & CCoin::Update(void)
 
 void CCoin::Late_Update(void)
 {
-	m_tRect.left = m_tInfo.fX - (LONG)(m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f));
-	m_tRect.right = m_tInfo.fX + (LONG)(m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f));
-	m_tRect.top = m_tInfo.fY - (LONG)(m_tInfo.fCY);
-	m_tRect.bottom = m_tInfo.fY + (LONG)(m_tInfo.fCY);
+	m_tRect.left = (LONG)(m_tInfo.fX - (m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f)));
+	m_tRect.right = (LONG)(m_tInfo.fX + (m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f)));
+	m_tRect.top = (LONG)(m_tInfo.fY - (m_tInfo.fCY));
+	m_tRect.bottom = (LONG)(m_tInfo.fY + (m_tInfo.fCY));
 }
 
 void CCoin::Render(HDC _hDC)

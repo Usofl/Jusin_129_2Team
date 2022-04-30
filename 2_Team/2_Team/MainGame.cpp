@@ -28,7 +28,7 @@ void CMainGame::Initialize(void)
 	CObj* player = new CPlayer;
 	CObj* Coin = new CCoin;
 	OBJMGR->Add_Being(BEING_PLAYER, *player);
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, Coin);
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *Coin);
 
 	OBJMGR->Initialize();
 	m_pState->Initialize();
