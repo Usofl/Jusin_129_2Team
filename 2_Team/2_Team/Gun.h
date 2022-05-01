@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#include "ScrollMgr.h"
+
 class CGun :
 	public CItem
 {
@@ -13,6 +15,7 @@ public:
 	virtual void			Render(HDC _hDC);
 	virtual void			Release(void);
 	virtual int Itemtype(void) { return m_iItemtype; }
+	virtual void PlayerColiision(void) {};
 
 private:
 	int m_iItemtype;

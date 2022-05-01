@@ -12,6 +12,7 @@ public:
 	virtual void			Late_Update(void)			PURE;
 	virtual void			Render(HDC _hDC)			PURE;
 	virtual void			Release(void)				PURE;
+	virtual void PlayerColiision(void)					PURE;
 
 	virtual int Itemtype(void) { return m_iItemtype; }
 

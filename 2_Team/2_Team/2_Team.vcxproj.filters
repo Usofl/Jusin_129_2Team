@@ -121,6 +121,12 @@
     <Filter Include="01. Obj\01. NotBeing\02. Item\02.Life">
       <UniqueIdentifier>{60206fe2-edd9-4b53-9559-93c02b72d29d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\03.Ladder">
+      <UniqueIdentifier>{4da8eaa8-7127-4660-96ba-9324a8090e2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\04.Key">
+      <UniqueIdentifier>{c3012850-4e57-4a53-9375-1cd7a1539804}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -264,6 +270,12 @@
     <ClInclude Include="Life.h">
       <Filter>01. Obj\01. NotBeing\02. Item\02.Life</Filter>
     </ClInclude>
+    <ClInclude Include="Ladder.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\03.Ladder</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\04.Key</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -358,6 +370,12 @@
     </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>01. Obj\01. NotBeing\02. Item\02.Life</Filter>
+    </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\03.Ladder</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\04.Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

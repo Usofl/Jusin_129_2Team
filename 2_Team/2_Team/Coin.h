@@ -15,7 +15,7 @@ public:
 	virtual void			Late_Update(void);
 	virtual void			Render(HDC _hDC);
 	virtual void			Release(void);
-
+	virtual void PlayerColiision(void) {};
 	void	const			Dead(void);
 
 	INFO	m_tCoinInfo;

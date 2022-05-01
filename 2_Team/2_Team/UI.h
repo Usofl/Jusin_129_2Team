@@ -13,6 +13,7 @@ public:
 
 	void Get_Coin(int _Coin) { m_iCoin = _Coin; }
 	void Get_Life(int _Life) { m_iLife = _Life; }
+	void Get_Itemtype(int _Item) { m_iItem = _Item; }
 
 private:
 	RECT m_tLifeRect;
@@ -23,7 +24,13 @@ private:
 
 	RECT m_tCoinTextRect;
 
+	RECT m_tItemRect;
+	RECT m_tGun;
+
 	int m_iCoin;
 	int m_iLife;
+	int m_iItem;
+
+	bool m_bGun;
 };
 
