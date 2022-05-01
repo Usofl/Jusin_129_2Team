@@ -16,6 +16,7 @@ public:
 	static void Collision_Player_LeftWall();
 	static void Collision_Player_RightWall();
 	static void Collision_Thorn();
+	static void Collision_Block_Wall();
 
 public:
 	static void Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<CObj*>& _pBullet);

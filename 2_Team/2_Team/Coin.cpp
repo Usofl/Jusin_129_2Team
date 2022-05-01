@@ -37,8 +37,8 @@ const int & CCoin::Update(void)
 
 void CCoin::Late_Update(void)
 {
-	m_tRect.left = (LONG)(m_tInfo.fX - (m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f)));
-	m_tRect.right = (LONG)(m_tInfo.fX + (m_tInfo.fCX * sinf((m_fAngle * PI) / 180.f)));
+	m_tRect.left = (LONG)(m_tInfo.fX - (m_tInfo.fCX * sinf(RADIAN(m_fAngle))));
+	m_tRect.right = (LONG)(m_tInfo.fX + (m_tInfo.fCX * sinf(RADIAN(m_fAngle))));
 	m_tRect.top = (LONG)(m_tInfo.fY - (m_tInfo.fCY));
 	m_tRect.bottom = (LONG)(m_tInfo.fY + (m_tInfo.fCY));
 }

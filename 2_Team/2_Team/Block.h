@@ -21,5 +21,9 @@ private:
 	float	m_fJumpPower;
 	float	m_fJumpTime;
 	bool	m_bBlockCol;
+
+	LINE m_tBlock_Roof;
+
+	CObj* m_Block_RoofLine;	
 };
 

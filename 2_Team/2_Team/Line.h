@@ -9,10 +9,7 @@ class CLine final :
 public:
 	CLine();
 	CLine(const LINEPOINT& tLeft, const LINEPOINT& tRight);
-	CLine(std::list<LINEPOINT> _LinePoint_List)
-	{
-		//for ()
-	}
+	CLine(const LINE& _tLine) : m_tLine(_tLine), m_bRender(true) {}
 	virtual ~CLine();
 
 	// CNotBeing을(를) 통해 상속됨
@@ -22,9 +19,13 @@ public:
 	virtual void			Render			(HDC _hDC)	override;
 	virtual void			Release			(void)		override;
 
-	const LINE& Get_LinePoint(void) { return m_tLine; };
+	const LINE& Get_LinePoint(void) { return m_tLine; }
+
+	void Set_Line(const LINE& _tLine) { m_tLine = _tLine; }
+
+	void Set_Render(const bool& _bRender) {	m_bRender = _bRender; };
 
 private:
 	LINE m_tLine;
-	bool m_bWall;
+	bool m_bRender;
 };

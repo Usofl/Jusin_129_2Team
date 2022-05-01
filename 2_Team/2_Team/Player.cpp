@@ -299,13 +299,15 @@ void CPlayer::Key_Input(void)
 
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
+		if (m_bRight_Move)
+			return;
+
 		m_iReverse = 1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
 		
 
-		if (m_bRight_Move)
-			return;
+		
 
 		if (m_bChange)
 		{
@@ -341,14 +343,15 @@ void CPlayer::Key_Input(void)
 
 	else if (GetAsyncKeyState(VK_LEFT))
 	{
+
+		if (m_bLeft_Move)
+			return;
 		m_iReverse = -1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
 		/*if (CCollision::Collision_Player_RightWall())
 			return;*/
 
-		if (m_bLeft_Move)
-			return; 
 
 		if (m_bChange)
 		{

@@ -38,7 +38,7 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(300, 200));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 250));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
 
 	m_NotBeing_list[NOTBEING_TRAP].push_back(CTrapFactory::Create_Thorn());

@@ -44,8 +44,8 @@ void CState::Update()
 
 void CState::Late_Update()
 {
-	m_tMouseRect.left = m_tMouse.x - (LONG)(m_tMouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
-	m_tMouseRect.right = m_tMouse.x + (LONG)(m_tMouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
+	m_tMouseRect.left = m_tMouse.x - (LONG)(m_tMouseInfo.fCX * sinf( RADIAN(m_fMouseAngle)));
+	m_tMouseRect.right = m_tMouse.x + (LONG)(m_tMouseInfo.fCX * sinf(RADIAN(m_fMouseAngle)));
 	m_tMouseRect.top = m_tMouse.y - (LONG)(m_tMouseInfo.fCY);
 	m_tMouseRect.bottom = m_tMouse.y + (LONG)(m_tMouseInfo.fCY);
 }
@@ -66,19 +66,19 @@ void CState::Render(HDC hDC)
 		m_tLifeRect.bottom = 250;
 		Ellipse(hDC, m_tLifeRect.left, m_tLifeRect.top, m_tLifeRect.right, m_tLifeRect.bottom);
 
-		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom, nullptr);
-		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10);
+		MoveToEx(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f), m_tLifeRect.bottom, nullptr);
+		LineTo(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f), m_tLifeRect.bottom + 10);
 
-		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 20);
+		LineTo(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f - 7), m_tLifeRect.bottom + 20);
 
-		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10, nullptr);
-		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 20);
+		MoveToEx(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f), m_tLifeRect.bottom + 10, nullptr);
+		LineTo(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f + 7), m_tLifeRect.bottom + 20);
 
-		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
-		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 10);
+		MoveToEx(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f), m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f - 7), m_tLifeRect.bottom + 10);
 
-		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
-		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 10);
+		MoveToEx(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f), m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5f + 7), m_tLifeRect.bottom + 10);
 
 		TCHAR	Temp[64];
 		TextOut(hDC, WINCX / 2 - 100, WINCY / 2, TEXT("PRESS 'R' TO RESTART"), 20);
@@ -89,9 +89,9 @@ void CState::Render(HDC hDC)
 	else
 	{
 		Rectangle(hDC, m_tStartRect.left, m_tStartRect.top, m_tStartRect.right, m_tStartRect.bottom);
-		TextOut(hDC, (LONG)((m_tStartRect.left + m_tStartRect.right) * 0.5) - 20, (LONG)((m_tStartRect.top + m_tStartRect.bottom) * 0.5 - 10), TEXT("Start!"), 6);
+		TextOut(hDC, (LONG)((m_tStartRect.left + m_tStartRect.right) * 0.5f) - 20, (LONG)((m_tStartRect.top + m_tStartRect.bottom) * 0.5f - 10), TEXT("Start!"), 6);
 		Rectangle(hDC, m_tExitRect.left, m_tExitRect.top, m_tExitRect.right, m_tExitRect.bottom);
-		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5 - 10), TEXT("Exit"), 4);
+		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5f) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5f - 10), TEXT("Exit"), 4);
 
 		Rectangle(hDC, m_tMouseRect.left, m_tMouseRect.top, m_tMouseRect.right, m_tMouseRect.bottom);
 	}

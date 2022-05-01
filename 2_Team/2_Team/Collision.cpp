@@ -183,12 +183,10 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 
 void CCollision::Collision_Block_Block()
 {
-	//for (auto& _block : m_Block_List)
 	std::list<CObj*>& m_Block_List = OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK);
-	//for (auto& _block = m_Block_List.begin(); _block != m_Block_List.end(); ++_block)
+	
 	for (auto& _block : m_Block_List)
 	{
-		//for (auto& _block_2 = _block; _block_2 != m_Block_List.end(); ++_block_2)
 		for (auto& _block_2 : m_Block_List)
 		{
 			if (_block == _block_2)
@@ -207,18 +205,7 @@ void CCollision::Collision_Block_Block()
 				float _fChangeX(fCX - fWidth);
 				float _fChangeY(fCY - fHeight);
 
-				if (_fChangeX > _fChangeY)
-				{
-					if ((_block)->Get_Info().fY > (_block_2)->Get_Info().fY)
-					{
-						(_block)->Set_Pos((_block_2)->Get_Info().fX, (_block)->Get_Info().fY + fCY + 1);
-						static_cast<CBlock*>(_block)->Set_BlockCol();
-					}
-					else
-					{
-					}
-				}
-				else
+				if (!(_fChangeX > _fChangeY))
 				{
 					if ((_block)->Get_Info().fX > (_block_2)->Get_Info().fX)
 					{
@@ -300,3 +287,11 @@ void CCollision::Collision_Thorn()
 		PLAYER->Set_Hp(0);
 	}	
 }
+
+//void CCollision::Collision_Block_Wall()
+//{
+//	for (auto& _block : m_Block_List)
+//
+//
+//	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+//}

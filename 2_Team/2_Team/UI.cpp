@@ -54,19 +54,19 @@ void CUI::Render(HDC _hDC)
 	//DRAW LIFE
 	Ellipse(_hDC, m_tLifeRect.left, m_tLifeRect.top, m_tLifeRect.right, m_tLifeRect.bottom);
 
-	MoveToEx(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom,nullptr);
-	LineTo(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10);
+	MoveToEx(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right) * 0.5f), m_tLifeRect.bottom,nullptr);
+	LineTo(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right) * 0.5f), m_tLifeRect.bottom + 10);
 
-	LineTo(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 20);
+	LineTo(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right) * 0.5f - 7), m_tLifeRect.bottom + 20);
 
-	MoveToEx(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10, nullptr);
-	LineTo(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 20);
+	MoveToEx(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5), m_tLifeRect.bottom + 10, nullptr);
+	LineTo(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7), m_tLifeRect.bottom + 20);
 
-	MoveToEx(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
-	LineTo(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 10);
+	MoveToEx(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5), m_tLifeRect.bottom + 2, nullptr);
+	LineTo(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7), m_tLifeRect.bottom + 10);
 
-	MoveToEx(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
-	LineTo(_hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 10);
+	MoveToEx(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5), m_tLifeRect.bottom + 2, nullptr);
+	LineTo(_hDC, (LONG)((m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7), m_tLifeRect.bottom + 10);
 
 	//DRAW LIFE
 	TCHAR	Temp[64];
