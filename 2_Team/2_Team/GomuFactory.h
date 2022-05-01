@@ -12,9 +12,9 @@ public:
 	{
 	}
 public:
-	static CObj* Create_Fistol(const INFO& _tInfo)
+	static CObj* Create_Fistol(const POINT& _tPoint, const int& _iReverse)
 	{
-		CObj* fistol = new CGomu_Fistol(_tInfo);
+		CObj* fistol = new CGomu_Fistol(_tPoint, _iReverse);
 		fistol->Initialize();
 		return fistol;
 	}

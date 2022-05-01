@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Collision.h"
+#include "ObjMgr.h"
+#include "GomuFactory.h"
+#include "ScrollMgr.h"
+#include "LineMgr.h"
 #include "CoinMgr.h"
+#include "KeyMgr.h"
 
 CPlayer::CPlayer()
 	: m_bChange(false)
@@ -8,7 +14,6 @@ CPlayer::CPlayer()
 	, m_bPool(false)
 	, m_bLeft_Move(false)
 	, m_bRight_Move(false)
-	, m_iReverse(1)
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(45.f)
 	, m_tLeft_Leg({ 0,0 })
@@ -31,6 +36,8 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCY = 75.f;
 	
 	m_iHp = 10;
+
+	m_iReverse = 1;
 
 	m_fAngle = asinf((m_tInfo.fCY * 0.5f) / LEGSIZE);
 
@@ -85,12 +92,16 @@ void CPlayer::Render(HDC _hDC)
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f), nullptr);
 	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f));
 
-	// ¿ÞÆÈ
-	LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
-	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
-	// ¿À¸¥ÆÈ
-	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
-	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())
+	{
+		// ¿ÞÆÈ
+		LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		// ¿À¸¥ÆÈ
+		LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+	}
+
 	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY));
 
 	LineTo(_hDC, m_tLeft_Leg.x + iScrollX, m_tLeft_Leg.y);
@@ -266,16 +277,9 @@ void CPlayer::Key_Input(void)
 	else
 	{
 		m_bBalloon = false;
-		m_fSpeed = 2.f;
 	}
 
-	if (KEYMGR->Key_Up('D'))
-	{
-		OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(m_tInfo));
-	}
-	else
-	{
-	}
+	
 
 	if (KEYMGR->Key_Pressing(VK_DOWN))
 	{
@@ -297,91 +301,101 @@ void CPlayer::Key_Input(void)
 		}
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT))
+	
+	if (KEYMGR->Key_Up('D'))
 	{
-		if (m_bRight_Move)
-			return;
-
-		m_iReverse = 1;
-		m_fJumpPower = 20.f;
-		m_fJumpAngle = 45.f;
-		
-
-		
-
-		if (m_bChange)
-		{
-			m_tLeft_Leg.x += (LONG)m_fSpeed;
-
-			float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
-			m_fAngle = acosf(fX / LEGSIZE);
-
-			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
-			{
-				m_bChange = false;
-			}
-
-			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
-			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
-		}
-		else
-		{
-			m_tRight_Leg.x += (LONG)m_fSpeed;
-			
-			float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
-			m_fAngle = acosf(fX / LEGSIZE);
-
-			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
-			{
-				m_bChange = true;
-			}
-			
-			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(m_fAngle);
-			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
-		}
+		POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
+		OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(tPoint, m_iReverse));
+	}
+	else
+	{
 	}
 
-	else if (GetAsyncKeyState(VK_LEFT))
+	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())
 	{
-
-		if (m_bLeft_Move)
-			return;
-		m_iReverse = -1;
-		m_fJumpPower = 20.f;
-		m_fJumpAngle = 45.f;
-		/*if (CCollision::Collision_Player_RightWall())
-			return;*/
-
-
-		if (m_bChange)
+		if (GetAsyncKeyState(VK_RIGHT))
 		{
-			m_tLeft_Leg.x -= (LONG)m_fSpeed;
+			m_iReverse = 1;
 
-			float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
-			m_fAngle = acosf(fX / LEGSIZE);
+			if (m_bRight_Move)
+				return;
 
-			if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
+			m_fJumpPower = 20.f;
+			m_fJumpAngle = 45.f;
+
+			if (m_bChange)
 			{
-				m_bChange = false;
-			}
+				m_tLeft_Leg.x += (LONG)m_fSpeed;
 
-			m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(-m_fAngle);
-			m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
+				float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
+				m_fAngle = acosf(fX / LEGSIZE);
+
+				if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
+				{
+					m_bChange = false;
+				}
+
+				m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(m_fAngle);
+				m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
+			}
+			else
+			{
+				m_tRight_Leg.x += (LONG)m_fSpeed;
+
+				float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
+				m_fAngle = acosf(fX / LEGSIZE);
+
+				if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
+				{
+					m_bChange = true;
+				}
+
+				m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(m_fAngle);
+				m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
+			}
 		}
-		else
+
+		else if (GetAsyncKeyState(VK_LEFT))
 		{
-			m_tRight_Leg.x -= (LONG)m_fSpeed;
+			m_iReverse = -1;
 
-			float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
-			m_fAngle = acosf(fX / LEGSIZE);
+			if (m_bLeft_Move)
+				return;
 
-			if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
+			m_fJumpPower = 20.f;
+			m_fJumpAngle = 45.f;
+
+
+			if (m_bChange)
 			{
-				m_bChange = true;
-			}
+				m_tLeft_Leg.x -= (LONG)m_fSpeed;
 
-			m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(-m_fAngle);
-			m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
+				float fX((float)(m_tLeft_Leg.x - m_tRight_Leg.x) * 0.5f);
+				m_fAngle = acosf(fX / LEGSIZE);
+
+				if ((m_tInfo.fCX * 0.5f) - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x < m_tRight_Leg.x)
+				{
+					m_bChange = false;
+				}
+
+				m_tInfo.fX = m_tRight_Leg.x + LEGSIZE * cosf(-m_fAngle);
+				m_tInfo.fY = m_tRight_Leg.y - LEGSIZE * sinf(m_fAngle);
+			}
+			else
+			{
+				m_tRight_Leg.x -= (LONG)m_fSpeed;
+
+				float fX((float)(m_tRight_Leg.x - m_tLeft_Leg.x) * 0.5f);
+				m_fAngle = acosf(fX / LEGSIZE);
+
+				if (m_tInfo.fCX * 0.5f - 10.f <= fabs(m_tLeft_Leg.x - m_tRight_Leg.x) && m_tLeft_Leg.x > m_tRight_Leg.x)
+				{
+					m_bChange = true;
+				}
+
+				m_tInfo.fX = m_tLeft_Leg.x + LEGSIZE * cosf(-m_fAngle);
+				m_tInfo.fY = m_tLeft_Leg.y - LEGSIZE * sinf(m_fAngle);
+			}
 		}
 	}
 }

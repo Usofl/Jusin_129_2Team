@@ -18,7 +18,7 @@ public:
 	std::list<CCoin*>	Get_Coin_List() { return m_CoinList; }
 
 
-	static		CCoinMgr*		Get_Instance(void)
+	static		CCoinMgr*&		Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{

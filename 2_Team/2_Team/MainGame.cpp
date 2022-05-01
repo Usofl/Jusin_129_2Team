@@ -1,10 +1,23 @@
 #include "stdafx.h"
 #include "MainGame.h"
-#include "ObjMgr.h"
+
+#include "Player.h"
+#include "M_Cloud.h"
+#include "Koopa.h"
+#include "Warrior.h"
+
 #include "MonsterFactory.h" 
+#include "GomuFactory.h"
+
+#include "Collision.h"
+
+#include "ObjMgr.h"
 #include "ItemMgr.h"
 #include "UiMgr.h"
-
+#include "ScrollMgr.h"
+#include "LineMgr.h"
+#include "CoinMgr.h"
+#include "KeyMgr.h"
 
 CMainGame::CMainGame() 
 	: m_dwFPSTime(GetTickCount())

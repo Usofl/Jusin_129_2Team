@@ -1,11 +1,5 @@
 #pragma once
 #include "Being.h"
-#include "Collision.h"
-#include "ObjMgr.h"
-#include "GomuFactory.h"
-#include "ScrollMgr.h"
-#include "LineMgr.h"
-#include "KeyMgr.h"
 
 class CPlayer :
 	public CBeing
@@ -49,7 +43,6 @@ private:
 	bool m_bPool;
 	bool m_bBalloon;
 
-	int   m_iReverse;
 	int   m_iCoin;
 	int   m_iLife;
 	int   m_iItemtype;
