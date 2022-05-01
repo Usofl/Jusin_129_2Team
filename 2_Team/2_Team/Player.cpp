@@ -6,6 +6,8 @@ CPlayer::CPlayer()
 	: m_bChange(false)
 	, m_bJump(false)
 	, m_bPool(false)
+	, m_bLeft_Move(false)
+	, m_bRight_Move(false)
 	, m_iReverse(1)
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(45.f)
@@ -13,8 +15,6 @@ CPlayer::CPlayer()
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
 	, m_iLife(3)
-	, m_bLeft_Move(false)
-	, m_bRight_Move(false)
 {
 }
 
