@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Collision.h"
 #include "ObjMgr.h"
+#include "GomuFactory.h"
 #include "ScrollMgr.h"
 #include "LineMgr.h"
 #include "KeyMgr.h"
@@ -35,6 +36,8 @@ public:
 	void Get_ItemType(int _Itemtype);
 
 	void Set_Jump() { m_bJump = false; }
+	void Set_Right_Move(bool _bMove) { m_bRight_Move = _bMove; }
+	void Set_Left_Move(bool _bMove) { m_bLeft_Move = _bMove; }
 
 private:
 	void Key_Input(void);
@@ -44,6 +47,7 @@ private:
 	bool m_bChange;
 	bool m_bJump;
 	bool m_bPool;
+	bool m_bBalloon;
 
 	int   m_iReverse;
 	int   m_iCoin;
@@ -52,6 +56,9 @@ private:
 	float m_fJumpTime;
 	float m_fJumpPower;
 	float m_fJumpAngle;
+
+	bool m_bRight_Move;
+	bool m_bLeft_Move;
 
 	POINT m_tLeft_Leg;
 	POINT m_tRight_Leg;

@@ -35,4 +35,6 @@
 #define UIMGR (CUiMgr::Get_Instance())
 #define ITEMMGR (CItemMgr::Get_Instance())
 
+#define PLAYER (CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())
+
 extern HWND g_hWnd;
