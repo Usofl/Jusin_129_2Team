@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "LineFactory.h"
 #include "BlockFactory.h"
+#include "TrapFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -19,24 +20,28 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-	LINEPOINT _Linepoint[5] = 
+	LINEPOINT _Linepoint[6] = 
 	{
 		{ 000,400 },
 		{ 800,400 },
 		{ 000,320 },
 		{ 400,320 },
-		{ 700,100 }
+		{ 700,100 },
+		{ 700,400 }
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[3], _Linepoint[4]));
 
+	m_NotBeing_list[NOTBEING_WALL].push_back(CLineFactory::Create_Line(_Linepoint[4], _Linepoint[5]));
+
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(300, 200));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 250));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
 
+	m_NotBeing_list[NOTBEING_TRAP].push_back(CTrapFactory::Create_Thorn());
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
@@ -57,6 +62,7 @@ void CObjMgr::Initialize(void)
 
 void CObjMgr::Update(void)
 {
+	
 	for (auto& list_iter : m_NotBeing_list)
 	{
 		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
@@ -73,14 +79,19 @@ void CObjMgr::Update(void)
 		}
 	}
 
-	for (auto& list_iter : m_Being_list)
+	if (PLAYER->Update() == OBJ_DEAD)
 	{
-		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
+
+	}
+
+	for (int i = BEING_MONSTER; i < BEING_END ; ++i)
+	{
+		for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
 		{
 			if ((*iter)->Update() == OBJ_DEAD)
 			{
 				Safe_Delete<CObj*>(*iter);
-				iter = list_iter.erase(iter);
+				iter = m_Being_list[i].erase(iter);
 			}
 			else
 			{
@@ -107,6 +118,9 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 		}
 	}
+
+	CCollision::Collision_Player_LeftWall();
+	CCollision::Collision_Player_RightWall();
 
 	CCollision::Collision_Player_Bullet(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_Being_list(BEING_MONSTERBULLET));
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));

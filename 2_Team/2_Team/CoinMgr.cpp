@@ -15,26 +15,26 @@ CCoinMgr::~CCoinMgr()
 void CCoinMgr::Initialize(void)
 {
 	INFO tCoinInfo[20]
-		= { { 200,150,20,20 },
-		{ 210,150,20,20 },
-		{ 220,150,20,20 },
-		{ 230,150,20,20 },
-		{ 240,150,20,20 },
-		{ 250,150,20,20 },
-		{ 260,150,20,20 },
-		{ 270,150,20,20 },
-		{ 280,150,20,20 },
-		{ 290,150,20,20 },
-		{ 300,150,20,20 },
-		{ 310,150,20,20 },
-		{ 320,150,20,20 },
-		{ 330,150,20,20 },
-		{ 340,150,20,20 },
-		{ 350,150,20,20 },
-		{ 360,150,20,20 },
-		{ 370,150,20,20 },
-		{ 380,150,20,20 },
-		{ 390,150,20,20 }
+		= { { 200,350,20,20 },
+		{ 210,350,20,20 },
+		{ 220,350,20,20 },
+		{ 230,350,20,20 },
+		{ 240,350,20,20 },
+		{ 250,350,20,20 },
+		{ 260,350,20,20 },
+		{ 270,350,20,20 },
+		{ 280,350,20,20 },
+		{ 290,350,20,20 },
+		{ 300,350,20,20 },
+		{ 310,350,20,20 },
+		{ 320,350,20,20 },
+		{ 330,350,20,20 },
+		{ 340,350,20,20 },
+		{ 350,350,20,20 },
+		{ 360,350,20,20 },
+		{ 370,350,20,20 },
+		{ 380,350,20,20 },
+		{ 390,350,20,20 }
 	};
 
 	for (int i = 0; i < 20; ++i)
@@ -50,13 +50,21 @@ void CCoinMgr::Initialize(void)
 
 void CCoinMgr::Update(void)
 {
-	for (auto& iter : m_CoinList)
+	for (auto& iter = m_CoinList.begin(); iter != m_CoinList.end();)
 	{
-		iter->Update();
+		if ((*iter)->Update() == OBJ_DEAD)
+		{
+			Safe_Delete<CCoin*>(*iter);
+			iter = m_CoinList.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
-void CCoinMgr::LateUpdate(void)
+void CCoinMgr::Late_Update(void)
 {
 	for (auto& iter : m_CoinList)
 	{
@@ -72,5 +80,5 @@ void CCoinMgr::Render(HDC hDC)
 
 void CCoinMgr::Release(void)
 {
-	m_CoinList.clear();
 }
+

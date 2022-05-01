@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Collision.h"
 #include "ObjMgr.h"
+#include "LineFactory.h"
 
 
 CBlock::CBlock()
@@ -18,9 +19,13 @@ CBlock::~CBlock()
 
 void CBlock::Initialize(void)
 {
-	m_tInfo.fCX = 40.f;
-	m_tInfo.fCY = 40.f;
+	m_tInfo.fCX = 50.f;
+	m_tInfo.fCY = 50.f;
 	m_bAir = false;
+	m_Block_RoofLine = CLineFactory::Create_Line(m_tBlock_Roof);
+	m_tBlock_Roof = { {m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
+	OBJMGR->Add_Notbeing(NOTBEING_LINE, *m_Block_RoofLine);
+	static_cast<CLine*>(m_Block_RoofLine)->Set_Render(false);
 }
 
 const int& CBlock::Update(void)
@@ -31,7 +36,7 @@ const int& CBlock::Update(void)
 	float _fCollisionY(0.f);
 	//안착할 라인이 있다 없다.
 	bool bLineCol = CCollision::Collision_Line(*this, CObjMgr::Get_Instance()->Get_NotBeing_list(NOTBEING_LINE), _fY);
-	//bool bBlockCol = CCollision::Collision_Block_Block(*this, OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK), _fCollisionY);
+	
 	if (m_bBlockCol)
 	{
 		_fY = _fCollisionY;
@@ -55,6 +60,8 @@ const int& CBlock::Update(void)
 		m_bAir = true;
 	}
 
+	m_tBlock_Roof = { { m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
+	static_cast<CLine*>(m_Block_RoofLine)->Set_Line(m_tBlock_Roof);
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
@@ -69,6 +76,11 @@ void CBlock::Render(HDC _hDC)
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.top, nullptr);
+	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.bottom);
+
+	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.bottom, nullptr);
+	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.top);
 }
 
 void CBlock::Release(void)

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "ObjMgr.h"
 #include "Block.h"
+#include "Coin.h"
 
 
 CCollision::CCollision()
@@ -64,6 +65,54 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 
 	return true;
 }
+
+void CCollision::Collision_Player_RightWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX > line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
+			{
+				static_cast<CPlayer*>(PLAYER)->Set_Left_Move(true);
+				return;
+			}
+		}
+	}
+	static_cast<CPlayer*>(PLAYER)->Set_Left_Move(false);
+	return;
+}
+
+void CCollision::Collision_Player_LeftWall()
+{
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+	{
+		CLine* line = static_cast<CLine*>(iter);
+		POINT& fLeft_Leg = static_cast<CPlayer*>(PLAYER)->Get_Left_Leg();
+		//벽vs플레이어
+		if (PLAYER->Get_Info().fY > line->Get_LinePoint().tLeft.fY &&
+			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
+			)
+		{
+			if (PLAYER->Get_Info().fX < line->Get_LinePoint().tLeft.fX
+				&&
+				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
+			{
+				static_cast<CPlayer*>(PLAYER)->Set_Right_Move(true);
+				return;
+			}
+		}
+	}
+	static_cast<CPlayer*>(PLAYER)->Set_Right_Move(false);
+	return;
+} 
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
@@ -134,12 +183,10 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 
 void CCollision::Collision_Block_Block()
 {
-	//for (auto& _block : m_Block_List)
 	std::list<CObj*>& m_Block_List = OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK);
-	//for (auto& _block = m_Block_List.begin(); _block != m_Block_List.end(); ++_block)
+	
 	for (auto& _block : m_Block_List)
 	{
-		//for (auto& _block_2 = _block; _block_2 != m_Block_List.end(); ++_block_2)
 		for (auto& _block_2 : m_Block_List)
 		{
 			if (_block == _block_2)
@@ -158,18 +205,7 @@ void CCollision::Collision_Block_Block()
 				float _fChangeX(fCX - fWidth);
 				float _fChangeY(fCY - fHeight);
 
-				if (_fChangeX > _fChangeY)
-				{
-					if ((_block)->Get_Info().fY > (_block_2)->Get_Info().fY)
-					{
-						(_block)->Set_Pos((_block_2)->Get_Info().fX, (_block)->Get_Info().fY + fCY + 1);
-						static_cast<CBlock*>(_block)->Set_BlockCol();
-					}
-					else
-					{
-					}
-				}
-				else
+				if (!(_fChangeX > _fChangeY))
 				{
 					if ((_block)->Get_Info().fX > (_block_2)->Get_Info().fX)
 					{
@@ -201,8 +237,61 @@ void CCollision::Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<C
 	}
 }
 
+void CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List)
+{
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	RECT Player_Rc = _Obj.Get_Rect();
+	INFO _Player_Info = _Obj.Get_Info();
+
+	INFO Coin_Info;
+	RECT Collision = { 0,0,0,0 };
+
+	for (auto& _Coin : m_Coin_List)
+	{
+		Coin_Info = _Coin->Get_Info();
+		
+		Collision.left = LONG(Player_Rc.left - Coin_Info.fCX);
+		Collision.right = LONG(Player_Rc.right + Coin_Info.fCX);
+		Collision.top = LONG(Player_Rc.top - Coin_Info.fCY);
+		Collision.bottom = LONG(Player_Rc.bottom + Coin_Info.fCY);
+
+		if ((Coin_Info.fX > Collision.left && Coin_Info.fX < Collision.right) && (Coin_Info.fY < Collision.bottom && Coin_Info.fY > Collision.top))
+		{
+			player->PlayerCoinColli();
+			_Coin->Dead();
+		}
+	}
+}
+
+void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CItem*>& m_Item_List)
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	for (auto& _iTEM : m_Item_List)
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
+		{
+			player->Get_ItemType(_iTEM->Itemtype());
+			_iTEM->Set_Hp();
+		}
+	}
+}
 
 
+void CCollision::Collision_Thorn()
+{
+	if (PLAYER->Get_Info().fX + PLAYER->Get_Info().fCX * 0.5f <
+		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fX
+		+ OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fCX * 0.5f)
+	{
+		PLAYER->Set_Hp(0);
+	}	
+}
 
-
-
+//void CCollision::Collision_Block_Wall()
+//{
+//	for (auto& _block : m_Block_List)
+//
+//
+//	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
+//}

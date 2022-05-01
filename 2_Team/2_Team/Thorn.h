@@ -1,12 +1,11 @@
 #pragma once
 #include "NotBeing.h"
-
-class CBlock final
-	: public CNotBeing
+class CThorn :
+	public CNotBeing
 {
 public:
-	CBlock();
-	virtual ~CBlock();
+	CThorn();
+	virtual ~CThorn();
 
 	// CNotBeing을(를) 통해 상속됨
 	virtual void Initialize(void) override;
@@ -14,16 +13,5 @@ public:
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
-
-	void Set_BlockCol() { m_bBlockCol = true; }
-
-private:
-	float	m_fJumpPower;
-	float	m_fJumpTime;
-	bool	m_bBlockCol;
-
-	LINE m_tBlock_Roof;
-
-	CObj* m_Block_RoofLine;	
 };
 
