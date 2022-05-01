@@ -66,7 +66,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 	return true;
 }
 
-bool CCollision::Collision_Player_RightWall()
+void CCollision::Collision_Player_RightWall()
 {
 	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
 	{
@@ -81,14 +81,14 @@ bool CCollision::Collision_Player_RightWall()
 				&&
 				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
 			{
-				return true;
+				static_cast<CPlayer*>(PLAYER)->Set_Left_Move(true);
 			}
 		}
 	}
-	return false;
+	static_cast<CPlayer*>(PLAYER)->Set_Left_Move(false);
 }
 
-bool CCollision::Collision_Player_LeftWall()
+void CCollision::Collision_Player_LeftWall()
 {
 	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
 	{
@@ -103,12 +103,12 @@ bool CCollision::Collision_Player_LeftWall()
 				&&
 				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
 			{
-				return true;
+				static_cast<CPlayer*>(PLAYER)->Set_Right_Move(true);
 			}
 		}
 	}
-	return false;
-}
+	static_cast<CPlayer*>(PLAYER)->Set_Right_Move(false);
+} 
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
@@ -270,4 +270,15 @@ void CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_Lis
 			_Coin->Dead();
 		}
 	}
+}
+
+
+void CCollision::Collision_Thorn()
+{
+	if (PLAYER->Get_Info().fX + PLAYER->Get_Info().fCX * 0.5f <
+		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fX
+		+ OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fCX * 0.5f)
+	{
+		PLAYER->Set_Hp(0);
+	}	
 }

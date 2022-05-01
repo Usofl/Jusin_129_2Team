@@ -13,6 +13,8 @@ CPlayer::CPlayer()
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
 	, m_iLife(3)
+	, m_bLeft_Move(false)
+	, m_bRight_Move(false)
 {
 }
 
@@ -45,6 +47,11 @@ void CPlayer::Initialize(void)
 
 const int& CPlayer::Update(void)
 {
+	if (0 >= m_iHp)
+	{
+		return OBJ_DEAD;
+	}
+
 	Key_Input();
 
 	Jumping();
@@ -275,7 +282,9 @@ void CPlayer::Key_Input(void)
 		m_iReverse = 1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
-		if (CCollision::Collision_Player_LeftWall())
+		
+
+		if (m_bRight_Move)
 			return;
 
 		if (m_bChange)
@@ -315,8 +324,12 @@ void CPlayer::Key_Input(void)
 		m_iReverse = -1;
 		m_fJumpPower = 20.f;
 		m_fJumpAngle = 45.f;
-		if (CCollision::Collision_Player_RightWall())
-			return;
+		/*if (CCollision::Collision_Player_RightWall())
+			return;*/
+
+		if (m_bLeft_Move)
+			return; 
+
 		if (m_bChange)
 		{
 			m_tLeft_Leg.x -= (LONG)m_fSpeed;

@@ -62,6 +62,7 @@ void CObjMgr::Initialize(void)
 
 void CObjMgr::Update(void)
 {
+	
 	for (auto& list_iter : m_NotBeing_list)
 	{
 		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
@@ -78,14 +79,16 @@ void CObjMgr::Update(void)
 		}
 	}
 
-	for (auto& list_iter : m_Being_list)
+	PLAYER->Update();
+
+	for (int i = BEING_MONSTER; i < BEING_END ; ++i)
 	{
-		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
+		for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
 		{
 			if ((*iter)->Update() == OBJ_DEAD)
 			{
 				Safe_Delete<CObj*>(*iter);
-				iter = list_iter.erase(iter);
+				iter = m_Being_list[i].erase(iter);
 			}
 			else
 			{
@@ -112,6 +115,8 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 		}
 	}
+	CCollision::Collision_Player_LeftWall();
+	CCollision::Collision_Player_RightWall();
 
 	CCollision::Collision_Player_Bullet(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_Being_list(BEING_MONSTERBULLET));
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
