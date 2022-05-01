@@ -14,7 +14,7 @@ public:
 
 	std::list<CUI*>& Get_Uilist() { return m_UiList; }
 
-	static		CUiMgr*		Get_Instance(void)
+	static		CUiMgr*&		Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{

@@ -3,7 +3,7 @@
 
 
 CObj::CObj()
-	: m_iHp(1)
+	: m_iHp(2)
 	, m_iAtt(1)
 	, m_fSpeed(0.f)
 	, m_fAngle(0.f)

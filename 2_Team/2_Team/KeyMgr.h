@@ -15,7 +15,7 @@ public:
 
 
 public:
-	static		CKeyMgr*		Get_Instance(void)
+	static		CKeyMgr*&		Get_Instance(void)
 	{
 		if (!m_pInstance)
 		{

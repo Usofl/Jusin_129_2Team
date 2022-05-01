@@ -6,3 +6,16 @@
 
 // TODO: 필요한 추가 헤더는
 // 이 파일이 아닌 STDAFX.H에서 참조합니다.
+const int& Random_Num(const int& _min, const int& _max)
+{
+	// 시드값을 얻기 위한 random_device 생성.
+	std::random_device rd;
+
+	// random_device 를 통해 난수 생성 엔진을 초기화 한다.
+	std::mt19937 gen(rd());
+
+	// _min 부터 _max 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
+	std::uniform_int_distribution<int> dis(_min, _max);
+
+	return dis(gen);
+}

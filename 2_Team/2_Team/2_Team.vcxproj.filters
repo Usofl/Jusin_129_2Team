@@ -115,6 +115,12 @@
     <Filter Include="01. Obj\00. Being\00. Player\00. Gomu_Fistol">
       <UniqueIdentifier>{e118e877-efa2-4f39-b55c-caf22a72cea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\01.Gun">
+      <UniqueIdentifier>{49529d80-133a-49cd-ae1c-00ad2c4c5cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\02.Life">
+      <UniqueIdentifier>{60206fe2-edd9-4b53-9559-93c02b72d29d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -249,6 +255,15 @@
     <ClInclude Include="GomuFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\01.Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\02.Life</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -337,6 +352,12 @@
     </ClCompile>
     <ClCompile Include="Gomu_Fistol.cpp">
       <Filter>01. Obj\00. Being\00. Player\00. Gomu_Fistol</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\01.Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\02.Life</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
