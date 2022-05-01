@@ -82,10 +82,12 @@ void CCollision::Collision_Player_RightWall()
 				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
 			{
 				static_cast<CPlayer*>(PLAYER)->Set_Left_Move(true);
+				return;
 			}
 		}
 	}
 	static_cast<CPlayer*>(PLAYER)->Set_Left_Move(false);
+	return;
 }
 
 void CCollision::Collision_Player_LeftWall()
@@ -104,10 +106,12 @@ void CCollision::Collision_Player_LeftWall()
 				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
 			{
 				static_cast<CPlayer*>(PLAYER)->Set_Right_Move(true);
+				return;
 			}
 		}
 	}
 	static_cast<CPlayer*>(PLAYER)->Set_Right_Move(false);
+	return;
 } 
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
@@ -259,10 +263,10 @@ void CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_Lis
 	{
 		Coin_Info = _Coin->Get_Info();
 		
-		Collision.left = Player_Rc.left - Coin_Info.fCX;
-		Collision.right = Player_Rc.right + Coin_Info.fCX;
-		Collision.top = Player_Rc.top - Coin_Info.fCY;
-		Collision.bottom = Player_Rc.bottom + Coin_Info.fCY;
+		Collision.left = LONG(Player_Rc.left - Coin_Info.fCX);
+		Collision.right = LONG(Player_Rc.right + Coin_Info.fCX);
+		Collision.top = LONG(Player_Rc.top - Coin_Info.fCY);
+		Collision.bottom = LONG(Player_Rc.bottom + Coin_Info.fCY);
 
 		if ((Coin_Info.fX > Collision.left && Coin_Info.fX < Collision.right) && (Coin_Info.fY < Collision.bottom && Coin_Info.fY > Collision.top))
 		{
@@ -285,8 +289,6 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CItem*>& m_Item_Lis
 		}
 	}
 }
-	}
-}
 
 
 void CCollision::Collision_Thorn()
@@ -297,20 +299,4 @@ void CCollision::Collision_Thorn()
 	{
 		PLAYER->Set_Hp(0);
 	}	
-}
-	}
-}
-
-void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CItem*>& m_Item_List)
-{
-	RECT rc;
-	CPlayer* player = static_cast<CPlayer*>(&_Obj);
-	for (auto& _iTEM : m_Item_List)
-	{
-		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
-		{
-			player->Get_ItemType(_iTEM->Itemtype());
-			_iTEM->Set_Hp();
-		}
-	}
 }

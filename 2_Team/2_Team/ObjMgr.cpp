@@ -118,6 +118,7 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 		}
 	}
+
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
 
