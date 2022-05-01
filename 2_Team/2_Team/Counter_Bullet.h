@@ -1,12 +1,14 @@
 #pragma once
 #include "Being.h"
-class CGomu_Fistol :
+#include "ObjMgr.h"
+
+class CCounter_Bullet :
 	public CBeing
 {
 public:
-	CGomu_Fistol();
-	CGomu_Fistol(const POINT& _tPoint, const int& _iReverse);
-	virtual ~CGomu_Fistol();
+	CCounter_Bullet();
+	CCounter_Bullet(const INFO& _tInfo);
+	virtual ~CCounter_Bullet();
 
 	// CBeing을(를) 통해 상속됨
 	virtual void Initialize(void) override;
@@ -16,7 +18,7 @@ public:
 	virtual void Release(void) override;
 
 private:
-	unsigned int m_uiArea;
-	std::stack<float> m_AreaStack;
+	float m_fAngle;
+	float m_fCounter_Time;
 };
 

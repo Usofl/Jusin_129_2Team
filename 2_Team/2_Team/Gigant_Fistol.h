@@ -1,12 +1,12 @@
 #pragma once
 #include "Being.h"
-class CGomu_Fistol :
+class CGigant_Fistol :
 	public CBeing
 {
 public:
-	CGomu_Fistol();
-	CGomu_Fistol(const POINT& _tPoint, const int& _iReverse);
-	virtual ~CGomu_Fistol();
+	CGigant_Fistol();
+	CGigant_Fistol(const POINT& _tPoint, const int& _iReverse, const unsigned int& _iSize);
+	~CGigant_Fistol();
 
 	// CBeing을(를) 통해 상속됨
 	virtual void Initialize(void) override;

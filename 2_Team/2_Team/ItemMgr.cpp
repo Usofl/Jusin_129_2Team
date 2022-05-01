@@ -13,7 +13,7 @@ CItemMgr::~CItemMgr()
 
 void CItemMgr::Initialize(void)
 {
-	m_Itemlist.push_back(new CItem);
+	//m_Itemlist.push_back(new CItem);
 	for (auto& iter : m_Itemlist)
 	{
 		iter->Initialize();

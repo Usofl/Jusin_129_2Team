@@ -1,11 +1,5 @@
 #pragma once
 #include "Being.h"
-#include "Collision.h"
-#include "ObjMgr.h"
-#include "GomuFactory.h"
-#include "ScrollMgr.h"
-#include "LineMgr.h"
-#include "KeyMgr.h"
 
 class CPlayer :
 	public CBeing
@@ -23,21 +17,23 @@ public:
 
 	inline POINT& Get_Left_Leg(void) { return m_tLeft_Leg; }
 	inline POINT& Get_Right_Leg(void) { return m_tRight_Leg; }
-	inline bool& Get_Jumping(void) { return m_bJump; }
+	inline const bool& Get_Jumping(void) { return m_bJump; }
+	inline const bool& Get_Balloon(void) { return m_bBalloon; }
 
 	void Jumping(void);
 	void SetBody(void);
 	void OffSet(void);
 
-	bool Get_Pool() { return m_bPool;}
-	int Set_Coin() { return m_iCoin; }
-	int Set_Life() { return m_iLife; }
+	inline const bool& Get_Pool() { return m_bPool;}
+	inline const int& Get_Coin() { return m_iCoin; }
+	inline const int& Get_Life() { return m_iLife; }
+
 	void PlayerCoinColli(void);
-	void Get_ItemType(int _Itemtype);
+	void Put_ItemType(const int& _Itemtype);
 
 	void Set_Jump() { m_bJump = false; }
-	void Set_Right_Move(bool _bMove) { m_bRight_Move = _bMove; }
-	void Set_Left_Move(bool _bMove) { m_bLeft_Move = _bMove; }
+	void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
+	void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
 
 private:
 	void Key_Input(void);
@@ -48,8 +44,8 @@ private:
 	bool m_bJump;
 	bool m_bPool;
 	bool m_bBalloon;
+	bool m_bCharging;
 
-	int   m_iReverse;
 	int   m_iCoin;
 	int   m_iLife;
 	int   m_iItemtype;
@@ -57,9 +53,12 @@ private:
 	float m_fJumpPower;
 	float m_fJumpAngle;
 
+	float m_fCharging;
+
 	bool m_bRight_Move;
 	bool m_bLeft_Move;
 
+	DWORD m_dwGigant;
 	POINT m_tLeft_Leg;
 	POINT m_tRight_Leg;
 };

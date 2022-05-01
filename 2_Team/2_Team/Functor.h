@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef FUNCTOR
+#define FUNCTOR
 template<typename T>
 void	Safe_Delete(T& Temp)
 {
@@ -20,5 +22,4 @@ void	Safe_Delete_Array(T& Temp)
 	}
 }
 
-
-
+#endif FUNCTOR
