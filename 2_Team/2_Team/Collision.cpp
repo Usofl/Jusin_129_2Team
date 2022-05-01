@@ -5,6 +5,7 @@
 #include "ObjMgr.h"
 #include "Block.h"
 #include "Coin.h"
+#include "GomuFactory.h"
 
 
 CCollision::CCollision()
@@ -221,18 +222,20 @@ void CCollision::Collision_Block_Block()
 	}
 }
 
-void CCollision::Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<CObj*>& _pBullet)
+void CCollision::Collision_Player_Bullet()
 {
 	RECT rc{};
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
 
-	for (auto& Player : _pPlayer)
+	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_MONSTERBULLET))
 	{
-		for (auto& Bullet : _pBullet)
+		if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
 		{
-			if (IntersectRect(&rc, &(Player->Get_Rect()), &(Bullet->Get_Rect())))
+			if (player->Get_Balloon())
 			{
-				Bullet->Set_Hp(0);
+				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
 			}
+			Bullet->Set_Hp(0);
 		}
 	}
 }

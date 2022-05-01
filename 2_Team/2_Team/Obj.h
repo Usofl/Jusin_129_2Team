@@ -42,8 +42,10 @@ protected:
 	RECT m_tRect;
 
 	int   m_iReverse;
+
 	int m_iHp;
 	int m_iAtt;
+
 	float m_fSpeed;
 	float m_fAngle;
 

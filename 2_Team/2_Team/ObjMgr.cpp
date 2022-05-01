@@ -124,13 +124,13 @@ void CObjMgr::Late_Update(void)
 			iter->Late_Update();
 		}
 	}
-
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
 
-	CCollision::Collision_Player_Bullet(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_Being_list(BEING_MONSTERBULLET));
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
+
+	CCollision::Collision_Player_Bullet();
 }
 
 void CObjMgr::Render(HDC _hdc)

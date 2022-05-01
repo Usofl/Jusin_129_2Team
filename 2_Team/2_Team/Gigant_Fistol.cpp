@@ -67,9 +67,9 @@ void CGigant_Fistol::Render(HDC _hDC)
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 	if (1 != m_iReverse)
 	{
-		float fTemp = m_tRect.left;
+		long lTemp = m_tRect.left;
 		m_tRect.left = m_tRect.right;
-		m_tRect.right = fTemp;
+		m_tRect.right = lTemp;
 	}
 
 	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);

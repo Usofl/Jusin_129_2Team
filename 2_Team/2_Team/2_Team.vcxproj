@@ -149,6 +149,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinFactory.h" />
     <ClInclude Include="CoinMgr.h" />
+    <ClInclude Include="Counter_Bullet.h" />
     <ClInclude Include="Gigant_Fistol.h" />
     <ClInclude Include="GomuFactory.h" />
     <ClInclude Include="Gomu_Fistol.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Counter_Bullet.cpp" />
     <ClCompile Include="Gigant_Fistol.cpp" />
     <ClCompile Include="Gomu_Fistol.cpp" />
     <ClCompile Include="Gun.cpp" />

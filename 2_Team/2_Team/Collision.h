@@ -19,7 +19,7 @@ public:
 	static void Collision_Block_Wall();
 
 public:
-	static void Collision_Player_Bullet(std::list<CObj*>& _pPlayer, std::list<CObj*>& _pBullet);
+	static void Collision_Player_Bullet();
 
 	static void Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List);
 	static void Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List);

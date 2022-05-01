@@ -124,6 +124,9 @@
     <Filter Include="01. Obj\00. Being\00. Player\01. Gigant_Fistol">
       <UniqueIdentifier>{1e7bde76-430e-4e9a-8fe0-eac2e04eaaf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\00. Being\00. Player\02.Counter_Bullet">
+      <UniqueIdentifier>{4591949f-fe57-45c9-8266-a9f69f2dc2a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -270,6 +273,9 @@
     <ClInclude Include="Gigant_Fistol.h">
       <Filter>01. Obj\00. Being\00. Player\01. Gigant_Fistol</Filter>
     </ClInclude>
+    <ClInclude Include="Counter_Bullet.h">
+      <Filter>01. Obj\00. Being\00. Player\02.Counter_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="Gigant_Fistol.cpp">
       <Filter>01. Obj\00. Being\00. Player\01. Gigant_Fistol</Filter>
+    </ClCompile>
+    <ClCompile Include="Counter_Bullet.cpp">
+      <Filter>01. Obj\00. Being\00. Player\02.Counter_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
