@@ -22,9 +22,17 @@ void CItemMgr::Initialize(void)
 
 void CItemMgr::Update(void)
 {
-	for (auto& iter : m_Itemlist)
+	for (auto& iter = m_Itemlist.begin(); iter != m_Itemlist.end();)
 	{
-		iter->Update();
+		if ((*iter)->Update() == OBJ_DEAD)
+		{
+			Safe_Delete<CItem*>(*iter);
+			iter = m_Itemlist.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 

@@ -31,7 +31,7 @@ const int & CCoin::Update(void)
 	if (m_iHp <= 0)
 		return OBJ_DEAD;
 
-	m_fAngle += 4.f;
+	m_fAngle += 3.f;
 	return OBJ_NOEVENT;
 }
 
