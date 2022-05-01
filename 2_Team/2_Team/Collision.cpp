@@ -289,17 +289,6 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 	}
 }
 
-
-void CCollision::Collision_Thorn()
-{
-	if (PLAYER->Get_Info().fX + PLAYER->Get_Info().fCX * 0.5f <
-		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fX
-		+ OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fCX * 0.5f)
-	{
-		PLAYER->Set_Hp(0);
-	}	
-}
-
 //void CCollision::Collision_Block_Wall()
 //{
 //	for (auto& _block : m_Block_List)
