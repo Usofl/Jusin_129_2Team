@@ -344,6 +344,7 @@ void CPlayer::Key_Input(void)
 		{
 			POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
 			OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(tPoint, m_iReverse));
+			m_fCharging = 0.f;
 		}
 
 		SetBody();
