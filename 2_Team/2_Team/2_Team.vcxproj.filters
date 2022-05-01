@@ -85,6 +85,36 @@
     <Filter Include="02.State">
       <UniqueIdentifier>{746e819e-ceff-4027-9c5d-44c74ab78e71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Ui">
+      <UniqueIdentifier>{d5e8f9fc-835d-411a-8a22-fd2e9eaae2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\00.Coin">
+      <UniqueIdentifier>{4675cc75-3103-43bc-b9b7-15b35c5ce6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\03.ItemMgr">
+      <UniqueIdentifier>{9890a241-3c94-4343-b196-03e4a942c46f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\04.UiMgr">
+      <UniqueIdentifier>{6ab627b5-128e-4328-87d2-2f3e2543e413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\03.ItemMgr\02.CoinMgr">
+      <UniqueIdentifier>{810a2c6f-54c5-4fc2-9f66-a906243ac99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\05. ScrollMgr">
+      <UniqueIdentifier>{3a4cb81e-c358-4511-9e24-2fa473591d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet">
+      <UniqueIdentifier>{954223f5-d882-49da-80bd-6a17f3da7cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap">
+      <UniqueIdentifier>{2a33391f-f034-42dc-a541-badfb37cfea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\06. Trap\00. Thorn">
+      <UniqueIdentifier>{ca1d3c5a-af07-4877-8953-fefb17af73b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Being\00. Player\00. Gomu_Fistol">
+      <UniqueIdentifier>{e118e877-efa2-4f39-b55c-caf22a72cea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -162,9 +192,6 @@
     <ClInclude Include="State.h">
       <Filter>02.State</Filter>
     </ClInclude>
-    <ClInclude Include="Cloud.h">
-      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
-    </ClInclude>
     <ClInclude Include="Warrior.h">
       <Filter>01. Obj\00. Being\01. Monster\Warrior</Filter>
     </ClInclude>
@@ -177,10 +204,49 @@
     <ClInclude Include="MonsterFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
-    <ClInclude Include="M_Bullet.h">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="BlockFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>03.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>01. Obj\01. NotBeing\02. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\00.Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinMgr.h">
+      <Filter>01. Manager\03.ItemMgr\02.CoinMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="UiMgr.h">
+      <Filter>01. Manager\04.UiMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMgr.h">
+      <Filter>01. Manager\03.ItemMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Cloud.h">
+      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud_Bullet.h">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Thorn.h">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
+    </ClInclude>
+    <ClInclude Include="TrapFactory.h">
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Gomu_Fistol.h">
+      <Filter>01. Obj\00. Being\00. Player\00. Gomu_Fistol</Filter>
+    </ClInclude>
+    <ClInclude Include="GomuFactory.h">
       <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -230,8 +296,17 @@
     <ClCompile Include="State.cpp">
       <Filter>02.State</Filter>
     </ClCompile>
-    <ClCompile Include="Cloud.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
+    <ClCompile Include="UI.cpp">
+      <Filter>03.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\00.Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinMgr.cpp">
+      <Filter>01. Manager\03.ItemMgr\02.CoinMgr</Filter>
     </ClCompile>
     <ClCompile Include="Warrior.cpp">
       <Filter>01. Obj\00. Being\01. Monster\Warrior</Filter>
@@ -242,8 +317,26 @@
     <ClCompile Include="Monster.cpp">
       <Filter>01. Obj\00. Being\01. Monster</Filter>
     </ClCompile>
-    <ClCompile Include="M_Bullet.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet</Filter>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>01. Manager\05. ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Cloud.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\00. Cloud_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UiMgr.cpp">
+      <Filter>01. Manager\04.UiMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemMgr.cpp">
+      <Filter>01. Manager\03.ItemMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Thorn.cpp">
+      <Filter>01. Obj\01. NotBeing\06. Trap\00. Thorn</Filter>
+    </ClCompile>
+    <ClCompile Include="Gomu_Fistol.cpp">
+      <Filter>01. Obj\00. Being\00. Player\00. Gomu_Fistol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

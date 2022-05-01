@@ -1,21 +1,17 @@
 #pragma once
-#include "Being.h"
-class CBullet :
-	public CBeing
+#include "NotBeing.h"
+class CThorn :
+	public CNotBeing
 {
 public:
-	CBullet();
-	virtual ~CBullet();
+	CThorn();
+	virtual ~CThorn();
 
-public:
-
-
-public:
+	// CNotBeing을(를) 통해 상속됨
 	virtual void Initialize(void) override;
-	virtual const int&  Update(void) override;
+	virtual const int & Update(void) override;
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
-
 };
 

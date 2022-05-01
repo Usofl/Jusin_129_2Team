@@ -12,48 +12,42 @@ CState::~CState()
 
 void CState::Initialize()
 {
-	m_MouseInfo.fCX = 20;
-	m_MouseInfo.fCY = 20;
+	m_tMouseInfo.fCX = 20;
+	m_tMouseInfo.fCY = 20;
 	m_fMouseAngle = 1.f;
 
-	m_StartRect = { 200, 450, 350, 520 };
-	m_ExitRect = { 450, 450, 600, 520 };
+	m_tStartRect = { 200, 430, 350, 500 };
+	m_tExitRect = { 450, 430, 600, 500 };
 }
 
 void CState::Update()
 {
-	m_MouseInfo.fCX = 20;
-	m_MouseInfo.fCY = 20;
-	m_fMouseAngle = 1.f;
-
-	m_StartRect = { 200, 450, 350, 520 };
-	m_ExitRect = { 450, 450, 600, 520 };
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
-		if (IntersectRect(&m_Colli, &m_StartRect, &m_MouseRect))
+		if (IntersectRect(&m_tColli, &m_tStartRect, &m_tMouseRect))
 		{
 			m_iState = STATE_GAME;
 		}
-		else if (IntersectRect(&m_Colli, &m_ExitRect, &m_MouseRect))
+		else if (IntersectRect(&m_tColli, &m_tExitRect, &m_tMouseRect))
 		{
-			m_iState = STATE_END;
-			DestroyWindow(g_hWnd);
+			m_iState = STATE_OVER;
+			//DestroyWindow(g_hWnd);
 		}
 	}
 
-	GetCursorPos(&m_Mouse);
-	ScreenToClient(g_hWnd, &m_Mouse);
+	GetCursorPos(&m_tMouse);
+	ScreenToClient(g_hWnd, &m_tMouse);
 
 	m_fMouseAngle += 4.f;
 
-	m_MouseRect.left = m_Mouse.x - (LONG)(m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
-	m_MouseRect.right = m_Mouse.x + (LONG)(m_MouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
-	m_MouseRect.top = m_Mouse.y - (LONG)(m_MouseInfo.fCY);
-	m_MouseRect.bottom = m_Mouse.y + (LONG)(m_MouseInfo.fCY);
 }
 
 void CState::Late_Update()
 {
+	m_tMouseRect.left = m_tMouse.x - (LONG)(m_tMouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
+	m_tMouseRect.right = m_tMouse.x + (LONG)(m_tMouseInfo.fCX * sinf((m_fMouseAngle * PI) / 180.f));
+	m_tMouseRect.top = m_tMouse.y - (LONG)(m_tMouseInfo.fCY);
+	m_tMouseRect.bottom = m_tMouse.y + (LONG)(m_tMouseInfo.fCY);
 }
 
 void CState::Render(HDC hDC)
@@ -63,14 +57,43 @@ void CState::Render(HDC hDC)
 		TextOut(hDC, WINCX / 2 - 50, WINCY / 2 - 40, TEXT("PAUSE"), 5);
 		TextOut(hDC, WINCX / 2 - 100, WINCY / 2, TEXT("PRESS 'R' TO RESTART"), 20);
 	}
+	else if (m_iState == STATE_OVER)
+	{
+		RECT m_tLifeRect;
+		m_tLifeRect.left = 345;
+		m_tLifeRect.right = 360;
+		m_tLifeRect.top = 235;
+		m_tLifeRect.bottom = 250;
+		Ellipse(hDC, m_tLifeRect.left, m_tLifeRect.top, m_tLifeRect.right, m_tLifeRect.bottom);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10);
+
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 20);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 10, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 20);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 - 7, m_tLifeRect.bottom + 10);
+
+		MoveToEx(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5, m_tLifeRect.bottom + 2, nullptr);
+		LineTo(hDC, (LONG)(m_tLifeRect.left + m_tLifeRect.right)*0.5 + 7, m_tLifeRect.bottom + 10);
+
+		TCHAR	Temp[64];
+		TextOut(hDC, WINCX / 2 - 100, WINCY / 2, TEXT("PRESS 'R' TO RESTART"), 20);
+		wsprintf(Temp, L"%d", m_iLife);
+		TextOut(hDC, WINCX / 2 - 20, WINCY / 2 - 50, TEXT("X"), 1);
+		TextOut(hDC, WINCX / 2, WINCY / 2 - 50, Temp, lstrlen(Temp));
+	}
 	else
 	{
-		Rectangle(hDC, m_StartRect.left, m_StartRect.top, m_StartRect.right, m_StartRect.bottom);
-		TextOut(hDC, (LONG)((m_StartRect.left + m_StartRect.right) * 0.5) - 20, (LONG)((m_StartRect.top + m_StartRect.bottom) * 0.5), TEXT("Start!"), 6);
-		Rectangle(hDC, m_ExitRect.left, m_ExitRect.top, m_ExitRect.right, m_ExitRect.bottom);
-		TextOut(hDC, (LONG)((m_ExitRect.left + m_ExitRect.right) * 0.5) - 20, (LONG)((m_ExitRect.top + m_ExitRect.bottom) * 0.5), TEXT("Exit"), 4);
+		Rectangle(hDC, m_tStartRect.left, m_tStartRect.top, m_tStartRect.right, m_tStartRect.bottom);
+		TextOut(hDC, (LONG)((m_tStartRect.left + m_tStartRect.right) * 0.5) - 20, (LONG)((m_tStartRect.top + m_tStartRect.bottom) * 0.5 - 10), TEXT("Start!"), 6);
+		Rectangle(hDC, m_tExitRect.left, m_tExitRect.top, m_tExitRect.right, m_tExitRect.bottom);
+		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5 - 10), TEXT("Exit"), 4);
 
-		Rectangle(hDC, m_MouseRect.left, m_MouseRect.top, m_MouseRect.right, m_MouseRect.bottom);
+		Rectangle(hDC, m_tMouseRect.left, m_tMouseRect.top, m_tMouseRect.right, m_tMouseRect.bottom);
 	}
 }
 

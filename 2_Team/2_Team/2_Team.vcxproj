@@ -146,7 +146,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinFactory.h" />
+    <ClInclude Include="CoinMgr.h" />
+    <ClInclude Include="GomuFactory.h" />
+    <ClInclude Include="Gomu_Fistol.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="BlockFactory.h" />
+    <ClInclude Include="ItemMgr.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />
@@ -154,8 +161,8 @@
     <ClInclude Include="Being.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="M_Bullet.h" />
-    <ClInclude Include="Cloud.h" />
+    <ClInclude Include="Cloud_Bullet.h" />
+    <ClInclude Include="M_Cloud.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Functor.h" />
@@ -171,22 +178,32 @@
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SavePoint.h" />
+    <ClInclude Include="ScrollMgr.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Thorn.h" />
+    <ClInclude Include="TrapFactory.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UiMgr.h" />
     <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2_Team.cpp" />
     <ClCompile Include="Being.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Gomu_Fistol.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
-    <ClCompile Include="M_Bullet.cpp" />
-    <ClCompile Include="Cloud.cpp" />
+    <ClCompile Include="Cloud_Bullet.cpp" />
+    <ClCompile Include="M_Cloud.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -195,6 +212,7 @@
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SavePoint.cpp" />
+    <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -202,6 +220,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Thorn.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UiMgr.cpp" />
     <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>

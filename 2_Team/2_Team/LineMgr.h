@@ -15,8 +15,6 @@ public:
 	void Render(HDC _hDC);
 	void Release(void);
 
-
-
 private:
 	std::list<CObj*> m_Line_List;
 
@@ -37,8 +35,6 @@ public:
 			pInstance = nullptr;
 		}		
 	}
-
-
 
 private:
 	static CLineMgr* pInstance;

@@ -1,13 +1,18 @@
 #pragma once
 #include "Being.h"
+#include "Obj.h"
 #include "Monster.h"
+#include "Player.h"
+#include "Cloud_Bullet.h"
+#include "ObjMgr.h"
+#include "Collision.h"
 
-class CWarrior :
+class CM_Cloud :
 	public CMonster
 {
 public:
-	CWarrior();
-	virtual ~CWarrior();
+	CM_Cloud();
+	virtual ~CM_Cloud();
 
 public:
 	virtual void Initialize(void) override;
@@ -17,12 +22,9 @@ public:
 	virtual void Release(void) override;
 
 private:
-	POINT		m_tSword;
-
-	// 대각선? 소드길이
-	float		m_fDiagonal;
-
-	// 반전, 몹 뒤집기
-	int			m_iTurn;
+	// 시간 저장하는 변수
+	DWORD m_dwCount;
 };
+
+
 

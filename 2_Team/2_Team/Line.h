@@ -1,6 +1,7 @@
 #pragma once
 #include "NotBeing.h"
 #include "Include.h"
+#include "ScrollMgr.h"
 
 class CLine final :
 	public CNotBeing
