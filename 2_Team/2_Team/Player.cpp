@@ -220,7 +220,7 @@ void CPlayer::OffSet(void)
 {
 	int		iOffSetX = WINCX >> 1;
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	int		iItv = 300;
+	int		iItv = 100;
 
 
 	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
@@ -376,7 +376,10 @@ void CPlayer::Key_Input(void)
 			m_iReverse = 1;
 
 			if (m_bRight_Move)
+			{
+				m_fJumpAngle = 90.f;
 				return;
+			}
 
 			m_fJumpPower = 20.f;
 			m_fJumpAngle = 45.f;
@@ -418,7 +421,11 @@ void CPlayer::Key_Input(void)
 			m_iReverse = -1;
 
 			if (m_bLeft_Move)
+			{
+				m_fJumpAngle = 90.f;
 				return;
+			}
+				
 
 			m_fJumpPower = 20.f;
 			m_fJumpAngle = 45.f;

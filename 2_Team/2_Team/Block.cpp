@@ -27,7 +27,7 @@ void CBlock::Initialize(void)
 	m_bAir = false;
 	
 	m_Block_RoofLine = CLineFactory::Create_Line(m_tBlock_Roof);
-	m_tBlock_Roof = { {m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
+	m_tBlock_Roof = { {m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 4.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 4.f } };
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *m_Block_RoofLine);
 	static_cast<CLine*>(m_Block_RoofLine)->Set_Render(false);
 
