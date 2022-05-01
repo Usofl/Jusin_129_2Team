@@ -77,9 +77,9 @@ void CCollision::Collision_Player_RightWall()
 			PLAYER->Get_Info().fY < line->Get_LinePoint().tRight.fY
 			)
 		{
-			if (PLAYER->Get_Info().fX > line->Get_LinePoint().tLeft.fX
+			if (PLAYER->Get_Info().fX> line->Get_LinePoint().tLeft.fX
 				&&
-				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) - 5.f < line->Get_LinePoint().tLeft.fX)
+				PLAYER->Get_Info().fX - (PLAYER->Get_Info().fCX * 0.5f) + 5.f < line->Get_LinePoint().tLeft.fX)
 			{
 				static_cast<CPlayer*>(PLAYER)->Set_Left_Move(true);
 				return;
@@ -103,7 +103,7 @@ void CCollision::Collision_Player_LeftWall()
 		{
 			if (PLAYER->Get_Info().fX < line->Get_LinePoint().tLeft.fX
 				&&
-				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f) + 5 > line->Get_LinePoint().tLeft.fX)
+				PLAYER->Get_Info().fX + (PLAYER->Get_Info().fCX * 0.5f - 5.f) > line->Get_LinePoint().tLeft.fX)
 			{
 				static_cast<CPlayer*>(PLAYER)->Set_Right_Move(true);
 				return;
@@ -136,43 +136,74 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 				{
 					if (_player_info.fY > _block->Get_Info().fY)
 					{
-
-					}
-					else//하충돌
-					{
-						static_cast<CPlayer*>(_player)->Set_Jump();
+						if (_player_info.fY - _player_info.fCY*0.5f < _block->Get_Info().fY + _block->Get_Info().fCY * 0.5f)
+						{
+							static_cast<CPlayer*>(_player)->Set_Jump();
+						}
 					}
 				}
 				else
 				{
 					//우
-					if (_player_info.fX > _block->Get_Info().fX)
+					if(_player_info.fY > _block->Get_Info().fY || static_cast<CPlayer*>(_player)->Get_Pool())
 					{
+						if (_player_info.fX > _block->Get_Info().fX)
+						{
 					
-						if (static_cast<CPlayer*>(_player)->Get_Pool())
-						{
-							//float _fMoveX = 플레이어 좌표에서 블럭좌표 빼고 간격만큼 빼서 움직인다.
-							_block->Set_Pos(_block->Get_Info().fX + 1.f, _block->Get_Info().fY);
-							if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
-								_block->Set_Pos(_player_info.fX - fCX + 10.f, _block->Get_Info().fY);
+							if (static_cast<CPlayer*>(_player)->Get_Pool())
+							{
+								_block->Set_Pos(_block->Get_Info().fX + 5.f, _block->Get_Info().fY);
+								if (static_cast<CBlock*>(_block)->Get_Block_Up() != nullptr)
+								{
+									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
+									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
+									continue;
+								}
+						/*		else if (static_cast<CBlock*>(_block)->Get_Block_Right() != nullptr)
+								{
+									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
+									continue;
+								}*/
+								else if (static_cast<CBlock*>(_block)->Get_Block_Left() != nullptr)
+								{
+									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
+									continue;
+								}
+								
+								if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
+									_block->Set_Pos(_player_info.fX - fCX + 10.f, _block->Get_Info().fY);
+							}
+							else
+							{
+								static_cast<CPlayer*>(PLAYER)->Set_Pos(PLAYER->Get_Info().fX + _fChangeX, PLAYER->Get_Info().fY);
+								static_cast<CPlayer*>(PLAYER)->SetBody();
+							}
 						}
-						else
+						else//좌충돌
 						{
-							_block->Set_Pos(_block->Get_Info().fX - _fChangeX, _block->Get_Info().fY);
-						}
-						
-					}
-					else//좌충돌
-					{
-						if (static_cast<CPlayer*>(_player)->Get_Pool())
-						{
-							_block->Set_Pos(_block->Get_Info().fX - 1.f, _block->Get_Info().fY);
-							if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
-								_block->Set_Pos(_player_info.fX + fCX - 10.f, _block->Get_Info().fY);
-						}
-						else
-						{
-							_block->Set_Pos(_block->Get_Info().fX + _fChangeX, _block->Get_Info().fY);
+							if (static_cast<CPlayer*>(_player)->Get_Pool())
+							{
+								_block->Set_Pos(_block->Get_Info().fX - 5.f, _block->Get_Info().fY);
+								if (static_cast<CBlock*>(_block)->Get_Block_Up() != nullptr)
+								{
+									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
+									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
+									continue;
+								}
+								else if (static_cast<CBlock*>(_block)->Get_Block_Right() != nullptr)
+								{
+									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
+									continue;
+								}
+								
+								if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
+									_block->Set_Pos(_player_info.fX + fCX - 10.f, _block->Get_Info().fY);
+							}
+							else
+							{
+								PLAYER->Set_Pos(PLAYER->Get_Info().fX - _fChangeX, PLAYER->Get_Info().fY);
+								static_cast<CPlayer*>(PLAYER)->SetBody();
+							}
 						}
 					}
 				}
@@ -185,10 +216,16 @@ void CCollision::Collision_Block_Block()
 {
 	std::list<CObj*>& m_Block_List = OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK);
 	
+	CBlock* _block1_casting = nullptr;
+	CBlock* _block2_casting = nullptr;
+
 	for (auto& _block : m_Block_List)
 	{
+
 		for (auto& _block_2 : m_Block_List)
 		{
+			_block1_casting = static_cast<CBlock*>(_block);
+			//_block2_casting = static_cast<CBlock*>(_block_2);
 			if (_block == _block_2)
 			{
 				continue;
@@ -207,15 +244,32 @@ void CCollision::Collision_Block_Block()
 
 				if (!(_fChangeX > _fChangeY))
 				{
-					if ((_block)->Get_Info().fX > (_block_2)->Get_Info().fX)
+					if ((_block)->Get_Info().fX > (_block_2)->Get_Info().fX) //우충돌
 					{
-						(_block)->Set_Pos((_block_2)->Get_Info().fX + fCX + 1, (_block)->Get_Info().fY);
+						_block1_casting->Set_Block_Left(_block_2);
+						//static_cast<CPlayer*>(PLAYER)->Set_Left_Move(true);
+						//_block->Set_Pos(_block->Get_Info().fX + _fChangeX, _block->Get_Info().fY);
+						//_block2_casting->Set_Block_Right(_block);
 					}
-					else if ((_block)->Get_Info().fX < (_block_2)->Get_Info().fX)
+					else if ((_block)->Get_Info().fX < (_block_2)->Get_Info().fX) //좌충돌
 					{
-						(_block)->Set_Pos((_block_2)->Get_Info().fX - fCX - 1, (_block)->Get_Info().fY);
+						_block1_casting->Set_Block_Right(_block_2);
+						//static_cast<CPlayer*>(PLAYER)->Set_Right_Move(true);
+						//_block->Set_Pos(_block->Get_Info().fX - _fChangeX, _block->Get_Info().fY);
+						//_block2_casting->Set_Block_Left(_block);
 					}
 				}
+				else
+				{
+					if ((_block)->Get_Info().fY > (_block_2)->Get_Info().fY)
+					{
+						_block1_casting->Set_Block_Up(_block_2);
+					}
+				}
+			}
+			else
+			{
+				_block1_casting->Set_NoBlock();
 			}
 		}
 	}

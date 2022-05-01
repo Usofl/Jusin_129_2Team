@@ -22,12 +22,12 @@ void CObjMgr::Initialize(void)
 {
 	LINEPOINT _Linepoint[6] = 
 	{
-		{ 000,400 },
-		{ 800,400 },
+		{ 000,450 },
+		{ 800,450 },
 		{ 000,320 },
 		{ 400,320 },
 		{ 700,100 },
-		{ 700,400 }
+		{ 700,450 }
 	};
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[0], _Linepoint[1]));
 	m_NotBeing_list[NOTBEING_LINE].push_back(CLineFactory::Create_Line(_Linepoint[2], _Linepoint[3]));
@@ -36,10 +36,10 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_WALL].push_back(CLineFactory::Create_Line(_Linepoint[4], _Linepoint[5]));
 
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(250, 100));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(300, 200));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 250));
-	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(280, 250));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(360, 250));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(440, 350));
+	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(520, 300));
 
 	m_NotBeing_list[NOTBEING_TRAP].push_back(CTrapFactory::Create_Thorn());
 
@@ -123,8 +123,9 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_RightWall();
 
 	CCollision::Collision_Player_Bullet(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_Being_list(BEING_MONSTERBULLET));
-	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
-	CCollision::Collision_Block_Block();
+		CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
+		CCollision::Collision_Block_Block();
+
 }
 
 void CObjMgr::Render(HDC _hdc)

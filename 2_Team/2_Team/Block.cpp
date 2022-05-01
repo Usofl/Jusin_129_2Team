@@ -9,6 +9,9 @@ CBlock::CBlock()
 	: m_fJumpTime(0.f)
 	, m_fJumpPower(20)
 	, m_bBlockCol(false)
+	, m_pBlock_Up(nullptr)
+	, m_pBlock_Right(nullptr)
+	, m_pBlock_Left(nullptr)
 {
 }
 
@@ -19,13 +22,24 @@ CBlock::~CBlock()
 
 void CBlock::Initialize(void)
 {
-	m_tInfo.fCX = 50.f;
-	m_tInfo.fCY = 50.f;
+	m_tInfo.fCX = 70.f;
+	m_tInfo.fCY = 70.f;
 	m_bAir = false;
+	
 	m_Block_RoofLine = CLineFactory::Create_Line(m_tBlock_Roof);
 	m_tBlock_Roof = { {m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *m_Block_RoofLine);
 	static_cast<CLine*>(m_Block_RoofLine)->Set_Render(false);
+
+	m_Block_RightLine = CLineFactory::Create_Line(m_tBlock_Right);
+	m_tBlock_Right = { { m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f },{ m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY + m_tInfo.fCY * 0.5f} };
+	OBJMGR->Add_Notbeing(NOTBEING_WALL, *m_Block_RightLine);
+	static_cast<CLine*>(m_Block_RightLine)->Set_Render(false);
+
+	m_Block_LeftLine = CLineFactory::Create_Line(m_tBlock_Left);
+	m_tBlock_Left = { { m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY + m_tInfo.fCY * 0.5f } };
+	OBJMGR->Add_Notbeing(NOTBEING_WALL, *m_Block_LeftLine);
+	static_cast<CLine*>(m_Block_LeftLine)->Set_Render(false);
 }
 
 const int& CBlock::Update(void)
@@ -60,8 +74,15 @@ const int& CBlock::Update(void)
 		m_bAir = true;
 	}
 
-	m_tBlock_Roof = { { m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
+	m_tBlock_Roof = { { m_tInfo.fX - m_tInfo.fCX * 0.5f-0.3f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f + 0.3f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
 	static_cast<CLine*>(m_Block_RoofLine)->Set_Line(m_tBlock_Roof);
+
+	m_tBlock_Right = { { m_tInfo.fX - m_tInfo.fCX * 0.5f + 15.f, m_tInfo.fY - m_tInfo.fCY * 0.5f },{ m_tInfo.fX - m_tInfo.fCX * 0.5f + 15.f, m_tInfo.fY + m_tInfo.fCY * 0.5f } };
+	static_cast<CLine*>(m_Block_RightLine)->Set_Line(m_tBlock_Right);
+
+	m_tBlock_Left = { { m_tInfo.fX + m_tInfo.fCX * 0.5f - 15.f, m_tInfo.fY - m_tInfo.fCY * 0.5f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f - 15.f, m_tInfo.fY + m_tInfo.fCY * 0.5f } };
+	static_cast<CLine*>(m_Block_LeftLine)->Set_Line(m_tBlock_Left);
+
 	Update_Rect();
 	return OBJ_NOEVENT;
 }
