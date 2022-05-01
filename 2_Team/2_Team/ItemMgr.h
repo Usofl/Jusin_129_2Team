@@ -12,7 +12,7 @@ public:
 	void		Render(HDC hDC);
 	void		Release(void);
 
-
+	std::list<CItem*>	Get_Item_List() { return m_Itemlist; }
 	static		CItemMgr*		Get_Instance(void)
 	{
 		if (!m_pInstance)

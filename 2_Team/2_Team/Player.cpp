@@ -213,6 +213,26 @@ void CPlayer::PlayerCoinColli()
 	}
 }
 
+void CPlayer::Get_ItemType(int _Itemtype)
+{
+	m_iItemtype = _Itemtype;
+
+	switch (m_iItemtype)
+	{
+	case ITEM_GUN:
+		break;
+	case ITEM_LIFE:
+		m_iLife++;
+		break;
+	case ITEM_KEY:
+		break;
+	case ITEM_BOX:
+		break;
+	default:
+		break;
+	}
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (KEYMGR->Key_Pressing(VK_SHIFT))
