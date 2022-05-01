@@ -46,7 +46,9 @@ void CCoin::Late_Update(void)
 void CCoin::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
+	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 }
 
 void CCoin::Release(void)

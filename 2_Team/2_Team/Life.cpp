@@ -46,7 +46,8 @@ void CLife::Late_Update(void)
 void CLife::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom );
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 }
 
 void CLife::Release(void)

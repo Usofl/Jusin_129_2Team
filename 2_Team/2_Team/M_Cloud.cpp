@@ -57,7 +57,10 @@ void CM_Cloud::Late_Update(void)
 
 void CM_Cloud::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 
 }
 
