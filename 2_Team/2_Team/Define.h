@@ -33,6 +33,6 @@
 #define KEYMGR (CKeyMgr::Get_Instance())
 #define SCROLLMGR (CScrollMgr::Get_Instance())
 #define UIMGR (CUiMgr::Get_Instance())
-#define ITEMGR (CItemMgr::Get_Instance())
+#define ITEMMGR (CItemMgr::Get_Instance())
 
 extern HWND g_hWnd;

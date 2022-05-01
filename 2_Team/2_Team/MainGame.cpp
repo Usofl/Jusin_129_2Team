@@ -31,7 +31,7 @@ void CMainGame::Initialize(void)
 	OBJMGR->Initialize();
 	m_pState->Initialize();
 	UIMGR->Initialize();
-	ITEMGR->Initialize();
+	ITEMMGR->Initialize();
 
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 	CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
@@ -50,7 +50,7 @@ void CMainGame::Update(void)
 	{
 		OBJMGR->Update();
 		UIMGR->Update();
-		ITEMGR->Update();
+		ITEMMGR->Update();
 	}
 	else
 	{
@@ -68,13 +68,15 @@ void CMainGame::Late_Update(void)
 	{
 		OBJMGR->Late_Update();
 		UIMGR->Late_Update();
-		ITEMGR->Late_Update();
+		ITEMMGR->Late_Update();
 	}
 	else
 		m_pState->Late_Update();
 
 	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, CCoinMgr::Get_Instance()->Get_Coin_List());
+	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, CItemMgr::Get_Instance()->Get_Item_List());
 }
 
 void CMainGame::Render(void)
@@ -94,7 +96,7 @@ void CMainGame::Render(void)
 	if (m_pState->Get_State() == STATE_GAME)
 	{
 		OBJMGR->Render(m_hDC);
-		CItemMgr::Get_Instance()->Render(m_hDC);
+		ITEMMGR->Render(m_hDC);
 		UIMGR->Render(m_hDC);
 	}
 	else
@@ -109,7 +111,7 @@ void CMainGame::Release(void)
 	CScrollMgr::Get_Instance()->Destroy_Instance();
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CLineMgr::Get_Instance()->Destroy_Instance();
-	ITEMGR->Destroy_Instance();
+	ITEMMGR->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)

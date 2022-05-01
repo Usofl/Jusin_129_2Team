@@ -32,6 +32,7 @@ public:
 	int Set_Coin() { return m_iCoin; }
 	int Set_Life() { return m_iLife; }
 	void PlayerCoinColli(void);
+	void Get_ItemType(int _Itemtype);
 
 	void Set_Jump() { m_bJump = false; }
 
@@ -47,6 +48,7 @@ private:
 	int   m_iReverse;
 	int   m_iCoin;
 	int   m_iLife;
+	int   m_iItemtype;
 	float m_fJumpTime;
 	float m_fJumpPower;
 	float m_fJumpAngle;
