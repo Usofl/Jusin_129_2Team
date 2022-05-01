@@ -42,6 +42,7 @@ private:
 	bool m_bJump;
 	bool m_bPool;
 	bool m_bBalloon;
+	bool m_bCharging;
 
 	int   m_iCoin;
 	int   m_iLife;
@@ -49,6 +50,8 @@ private:
 	float m_fJumpTime;
 	float m_fJumpPower;
 	float m_fJumpAngle;
+
+	float m_fCharging;
 
 	bool m_bRight_Move;
 	bool m_bLeft_Move;

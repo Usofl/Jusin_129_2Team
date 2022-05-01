@@ -14,8 +14,10 @@ CPlayer::CPlayer()
 	, m_bPool(false)
 	, m_bLeft_Move(false)
 	, m_bRight_Move(false)
+	, m_bCharging(false)
 	, m_fJumpTime(0.f)
-	, m_fJumpAngle(45.f)
+	, m_fJumpAngle(90.f)
+	, m_fCharging(0.f)
 	, m_tLeft_Leg({ 0,0 })
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
@@ -89,6 +91,9 @@ void CPlayer::Render(HDC _hDC)
 	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.3f)
 		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f));
 
+	MoveToEx(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.3f) - 1 + iScrollX, m_tRect.top + 1, nullptr);
+	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.46f) - 1 + iScrollX, m_tRect.top + 1);
+
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f), nullptr);
 	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f));
 
@@ -99,6 +104,16 @@ void CPlayer::Render(HDC _hDC)
 		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
 		// ¿À¸¥ÆÈ
 		LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+	}
+	else
+	{
+		// ¿ÞÆÈ
+		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.2f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
+		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f));
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.1f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.55f));
+		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f));
 		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
 	}
 
@@ -246,7 +261,7 @@ void CPlayer::Put_ItemType(int _Itemtype)
 
 void CPlayer::Key_Input(void)
 {
-	if (KEYMGR->Key_Pressing(VK_SHIFT))
+	if (KEYMGR->Key_Pressing(VK_SHIFT) && !m_bRight_Move && !m_bLeft_Move)
 	{
 		m_fSpeed = 5.f;
 		m_fJumpPower = 27.f;
@@ -271,15 +286,13 @@ void CPlayer::Key_Input(void)
 	if (KEYMGR->Key_Pressing('S'))
 	{
 		m_bBalloon = true;
-		m_fJumpPower = 15.f;
+		m_fJumpPower = 10.f;
 		m_fSpeed = 1.f;
 	}
 	else
 	{
 		m_bBalloon = false;
 	}
-
-	
 
 	if (KEYMGR->Key_Pressing(VK_DOWN))
 	{
@@ -301,14 +314,39 @@ void CPlayer::Key_Input(void)
 		}
 	}
 
-	
-	if (KEYMGR->Key_Up('D'))
+	if (KEYMGR->Key_Pressing('D'))
 	{
-		POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
-		OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(tPoint, m_iReverse));
+		m_fCharging += 0.05f;
+		if (3.f <= m_fCharging)
+		{
+			m_bCharging = true;
+		}
 	}
 	else
 	{
+		if (3.f <= m_fCharging)
+		{
+			POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
+			OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Gigant_Fistol(tPoint, m_iReverse, m_fCharging));
+
+			m_fCharging = 0.f;
+			SetBody();
+		}
+	}
+
+	if (KEYMGR->Key_Up('D') && !m_bBalloon)
+	{
+		if (m_bCharging)
+		{
+			m_bCharging = false;
+		}
+		else
+		{
+			POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
+			OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Fistol(tPoint, m_iReverse));
+		}
+
+		SetBody();
 	}
 
 	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ObjMgr.h"
 #include "Gomu_Fistol.h"
 
 
@@ -10,6 +11,7 @@ CGomu_Fistol::CGomu_Fistol(const POINT & _tPoint, const int& _iReverse)
 {
 	m_tInfo.fX = (float)_tPoint.x;
 	m_tInfo.fY = (float)_tPoint.y;
+
 	m_iReverse = _iReverse;
 }
 
@@ -31,7 +33,7 @@ void CGomu_Fistol::Initialize(void)
 
 const int & CGomu_Fistol::Update(void)
 {
-	if (!m_iHp)
+	if (0 >= m_iHp)
 	{
 		return OBJ_DEAD;
 	}
@@ -65,7 +67,7 @@ void CGomu_Fistol::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 
-	MoveToEx(_hDC, m_tRect.left + 10 + iScrollX, (LONG)m_tInfo.fY, nullptr);
+	MoveToEx(_hDC, m_tRect.left + (10 * m_iReverse) + iScrollX, (LONG)m_tInfo.fY, nullptr);
 	LineTo(_hDC, m_tRect.right + iScrollX, (LONG)m_tInfo.fY);
 }
 
