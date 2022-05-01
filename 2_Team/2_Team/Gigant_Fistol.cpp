@@ -65,6 +65,12 @@ void CGigant_Fistol::Late_Update(void)
 void CGigant_Fistol::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	if (1 != m_iReverse)
+	{
+		float fTemp = m_tRect.left;
+		m_tRect.left = m_tRect.right;
+		m_tRect.right = fTemp;
+	}
 
 	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);
 	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.top);
@@ -74,13 +80,13 @@ void CGigant_Fistol::Render(HDC _hDC)
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f));
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f));
 
 	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f));
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f));
 
 	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f));
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f));
 }
 
 void CGigant_Fistol::Release(void)
