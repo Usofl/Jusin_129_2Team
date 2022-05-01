@@ -3,6 +3,7 @@
 #include "Line.h"
 #include "Player.h"
 #include "ObjMgr.h"
+#include "UiMgr.h"
 #include "Block.h"
 #include "Coin.h"
 #include "GomuFactory.h"
@@ -290,6 +291,7 @@ void CCollision::Collision_Player_Bullet()
 				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
 			}
 			Bullet->Set_Hp(0);
+			static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 		}
 	}
 }
@@ -342,9 +344,28 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 		{
 			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
 			_iTEM->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CItem*>(_iTEM)->Itemtype());
 		}
 	}
 }
+
+//void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
+//{
+//	for (auto& _Line : m_Line_List)
+//	{
+//		CLine* line = static_cast<CLine*>(_Line);
+//
+//		for (auto& _Item : m_Item_List)
+//		{
+//			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
+//			{
+//				(line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
+//					*()
+//			}
+//		}
+//	}
+//}
+
 
 //void CCollision::Collision_Block_Wall()
 //{
@@ -353,3 +374,5 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 //
 //	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
 //}
+
+

@@ -2,13 +2,13 @@
 #include "Item.h"
 #include "ScrollMgr.h"
 
-class CLife :
+class CLadder :
 	public CItem
 {
 public:
-	CLife();
-	~CLife();
-public:
+	CLadder();
+	~CLadder();
+
 	virtual void			Initialize(void);
 	virtual const int&		Update(void);
 	virtual void			Late_Update(void);
@@ -18,8 +18,10 @@ public:
 	virtual void PlayerColiision(void) {};
 
 private:
-	int m_iItemtype;
+	RECT m_tColliradder;
 
-	float  m_iShake;
+	int m_iItemtype;
+	int m_iTime;
+	bool m_bCount;
 };
 

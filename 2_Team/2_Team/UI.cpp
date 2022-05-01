@@ -3,6 +3,7 @@
 
 
 CUI::CUI()
+	:m_bGun(false)
 {
 }
 
@@ -34,17 +35,29 @@ void CUI::Initialize()
 	m_tCoinTextRect.right = m_tCoinRect.right;
 	m_tCoinTextRect.top = m_tCoinRect.top;
 	m_tCoinTextRect.bottom = m_tCoinRect.bottom;
+
+	m_tItemRect.left = 10;
+	m_tItemRect.right = 220;
+	m_tItemRect.top = 550;
+	m_tItemRect.bottom = 590;
+
+	m_tGun.left = 30;
+	m_tGun.right = 55;
+	m_tGun.top = 561;
+	m_tGun.bottom = 566; 
 }
 
 void CUI::Update()
 {
 	m_fAngle += 4.f;
+	if (m_iItem == ITEM_GUN)
+		m_bGun = true;
 }
-
+#define DEGREE (PI / 180.f)
 void CUI::Late_Update()
 {
-	m_tCoinRect.left = (LONG)(m_tCoin.fX - (m_tCoin.fCX * sinf((m_fAngle * PI) / 180.f)));
-	m_tCoinRect.right = (LONG)(m_tCoin.fX + (m_tCoin.fCX * sinf((m_fAngle * PI) / 180.f)));
+	m_tCoinRect.left = (LONG)(m_tCoin.fX - (m_tCoin.fCX * sinf(m_fAngle * DEGREE)));
+	m_tCoinRect.right = (LONG)(m_tCoin.fX + (m_tCoin.fCX * sinf(m_fAngle * DEGREE)));
 	m_tCoinRect.top = (LONG)(m_tCoin.fY - (m_tCoin.fCY));
 	m_tCoinRect.bottom = (LONG)(m_tCoin.fY + (m_tCoin.fCY));
 }
@@ -80,6 +93,18 @@ void CUI::Render(HDC _hDC)
 	wsprintf(Dest, L"%d", m_iCoin);
 	TextOut(_hDC, m_tCoinTextRect.right - 20, m_tCoinTextRect.top + 5, TEXT("X"), 1);
 	TextOut(_hDC, m_tCoinTextRect.right, m_tCoinTextRect.top + 5, Dest, lstrlen(Dest));
+
+	//DRAW ITEM
+	Rectangle(_hDC, m_tItemRect.left, m_tItemRect.top, m_tItemRect.right, m_tItemRect.bottom);
+	if (m_bGun == true)
+	{
+		//Rectangle(_hDC,m_tItemRect.left + 100, m_tItemRect.top, m_tItemRect.right - 100, m_tItemRect.bottom);
+		Rectangle(_hDC, m_tGun.left - 2, m_tGun.top - 5, m_tGun.right + 2, m_tGun.bottom + 15);
+		Rectangle(_hDC, m_tGun.left, m_tGun.top, m_tGun.right, m_tGun.bottom);
+		Rectangle(_hDC, m_tGun.left + 20, m_tGun.top, m_tGun.right, m_tGun.bottom + 10);
+		MoveToEx(_hDC, m_tGun.left + 13, m_tGun.bottom, nullptr);
+		LineTo(_hDC, m_tGun.left + 20, m_tGun.bottom + 3);
+	}
 }
 
 void CUI::Release()

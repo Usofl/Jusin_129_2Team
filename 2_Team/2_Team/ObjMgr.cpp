@@ -48,6 +48,8 @@ void CObjMgr::Initialize(void)
 
 	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_Gun());
 	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_Life());
+	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_Ladder());
+	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_KEY());
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
