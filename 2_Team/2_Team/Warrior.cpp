@@ -41,6 +41,51 @@ const int& CWarrior::Update(void)
 	{
 		return OBJ_DEAD;
 	}
+
+	float	fLineY = WINCY;
+
+	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
+	bool bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
+	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
+	fLineY -= (m_tInfo.fCY * 0.5f);
+
+
+	if (fLineY - 20.f > m_tInfo.fY)
+	{
+		m_bAir = true;
+	}
+
+
+	if (m_bJump && m_bAir)
+	{
+		m_fJumpTime += 0.2f;
+		float fy = m_fJumpPower * m_fJumpTime - (0.5f * (GRAVITY - 9.7) * (m_fJumpTime * m_fJumpTime));
+
+		if (bLineCol || m_tInfo.fY - 10.f > fLineY)
+		{
+			m_fJumpTime = 0.f;
+			m_bJump = true;
+			m_bAir = true;
+
+			m_tInfo.fY = fLineY;
+		}
+	}
+	else if (m_bAir)
+	{
+		m_fJumpTime += 0.2f;
+		m_tInfo.fY += (0.5f * (GRAVITY - 9.7) * (m_fJumpTime * m_fJumpTime));
+
+		if (bLineCol && m_tInfo.fY - 10.f> fLineY)
+		{
+			m_fJumpTime = 0.f;
+			m_bJump = true;
+			m_bAir = true;
+
+			m_tInfo.fY = fLineY;
+		}
+	}
+
+
 	// 몬스터 움직이는 스피드값
 	m_tInfo.fX += m_fSpeed;
 	

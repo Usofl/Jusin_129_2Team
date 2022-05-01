@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "Koopa.h"
-
+#include "MonsterFactory.h"
 
 
 CKoopa::CKoopa()
 	: m_dwCount(GetTickCount())
+	, m_dwJumpTiming(GetTickCount())
+	, m_bJump(false)
 {
 }
 
@@ -27,17 +29,59 @@ void CKoopa::Initialize(void)
 
 	m_fSpeed = 2.f;
 
-	m_fJumpPower = 15.f;
+	m_fJumpPower = 10.f;
 	m_fJumpTime = 0.f;
 }
 
 const int& CKoopa::Update(void)
 {
-	if (!m_iHp)
+	if (0 >= m_iHp)
 	{
 		return OBJ_DEAD;
 	}
 
+	if (m_dwJumpTiming + 8000 < GetTickCount())
+	{
+		m_bJump = true;
+		m_bAir = true;
+
+		m_dwJumpTiming = GetTickCount();
+	}
+
+	Jumping();
+
+	Shoot_Bullet();
+
+	m_tInfo.fX += m_fSpeed;
+
+	Update_Rect();
+	return OBJ_NOEVENT;
+
+}
+
+void CKoopa::Late_Update(void)
+{
+	if (450 >= m_tRect.left || WINCX - 50 <= m_tRect.right)
+	{
+		m_fSpeed *= -1.f;
+	}
+
+}
+
+void CKoopa::Render(HDC _hDC)
+{
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20, m_tRect.right + iScrollX, m_tRect.bottom - 20);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+}
+
+void CKoopa::Release(void)
+{
+}
+
+void CKoopa::Jumping(void)
+{
 	float	fLineY = WINCY;
 
 	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
@@ -46,15 +90,18 @@ const int& CKoopa::Update(void)
 	fLineY -= (m_tInfo.fCY * 0.5f);
 
 
-	if (fLineY - 20.f > m_tInfo.fY)
+	if (fLineY > m_tInfo.fY)
 	{
 		m_bAir = true;
 	}
 
-	if (m_bJump && m_bAir)
+
+	if (m_bJump)
 	{
-		m_fJumpTime += 0.2f;
-		float fy = m_fJumpPower * m_fJumpTime - (0.5f * (GRAVITY - 9.7) * (m_fJumpTime * m_fJumpTime));
+		m_fJumpTime += 0.1f;
+		float fy = m_fJumpPower * m_fJumpTime - (0.5f * (GRAVITY - 4.f) * (m_fJumpTime * m_fJumpTime));
+
+		m_tInfo.fY -= fy;
 
 		if (bLineCol && m_tInfo.fY - 10.f > fLineY)
 		{
@@ -79,33 +126,19 @@ const int& CKoopa::Update(void)
 			m_tInfo.fY = fLineY;
 		}
 	}
-
-	//m_tInfo.fX += m_fSpeed;
-
-	Update_Rect();
-	return OBJ_NOEVENT;
-
 }
 
-void CKoopa::Late_Update(void)
+void CKoopa::Shoot_Bullet(void)
 {
-	if (550 >= m_tRect.left || WINCX - 50 <= m_tRect.right)
+	float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
+
+	if (m_dwCount + 100 < GetTickCount())	// dwCount+3000(대략 3초) < GetTickCount 커질때 (GetTickCount 1 /1000 = 1초)
 	{
-		m_fSpeed *= -1.f;
+		// CObjMgr*타입의 instance 를 반환 후에 Add_Being함수 호출(몬스터 총알, 총알생성(정보값)
+		OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Bullet(m_tInfo.fX, m_tInfo.fY));
+
+		m_dwCount = GetTickCount(); // 다시 대입해서 1초로 초기화
 	}
-
-}
-
-void CKoopa::Render(HDC _hDC)
-{
-	Rectangle(_hDC, m_tRect.left, m_tRect.top - 20, m_tRect.right, m_tRect.bottom - 20);
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-}
-
-
-
-void CKoopa::Release(void)
-{
 }
 
 

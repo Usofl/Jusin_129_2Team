@@ -8,6 +8,7 @@
 
 
 
+
 class CKoopa :
 	public CMonster
 {
@@ -22,6 +23,9 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+public:
+	void	Jumping(void);		// Á¡ÇÁÇÔ¼ö
+	void	Shoot_Bullet(void);	// ÃÑ½î´ÂÇÔ¼ö
 
 
 private:
@@ -35,8 +39,7 @@ private:
 
 	bool					m_bMonsterCol;
 	
-
 	DWORD					m_dwCount;
-	
+	DWORD					m_dwJumpTiming;
 };
 
