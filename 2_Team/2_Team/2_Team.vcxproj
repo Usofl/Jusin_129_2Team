@@ -151,10 +151,13 @@
     <ClInclude Include="CoinMgr.h" />
     <ClInclude Include="GomuFactory.h" />
     <ClInclude Include="Gomu_Fistol.h" />
+    <ClInclude Include="Gun.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="BlockFactory.h" />
+    <ClInclude Include="ItemFactory.h" />
     <ClInclude Include="ItemMgr.h" />
     <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="LineFactory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerFactory.h" />
@@ -197,9 +200,11 @@
     <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Gomu_Fistol.cpp" />
+    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="Cloud_Bullet.cpp" />

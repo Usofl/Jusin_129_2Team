@@ -213,7 +213,7 @@ void CPlayer::PlayerCoinColli()
 	}
 }
 
-void CPlayer::Get_ItemType(int _Itemtype)
+void CPlayer::Put_ItemType(int _Itemtype)
 {
 	m_iItemtype = _Itemtype;
 

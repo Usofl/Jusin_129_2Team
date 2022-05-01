@@ -5,6 +5,8 @@
 #include "LineFactory.h"
 #include "BlockFactory.h"
 #include "TrapFactory.h"
+#include "ItemFactory.h"
+#include "ItemMgr.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -41,7 +43,11 @@ void CObjMgr::Initialize(void)
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 300));
 	m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(350, 100));
 
+
 	m_NotBeing_list[NOTBEING_TRAP].push_back(CTrapFactory::Create_Thorn());
+
+	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_Gun());
+	m_NotBeing_list[NOTBEING_ITEM].push_back(ItemFactory::Create_Life());
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
@@ -61,8 +67,7 @@ void CObjMgr::Initialize(void)
 }
 
 void CObjMgr::Update(void)
-{
-	
+{	
 	for (auto& list_iter : m_NotBeing_list)
 	{
 		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
@@ -96,6 +101,7 @@ void CObjMgr::Update(void)
 			}
 		}		
 	}
+
 }
 
 void CObjMgr::Late_Update(void)

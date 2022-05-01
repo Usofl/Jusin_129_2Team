@@ -14,7 +14,7 @@ public:
 	void		Late_Update(void);
 	void		Render(HDC hDC);
 	void		Release(void);
-	void		Delete(void);
+
 	std::list<CCoin*>	Get_Coin_List() { return m_CoinList; }
 
 
