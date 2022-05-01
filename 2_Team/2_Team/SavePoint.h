@@ -4,5 +4,8 @@ class CSavePoint
 public:
 	CSavePoint();
 	~CSavePoint();
+
+private:
+
 };
 

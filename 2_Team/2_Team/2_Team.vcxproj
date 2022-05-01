@@ -149,8 +149,11 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinFactory.h" />
     <ClInclude Include="CoinMgr.h" />
+    <ClInclude Include="GomuFactory.h" />
+    <ClInclude Include="Gomu_Fistol.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="BlockFactory.h" />
+    <ClInclude Include="ItemMgr.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Koopa_Bullet.h" />
     <ClInclude Include="LineFactory.h" />
@@ -181,7 +184,10 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Thorn.h" />
+    <ClInclude Include="TrapFactory.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UiMgr.h" />
     <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <ItemGroup>
@@ -191,7 +197,9 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Gomu_Fistol.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Koopa_Bullet.cpp" />
     <ClCompile Include="Line.cpp" />
@@ -214,7 +222,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Thorn.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UiMgr.cpp" />
     <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>

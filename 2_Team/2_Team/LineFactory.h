@@ -24,12 +24,14 @@ public:
 		return _Temp;
 	}
 
-	static CObj* Create_Line(const std::list<LINEPOINT>& _LinePoint_List)
+	static CObj* Create_Line(const LINE& _tLine)
 	{
-		CObj* _Temp = new CLine(_LinePoint_List);
+		CObj* _Temp = new CLine(_tLine);
 
 		return _Temp;
 	}
 
+
+	
 };
 
