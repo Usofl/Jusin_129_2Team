@@ -25,6 +25,8 @@ void CM_Cloud::Initialize(void)
 	m_iHp = 5;
 
 	m_iAtt = 1;
+
+
 }
 
 const int& CM_Cloud::Update(void)

@@ -29,6 +29,7 @@ const int & CKoopa_Bullet::Update(void)
 
 	m_fShootTime += 0.05f;
 	m_tInfo.fY -= m_fShootPower * m_fShootTime - (GRAVITY * m_fShootTime * m_fShootTime * 0.5f);
+	
 
 	Update_Rect();
 
@@ -41,7 +42,8 @@ void CKoopa_Bullet::Late_Update(void)
 
 void CKoopa_Bullet::Render(HDC _hDC)
 {
-	Ellipse(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 }
 
 void CKoopa_Bullet::Release(void)

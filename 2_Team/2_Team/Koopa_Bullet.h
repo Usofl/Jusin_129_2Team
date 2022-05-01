@@ -1,5 +1,6 @@
 #pragma once
 #include "Being.h"
+#include "ObjMgr.h"
 class CKoopa_Bullet :
 	public CBeing
 {
@@ -15,8 +16,8 @@ public:
 	virtual void Release(void) override;
 
 private:
-	float					m_fShootPower;	// ÃÑ ½î´Â Èû
-	float					m_fShootTime;	// ÃÑ¾Ë Ã¤°ø ½Ã°£
+	float					m_fShootPower;
+	float					m_fShootTime;	
 	float					m_fShootAngle;
 };
 

@@ -2,6 +2,10 @@
 #include "Being.h"
 #include "Monster.h"
 #include "Koopa_Bullet.h"
+#include "Collision.h"
+#include "ObjMgr.h"
+
+
 
 
 class CKoopa :
@@ -13,13 +17,12 @@ public:
 
 public:
 	virtual void Initialize(void) override;
-	virtual const int&  Update(void) override;
+	virtual const int& Update(void) override;
 	virtual void Late_Update(void) override;
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
-private:
-	void		Jumping();
+
 
 private:
 	bool					m_bJump;		// Á¡ÇÁ »óÅÂ È®ÀÎ
@@ -29,5 +32,11 @@ private:
 	float					m_fShootPower;	// ÃÑ ½î´Â Èû
 	float					m_fShootTime;	// ÃÑ¾Ë Ã¤°ø ½Ã°£
 	float					m_fShootAngle;
+
+	bool					m_bMonsterCol;
+	
+
+	DWORD					m_dwCount;
+	
 };
 

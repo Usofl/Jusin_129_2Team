@@ -79,11 +79,13 @@ void CWarrior::Late_Update(void)
 
 void CWarrior::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left - (20 * m_iTurn), m_tRect.top, m_tRect.right - (20 * m_iTurn), m_tRect.bottom);
-	Ellipse(_hDC, m_tRect.left, m_tRect.top - 20, m_tRect.right, m_tRect.bottom - 20);
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn), (LONG)m_tInfo.fY - 10, nullptr);	// 중심 x 반전 * -1
-	LineTo(_hDC, (LONG)m_tSword.x , (LONG)m_tSword.y);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	Rectangle(_hDC, m_tRect.left - (20 * m_iTurn) + iScrollX, m_tRect.top, m_tRect.right - (20 * m_iTurn) + iScrollX, m_tRect.bottom);
+	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20, m_tRect.right + iScrollX, m_tRect.bottom - 20);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn) + iScrollX, (LONG)m_tInfo.fY - 10, nullptr);	// 중심 x 반전 * -1
+	LineTo(_hDC, (LONG)m_tSword.x + iScrollX, (LONG)m_tSword.y);
 
 }
 

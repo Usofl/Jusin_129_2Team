@@ -47,5 +47,6 @@ protected:
 	float m_fAngle;
 
 	bool m_bAir;
+
 };
 

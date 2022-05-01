@@ -32,7 +32,7 @@ const int& CCloud_Bullet::Update(void)
 		return OBJ_DEAD;
 
 	m_fShootTime += 0.05f;
-	m_tInfo.fY -= m_fShootPower * m_fShootTime - (GRAVITY * m_fShootTime * m_fShootTime * 0.5f);
+	m_tInfo.fY -= m_fShootPower * m_fShootTime - (7.5 * m_fShootTime * m_fShootTime * 0.5f);
 
 	Update_Rect();
 
@@ -45,7 +45,8 @@ void CCloud_Bullet::Late_Update(void)
 
 void CCloud_Bullet::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right , m_tRect.bottom);
 }
 
 void CCloud_Bullet::Release(void)
