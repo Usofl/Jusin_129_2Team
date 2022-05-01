@@ -79,7 +79,10 @@ void CObjMgr::Update(void)
 		}
 	}
 
-	PLAYER->Update();
+	if (PLAYER->Update() == OBJ_DEAD)
+	{
+
+	}
 
 	for (int i = BEING_MONSTER; i < BEING_END ; ++i)
 	{
