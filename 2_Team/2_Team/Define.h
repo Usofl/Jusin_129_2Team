@@ -34,6 +34,7 @@
 #define SCROLLMGR (CScrollMgr::Get_Instance())
 #define UIMGR (CUiMgr::Get_Instance())
 #define ITEMMGR (CItemMgr::Get_Instance())
+#define COINMGR (CCoinMgr::Get_Instance())
 
 #define PLAYER (CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())
 

@@ -263,7 +263,19 @@ void CCollision::Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_Lis
 	}
 }
 
-void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CItem*>& m_Item_List)
+
+void CCollision::Collision_Thorn()
+{
+	if (PLAYER->Get_Info().fX + PLAYER->Get_Info().fCX * 0.5f <
+		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fX
+		+ OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Get_Info().fCX * 0.5f)
+	{
+		PLAYER->Set_Hp(0);
+	}	
+}
+
+
+void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List)
 {
 	RECT rc;
 	CPlayer* player = static_cast<CPlayer*>(&_Obj);
@@ -271,8 +283,8 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CItem*>& m_Item_Lis
 	{
 		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
 		{
-			player->Get_ItemType(_iTEM->Itemtype());
-			_iTEM->Set_Hp();
+			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
+			_iTEM->Set_Hp(0);
 		}
 	}
 }
