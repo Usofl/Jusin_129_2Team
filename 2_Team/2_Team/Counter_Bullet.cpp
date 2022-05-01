@@ -11,7 +11,7 @@ CCounter_Bullet::CCounter_Bullet(const INFO& _tInfo)
 {
 	m_tInfo = _tInfo;
 
-	m_fSpeed = 10.f;
+	m_fSpeed = 15.f;
 }
 
 CCounter_Bullet::~CCounter_Bullet()
@@ -49,7 +49,7 @@ const int & CCounter_Bullet::Update(void)
 	m_fCounter_Time += 0.2f;
 
 	float fy = m_fSpeed * m_fCounter_Time * sinf(m_fAngle) - (0.5f * GRAVITY * (m_fCounter_Time * m_fCounter_Time));
-	float fx = (m_fSpeed * 2.f) * cosf(m_fAngle);
+	float fx = (m_fSpeed * 1.5f) * cosf(m_fAngle);
 
 	m_tInfo.fX += (fx * m_iReverse);
 	m_tInfo.fY -= fy;
