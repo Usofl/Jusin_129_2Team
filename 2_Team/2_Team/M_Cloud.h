@@ -21,6 +21,9 @@ public:
 	virtual void Render(HDC _hDC) override;
 	virtual void Release(void) override;
 
+public:
+	void	Shoot_Bullet(void);
+
 private:
 	// 시간 저장하는 변수
 	DWORD m_dwCount;

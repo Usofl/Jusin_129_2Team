@@ -2,6 +2,7 @@
 #include "Being.h"
 #include "Monster.h"
 #include "ObjMgr.h"
+#include "Collision.h"
 
 class CWarrior :
 	public CMonster
@@ -27,5 +28,10 @@ private:
 	int			m_iTurn;
 
 	RECT rc{ 250, 280 , 350, 320 };
+
+private:
+	bool					m_bJump;		
+	float					m_fJumpPower;	
+	float					m_fJumpTime;	
 };
 
