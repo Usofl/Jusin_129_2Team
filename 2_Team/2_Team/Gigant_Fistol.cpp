@@ -71,13 +71,20 @@ void CGigant_Fistol::Render(HDC _hDC)
 		m_tRect.left = m_tRect.right;
 		m_tRect.right = lTemp;
 	}
-
+	
 	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);
 	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.top);
 	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);
 	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.bottom);
 
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 220, 177));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
 
 	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f), nullptr);
 	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f));
