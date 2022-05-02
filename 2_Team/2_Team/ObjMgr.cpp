@@ -114,6 +114,8 @@ void CObjMgr::Late_Update(void)
 	//CCollision::Collision_Player_Ladder(OBJ);
 	//CCollision::Collision_Key_Line(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), OBJMGR->Get_NotBeing_list(NOTBEING_LINE));
 	//CCollision::Collision_Line(OBJMGR->Get_NotBeing_list(NOTBEING_LINE), OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), 0);
+
+	CCollision::Collision_Monster_Player();
 }
 
 void CObjMgr::Render(HDC _hdc)

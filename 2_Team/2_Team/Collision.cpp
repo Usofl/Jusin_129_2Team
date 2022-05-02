@@ -10,6 +10,7 @@
 #include "Ladder.h"
 #include "GomuFactory.h"
 #include "Portal.h"
+#include "Monster.h"
 
 CCollision::CCollision()
 {
@@ -514,6 +515,24 @@ LINEPOINT* CCollision::Collision_Portal()
 	}
 	return nullptr;
 }
+
+void CCollision::Collision_Monster_Player()
+{
+	RECT rc{};
+	
+	CPlayer* Player = static_cast<CPlayer*>(PLAYER);
+
+		for (auto& Monster : OBJMGR->Get_Being_list(BEING_MONSTER))
+		{
+			CMonster* _monster = static_cast<CMonster*>(Monster);
+			if (IntersectRect(&rc, &(Player->Get_Rect()), &(Monster->Get_Rect())))
+			{
+				
+				PLAYER->Set_Hp(PLAYER->Get_Hp() - _monster->Get_Att());
+			}
+		}
+}
+
 
 //void CCollision::Collision_Block_Wall()
 //{

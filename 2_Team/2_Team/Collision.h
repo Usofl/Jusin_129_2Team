@@ -33,5 +33,7 @@ public:
 	static bool Check_Sphere(CObj& pDest, CObj& pSour);
 	//static void Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour);
 
+public:
+	static void Collision_Monster_Player();
 	
 };
