@@ -318,13 +318,13 @@ void CPlayer::UP_Clim_Ladder(void)
 
 void CPlayer::Key_Input(void)
 {
-	if (KEYMGR->Key_Pressing(VK_SHIFT) && !m_bRight_Move && !m_bLeft_Move)
+	if (KEYMGR->Key_Pressing(VK_SHIFT) && !m_bRight_Move && !m_bLeft_Move && m_iMp > 0)
 	{
 		m_fSpeed = 5.f;
 		m_fJumpPower = 27.f;
 		m_fJumpAngle = 30.f;
 
-		if (m_dwMP + 700 < GetTickCount() && m_iMp > 0)
+		if (m_dwMP + 700 < GetTickCount())
 		{
 			--m_iMp;
 
@@ -366,13 +366,13 @@ void CPlayer::Key_Input(void)
 		m_bPool = false;
 	}
 
-	if (KEYMGR->Key_Pressing('S'))
+	if (KEYMGR->Key_Pressing('S') && m_iMp > 2)
 	{
 		m_bBalloon = true;
 		m_fJumpPower = 10.f;
 		m_fSpeed = 1.f;
 
-		if (m_dwBalloon + 700 < GetTickCount() && m_iMp > 0)
+		if (m_dwBalloon + 700 < GetTickCount())
 		{
 			m_iMp -= 2;
 
