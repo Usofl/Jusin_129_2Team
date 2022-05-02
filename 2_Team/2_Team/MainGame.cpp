@@ -134,14 +134,6 @@ void CMainGame::Render(void)
 		m_iFPS = 0;
 		m_dwFPSTime = GetTickCount();
 	}
-	if (m_pState->Get_State() == STATE_GAME)
-	{
-		OBJMGR->Render(m_hDC);
-		UIMGR->Render(m_hDC);
-		COINMGR->Render(m_hDC);
-	}
-	else
-		m_pState->Render(m_hDC);
 }
 
 void CMainGame::Release(void)
