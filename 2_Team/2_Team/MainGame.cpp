@@ -18,13 +18,14 @@
 #include "LineMgr.h"
 #include "CoinMgr.h"
 #include "KeyMgr.h"
+#include "BmpMgr.h"
 #include "GameMap.h"
 
 CMainGame::CMainGame() 
 	: m_dwFPSTime(GetTickCount())
 	, m_iFPS(0)
 	, m_Pause(false)
-	, m_dwTime(GetTickCount())
+	, m_dwPauseTime(GetTickCount())
 {
 	ZeroMemory(m_szFPS, sizeof(TCHAR) * 64);
 }
@@ -53,13 +54,15 @@ void CMainGame::Initialize(void)
 
 	CGameMap::Map_Maker(m_hDC);
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
 }
 
 
 void CMainGame::Update(void)
 {
-	
 	Key_Input();
+
 	if (m_pState->Get_State() == STATE_GAME)
 	{
 		OBJMGR->Update();
@@ -74,6 +77,9 @@ void CMainGame::Update(void)
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
 	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
+	m_pState->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
+	UIMGR->Get_Uilist().front()->Get_Hp(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Hp());
+	UIMGR->Get_Uilist().front()->Get_Mp(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Mp());
 }
 
 void CMainGame::Late_Update(void)
@@ -85,7 +91,10 @@ void CMainGame::Late_Update(void)
 		COINMGR->Late_Update();
 	}
 	else
+	{ 
 		m_pState->Late_Update();
+	}
+		
 
 	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, CCoinMgr::Get_Instance()->Get_Coin_List());
@@ -95,7 +104,25 @@ void CMainGame::Late_Update(void)
 
 void CMainGame::Render(void)
 {
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
+	HDC		hGroundMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Ground");
+
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, hMemDC, 0, 0, SRCCOPY);
+
+	BitBlt(hMemDC, 0, 0, WINCX, WINCY, hGroundMemDC, 0, 0, SRCCOPY);
+
+	//Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+
+	if (m_pState->Get_State() == STATE_GAME)
+	{
+		OBJMGR->Render(hMemDC);
+		COINMGR->Render(hMemDC);
+		UIMGR->Render(hMemDC);
+	}
+	else
+	{
+		m_pState->Render(hMemDC);
+	}
 
 	++m_iFPS;
 
@@ -115,8 +142,6 @@ void CMainGame::Render(void)
 	}
 	else
 		m_pState->Render(m_hDC);
-
-
 }
 
 void CMainGame::Release(void)
@@ -127,11 +152,12 @@ void CMainGame::Release(void)
 	CScrollMgr::Get_Instance()->Destroy_Instance();
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CLineMgr::Get_Instance()->Destroy_Instance();
+	CBmpMgr::Get_Instance()->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)
 {
-	if (m_dwTime + 200 < GetTickCount())
+	if (m_dwPauseTime + 200 < GetTickCount())
 	{
 		if (GetAsyncKeyState('R'))
 		{
@@ -142,6 +168,6 @@ void CMainGame::Key_Input(void)
 			else if (m_pState->Get_State() == STATE_OVER)
 				m_pState->Set_Pause(STATE_GAME);
 		}
-		m_dwTime = GetTickCount();
+		m_dwPauseTime = GetTickCount();
 	}
 }

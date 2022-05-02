@@ -95,13 +95,14 @@ void CBlock::Late_Update(void)
 void CBlock::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
-	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.top, nullptr);
-	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.bottom);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 
-	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.bottom, nullptr);
-	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.top);
+	MoveToEx(_hDC, m_tRect.left + iScrollX, m_tRect.bottom + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right + iScrollX, m_tRect.top + iScrollY);
 }
 
 void CBlock::Release(void)
