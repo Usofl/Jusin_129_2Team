@@ -20,7 +20,7 @@ void CM_Cloud::Initialize(void)
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 	
-	m_fSpeed = 3.f;
+	m_fSpeed = 5.f;
 
 	m_iHp = 5;
 
@@ -47,7 +47,7 @@ const int& CM_Cloud::Update(void)
 
 void CM_Cloud::Late_Update(void)
 {
-	if (0 >= m_tRect.left || WINCX <= m_tRect.right)
+	if (0 >= m_tRect.left || 5000 <= m_tRect.right)
 	{
 		m_fSpeed *= -1.f;
 	}
@@ -57,7 +57,10 @@ void CM_Cloud::Late_Update(void)
 
 void CM_Cloud::Render(HDC _hDC)
 {
-	Rectangle(_hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 
 }
 

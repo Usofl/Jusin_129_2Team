@@ -42,5 +42,13 @@ public:
 		
 		return pObj;
 	}
+	static CObj*	Create_Bullet_Koopa(float _fX, float _fY)
+	{
+		CObj*	pObj = new CKoopa_Bullet;
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+
+		return pObj;
+	}
 };
 

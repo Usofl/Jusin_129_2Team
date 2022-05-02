@@ -404,11 +404,11 @@
     <ClCompile Include="Counter_Bullet.cpp">
       <Filter>01. Obj\00. Being\00. Player\02.Counter_Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Koopa_Bullet.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>00. MainGame\01. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
