@@ -4,8 +4,9 @@
 #include "Koopa_Bullet.h"
 #include "Collision.h"
 #include "ObjMgr.h"
-#include "BmpMgr.h"
+#include "Koopa_Crash.h"
 
+#include "BmpMgr.h"
 
 
 
@@ -26,6 +27,7 @@ public:
 public:
 	void	Jumping(void);		// Á¡ÇÁÇÔ¼ö
 	void	Shoot_Bullet(void);	// ÃÑ½î´ÂÇÔ¼ö
+	void	Jump_Crash(void);
 
 
 private:
@@ -36,6 +38,10 @@ private:
 	float					m_fShootPower;	// ÃÑ ½î´Â Èû
 	float					m_fShootTime;	// ÃÑ¾Ë Ã¤°ø ½Ã°£
 	float					m_fShootAngle;
+	
+	float					m_fKoopa_speed;
+	float					m_fPlayer_X;
+	bool					m_bMove_X;
 
 	bool					m_bMonsterCol;
 	

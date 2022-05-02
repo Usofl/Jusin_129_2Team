@@ -145,6 +145,9 @@
     <Filter Include="01. Obj\01. NotBeing\03. Portal">
       <UniqueIdentifier>{c25fe233-fdc6-4a20-8108-a72e7f7ef57e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Crash">
+      <UniqueIdentifier>{b85f7c6e-1f50-498c-aa46-353e229ec6e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -327,6 +330,9 @@
     <ClInclude Include="BmpMgr.h">
       <Filter>01. Manager\06. BmpMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Koopa_Crash.h">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Crash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -440,6 +446,11 @@
     <ClCompile Include="Koopa_Bullet.cpp">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="BmpMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyBmp.cpp">
+      <Filter>소스 파일</Filter>
     <ClCompile Include="Recovery.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -449,12 +460,16 @@
     <ClCompile Include="Portal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>소스 파일</Filter>
     <ClCompile Include="Stamina.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BmpMgr.cpp">
       <Filter>01. Manager\06. BmpMgr</Filter>
     </ClCompile>
+    <ClCompile Include="Koopa_Crash.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Crash</Filter>
     <ClCompile Include="MyBmp.cpp">
       <Filter>01. Manager\06. BmpMgr\00. MyBmp</Filter>
     </ClCompile>
