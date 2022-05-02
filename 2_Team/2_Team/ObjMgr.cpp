@@ -56,6 +56,7 @@ void CObjMgr::Update(void)
 		Safe_Delete<CObj*>(PLAYER);
 		PLAYER = new CPlayer;
 		PLAYER->Initialize();
+		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Set_Pos(50.f,300.f);
 	}
 	else
 	{
