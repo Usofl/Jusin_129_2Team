@@ -29,7 +29,7 @@ void CCloud_Bullet::Initialize(void)
 
 const int& CCloud_Bullet::Update(void)
 {
-	if (!m_iHp)
+	if (0 >= m_iHp)
 		return OBJ_DEAD;
 
 	m_fShootTime += 0.05f;

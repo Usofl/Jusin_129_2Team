@@ -93,7 +93,21 @@ void CKoopa::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	if (m_tInfo.fX < PLAYER->Get_Info().fX)
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+
+	GdiTransparentBlt(_hDC,
+		int(m_tRect.left + iScrollX),
+		int(m_tRect.top) + iScrollY,
+		int(m_tInfo.fCX),
+		int(m_tInfo.fCY),
+		hMemDC,
+		0,
+		0,
+		(int)m_tInfo.fCX,
+		(int)m_tInfo.fCY,
+		RGB(255, 255, 255));
+
+	/*if (m_tInfo.fX < PLAYER->Get_Info().fX)
 	{
 		HDC		hRMemDC = CBmpMgr::Get_Instance()->Find_Image(L"RKoopa");
 
@@ -111,20 +125,8 @@ void CKoopa::Render(HDC _hDC)
 	}
 	else
 	{
-		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
-
-		GdiTransparentBlt(_hDC,
-			int(m_tRect.left + iScrollX),
-			int(m_tRect.top) + iScrollY,
-			int(m_tInfo.fCX),
-			int(m_tInfo.fCY),
-			hMemDC,
-			0,
-			0,
-			(int)m_tInfo.fCX,
-			(int)m_tInfo.fCY,
-			RGB(255, 255, 255));
-	}
+		
+	}*/
 
 			
 }
@@ -229,7 +231,7 @@ void CKoopa::Shoot_Bullet(void)
 	{
 		// CObjMgr*타입의 instance 를 반환 후에 Add_Being함수 호출(몬스터 총알, 총알생성(정보값)
 		
-			OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Bullet_Koopa(m_tInfo.fX, m_tInfo.fY));
+		OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Bullet_Koopa(m_tInfo.fX, m_tInfo.fY));
 		
 		m_dwCount = GetTickCount(); // 다시 대입해서 1초로 초기화
 	}
@@ -237,15 +239,15 @@ void CKoopa::Shoot_Bullet(void)
 
 void CKoopa::Jump_Crash(void)
 {
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(110)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(130)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(150)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(170)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(110)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(130)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(150)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(170)));
 																									
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(70)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(50)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(30)));
-	OBJMGR->Add_Being(BEING_MONSTERBULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(10)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(70)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(50)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(30)));
+	OBJMGR->Add_Being(BEING_KOOPABULLET, *CMonsterFactory::Create_Crash_Koopa(m_tInfo.fX, m_tInfo.fY + 0, RADIAN(10)));
 }
 
 

@@ -25,8 +25,6 @@ void CKoopa_Bullet::Initialize(void)
 
 	m_fShootPower = 6.f;
 	m_fShootTime = 0.f;
-
-
 }
 
 const int & CKoopa_Bullet::Update(void)

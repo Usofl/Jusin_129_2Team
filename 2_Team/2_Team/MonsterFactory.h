@@ -42,6 +42,7 @@ public:
 		
 		return pObj;
 	}
+
 	static CObj*	Create_Bullet_Koopa(float _fX, float _fY)
 	{
 		CObj*	pObj = new CKoopa_Bullet;

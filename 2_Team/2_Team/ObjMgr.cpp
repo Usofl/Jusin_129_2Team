@@ -141,12 +141,18 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Block_Block();
 
 	CCollision::Collision_Player_Bullet();
+	CCollision::Collision_Player_KOOPA_Bullet();
+	CCollision::Collision_Monster_Player();
+
 	CCollision::Collision_Player_Ladder(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, OBJMGR->Get_NotBeing_list(NOTBEING_LADDER));
+
 	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, CCoinMgr::Get_Instance()->Get_Coin_List());
+
 	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, OBJMGR->Get_NotBeing_list(NOTBEING_ITEM));
+
 	CCollision::Collision_Player_Key(*OBJMGR->Get_Being_list(BEING_PLAYER).front(), OBJMGR->Get_NotBeing_list(ITEM_KEY));
 
 	CCollision::Collision_Fistol_Monster();
@@ -155,7 +161,6 @@ void CObjMgr::Late_Update(void)
 
 	CCollision::Collision_Player_Room();
 
-	CCollision::Collision_Monster_Player();
 }
 
 void CObjMgr::Render(HDC _hdc)
