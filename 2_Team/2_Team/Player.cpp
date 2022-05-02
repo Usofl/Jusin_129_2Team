@@ -23,6 +23,7 @@ CPlayer::CPlayer()
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
 	, m_iLife(3)
+	, m_iMp(50)
 {
 }
 
@@ -38,7 +39,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 	
-	m_iHp = 10;
+	m_iHp = 50;
 
 	m_iReverse = 1;
 
@@ -48,11 +49,14 @@ void CPlayer::Initialize(void)
 	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 
 	m_bAir = true;
-
+	m_iCoin = 0;
 	m_iReverse = 1;
 
 	m_fJumpPower = 25.f;
 	m_fSpeed = 2.f;
+
+
+
 }
 
 const int& CPlayer::Update(void)
@@ -252,7 +256,7 @@ void CPlayer::OffSet(void)
 void CPlayer::PlayerCoinColli()
 {
 	++m_iCoin;
-	if (m_iCoin == 10)
+	if (m_iCoin == 30)
 	{
 		m_iCoin = 0;
 		m_iLife++;

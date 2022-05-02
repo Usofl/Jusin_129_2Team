@@ -3,7 +3,7 @@
 
 
 CUI::CUI()
-	:m_bGun(false)
+	:m_bGun(false), m_iCoin(0)
 {
 }
 
@@ -19,10 +19,20 @@ void CUI::Initialize()
 	m_tLifeRect.top = 5;
 	m_tLifeRect.bottom = 20;
 
+	m_tHp.left = 25;
+	m_tHp.right = 125;
+	m_tHp.top = 50;
+	m_tHp.bottom = 60;
+
 	m_tCoinRect.left = 700;
 	m_tCoinRect.right = 760;
 	m_tCoinRect.top = 20;
 	m_tCoinRect.bottom = 50;
+
+	m_tMp.left = 660;
+	m_tMp.right = 760;
+	m_tMp.top = 530;
+	m_tMp.bottom = 560;
 
 	m_tCoin.fX = 730;
 	m_tCoin.fY = 35;
@@ -105,6 +115,14 @@ void CUI::Render(HDC _hDC)
 		MoveToEx(_hDC, m_tGun.left + 13, m_tGun.bottom, nullptr);
 		LineTo(_hDC, m_tGun.left + 20, m_tGun.bottom + 3);
 	}
+
+	//DRAW HP
+	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.right, m_tHp.bottom);
+	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.left + m_iHp, m_tHp.bottom);
+
+	//DRAW MP
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.right, m_tMp.bottom);
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp, m_tMp.bottom);
 }
 
 void CUI::Release()

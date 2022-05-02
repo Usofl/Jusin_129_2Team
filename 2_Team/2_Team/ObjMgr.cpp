@@ -37,6 +37,10 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Ladder());
 }
 
 void CObjMgr::Update(void)

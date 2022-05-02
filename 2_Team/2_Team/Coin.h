@@ -19,5 +19,6 @@ public:
 	void	const			Dead(void);
 
 	INFO	m_tCoinInfo;
+	RECT	m_tCoin;
 };
 
