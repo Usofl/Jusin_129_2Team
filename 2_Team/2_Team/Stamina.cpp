@@ -13,8 +13,8 @@ CStamina::~CStamina()
 
 void CStamina::Initialize(void)
 {
-	m_tInfo.fX = 1000;
-	m_tInfo.fY = 300;
+	m_tInfo.fX = 3750;
+	m_tInfo.fY = 320;
 	m_tInfo.fCX = 30;
 	m_tInfo.fCY = 15;
 	m_iItemtype = ITEM_STAMINA;

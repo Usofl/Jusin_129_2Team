@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Room.h"
+#include "ObjMgr.h"
+#include "UiMgr.h"
 
 
 CRoom::CRoom()
@@ -13,19 +15,16 @@ CRoom::~CRoom()
 
 void CRoom::Initialize(void)
 {
-	m_tInfo.fX = 1200;
+	m_tInfo.fX = 5600;
 	m_tInfo.fY = 300;
 	m_tInfo.fCX = 200;
 	m_tInfo.fCY = 300;
-	m_iItemtype = ITEM_ROOM;
+	m_iItemtype = NOTBEING_ROOM;
 }
 
 const int & CRoom::Update(void)
 {
-	if (m_iHp == 0)
-	{
 
-	}
 
 	Update_Rect();
 
@@ -34,6 +33,7 @@ const int & CRoom::Update(void)
 
 void CRoom::Late_Update(void)
 {
+	//if(OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Rect().left)
 }
 
 void CRoom::Render(HDC _hDC)
@@ -46,9 +46,10 @@ void CRoom::Render(HDC _hDC)
 	MoveToEx(_hDC, m_tRect.left + 100 + iScrollX, m_tRect.top + 100 + iScrollY, nullptr);//¹®Áß¾Ó
 	LineTo(_hDC, m_tRect.left + 100 + iScrollX, m_tRect.bottom + iScrollY);
 
-	Rectangle(_hDC, m_tRect.left + 70 + iScrollX, m_tRect.top + 200 + iScrollY, m_tRect.right - 70 + iScrollX, m_tRect.bottom - 100 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + 80 + iScrollX, m_tRect.top + 200 + iScrollY, m_tRect.right - 80 + iScrollX, m_tRect.bottom - 70 + iScrollY);
+	Ellipse(_hDC, m_tRect.left + 95 + iScrollX, m_tRect.top + 220 + iScrollY, m_tRect.right - 95 + iScrollX, m_tRect.bottom - 90 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + 98 + iScrollX, m_tRect.top + 223 + iScrollY, m_tRect.right - 98 + iScrollX, m_tRect.bottom - 85 + iScrollY);
 }
-// 500 
 
 void CRoom::Release(void)
 {

@@ -13,8 +13,8 @@ CRecovery::~CRecovery()
 
 void CRecovery::Initialize(void)
 {
-	m_tInfo.fX = 800;
-	m_tInfo.fY = 300;
+	m_tInfo.fX = 5500;
+	m_tInfo.fY = 400;
 	m_tInfo.fCX = 30;
 	m_tInfo.fCY = 10;
 	m_iItemtype = ITEM_RECOVERY;

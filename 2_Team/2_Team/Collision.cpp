@@ -10,6 +10,7 @@
 #include "Ladder.h"
 #include "Key.h"
 #include "GomuFactory.h"
+#include "State.h"
 
 
 CCollision::CCollision()
@@ -137,6 +138,7 @@ void CCollision::Collision_Player_Ladder()
 		}
 	}
 }
+
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
@@ -444,6 +446,20 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 		}
 	}
 }
+void CCollision::Collision_Player_Key(CObj& _Obj, std::list<CObj*>& m_Item_List)
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	for (auto& _iTEM : m_Item_List)
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
+		{
+			player->Put_ItemType(static_cast<CKey*>(_iTEM)->Itemtype());
+			_iTEM->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CKey*>(_iTEM)->Itemtype());
+		}
+	}
+}
 void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List)
 {
 	RECT rc;
@@ -458,33 +474,19 @@ void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_
 	}
 }
 
-void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
+bool CCollision::Collision_Player_Room()
 {
-	for (auto& _Line : m_Line_List)
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
+	CState* state = new CState;
+	for (auto& _Room : OBJMGR->Get_NotBeing_list(NOTBEING_ROOM))
 	{
-		CLine* line = static_cast<CLine*>(_Line);
-
-		for (auto& _Item : m_Item_List)
+		if (IntersectRect(&rc, &player->Get_Rect(), &_Room->Get_Rect()))
 		{
-			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
-			{
-				if (((line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
-					*(_Item->Get_Info().fX - line->Get_LinePoint().tLeft.fX) + line->Get_LinePoint().tLeft.fY) == _Item->Get_Info().fY)
-				{
-					static_cast<CItem*>(_Item)->PlayerColiision();
-				}
-			}
+				state->Set_State(STATE_END);
+				return true;
 		}
+		else
+			return false;
 	}
 }
-
-
-//void CCollision::Collision_Block_Wall()
-//{
-//	for (auto& _block : m_Block_List)
-//
-//
-//	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_WALL))
-//}
-
-

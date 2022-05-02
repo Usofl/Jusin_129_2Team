@@ -18,6 +18,7 @@ public:
 	virtual int Itemtype(void) { return m_iItemtype; }
 
 	virtual void PlayerColiision(void);
+	bool GameOver() { return m_bPlayer; }
 
 private:
 	int m_iItemtype;
@@ -25,7 +26,13 @@ private:
 
 	float  m_fShake;
 	int	   m_iTime;
+	
+	int    m_iX;
+	int    m_iY;
+
 	bool   m_bCheck;
+	bool   m_bKey;
+	bool   m_bPlayer;
 
 	bool  m_bPlayercolli;
 	bool	m_bBlockCol;

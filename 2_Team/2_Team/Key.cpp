@@ -5,7 +5,7 @@
 
 
 CKey::CKey()
-	:m_fShake(0.3f), m_iTime(GetTickCount()) , m_bCheck(false), m_bPlayercolli(false)
+	:m_fShake(0.3f), m_iTime(GetTickCount()) , m_bCheck(false), m_bPlayercolli(false) , m_bKey(false) , m_bPlayer(false)
 {
 }
 
@@ -16,10 +16,8 @@ CKey::~CKey()
 
 void CKey::Initialize(void)
 {
-	//m_tInfo.fX = 2250.f;
-	//m_tInfo.fY = 30.f;
-	m_tInfo.fX = 100.f;
-	m_tInfo.fY = 300.f;
+	m_tInfo.fX = 2250.f;
+	m_tInfo.fY = 30.f;
 	m_tInfo.fCX = 50.f;
 	m_tInfo.fCY = 50.f;
 
@@ -31,6 +29,9 @@ void CKey::Initialize(void)
 	m_fJumpTime = 0.f;
 
 	m_iItemtype = ITEM_KEY;
+
+	m_iX = 100;
+	m_iY = 50;
 }
 
 const int & CKey::Update(void)
@@ -39,16 +40,31 @@ const int & CKey::Update(void)
 	m_tPlayerInfo.fY = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fY;
 	float _Y = 0.f;
 
+
 	if (m_iHp == 0 && m_bPlayercolli == false)
 	{
-		m_tInfo.fX = m_tPlayerInfo.fX - 100;
-		m_tInfo.fY = m_tPlayerInfo.fY - 50;
+		if (GetAsyncKeyState(VK_LEFT))
+			m_bKey = true;
+		else if (GetAsyncKeyState(VK_RIGHT))
+			m_bKey = false;
+		if (m_bKey == false)
+		{
+			m_tInfo.fX = m_tPlayerInfo.fX - m_iX;
+			m_tInfo.fY = m_tPlayerInfo.fY - m_iY;
+		}
+		else if (m_bKey == true)
+		{
+			m_tInfo.fX = m_tPlayerInfo.fX + m_iX;
+			m_tInfo.fY = m_tPlayerInfo.fY - m_iY;
+		}
+
+
 		m_tInfo.fY += m_fShake;
 
 		if (m_bCheck == false)
 		{
 			m_fShake += 0.3f;
-		}		
+		}
 		else
 		{
 			m_fShake -= 0.3f;
@@ -57,6 +73,11 @@ const int & CKey::Update(void)
 		{
 			m_bCheck = !m_bCheck;
 		}
+		m_bPlayer = true;
+	}
+	else
+	{
+		m_bPlayer = false;
 	}
 
 	if (m_bPlayercolli == true && m_iHp == 0)
@@ -67,7 +88,7 @@ const int & CKey::Update(void)
 		bool bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), _Y);
 		if (bLineCol)
 		{
-			if (m_tInfo.fY + 40 >= _Y && m_tInfo.fY - 40 <= _Y)
+			if (m_tInfo.fY + 50 >= _Y && m_tInfo.fY - 50 <= _Y)
 			{
 				m_iHp = 1;
 				m_bPlayercolli = false;
@@ -80,15 +101,15 @@ const int & CKey::Update(void)
 	{
 		m_bPlayercolli = false;
 		m_iHp = 1;
-		m_tInfo.fX = 100.f;
-		m_tInfo.fY = 300.f;
+		m_tInfo.fX = 2250.f;
+		m_tInfo.fY = 30.f;
 	}
 	if (550 <= m_tInfo.fY)
 	{
 		m_bPlayercolli = false;
 		m_iHp = 1;
-		m_tInfo.fX = 100.f;
-		m_tInfo.fY = 300.f;
+		m_tInfo.fX = 2250.f;
+		m_tInfo.fY = 30.f;
 	}
 
 

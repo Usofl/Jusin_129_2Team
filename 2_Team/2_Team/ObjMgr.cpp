@@ -39,13 +39,13 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(ITEM_KEY, *ItemFactory::Create_Key());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Recovery());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Stamina());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
 	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
-	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Room());
+	OBJMGR->Add_Notbeing(NOTBEING_ROOM, *ItemFactory::Create_Room());
 	OBJMGR->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 }
 
@@ -121,7 +121,9 @@ void CObjMgr::Late_Update(void)
 		, CCoinMgr::Get_Instance()->Get_Coin_List());
 	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, OBJMGR->Get_NotBeing_list(NOTBEING_ITEM));
-	//CCollision::Collision_Player_Ladder(OBJ);
+	CCollision::Collision_Player_Key(*OBJMGR->Get_Being_list(BEING_PLAYER).front(), OBJMGR->Get_NotBeing_list(ITEM_KEY));
+
+	//CCollision::Collision_Player_Room();
 }
 
 void CObjMgr::Render(HDC _hdc)
