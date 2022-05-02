@@ -48,7 +48,11 @@ void CMainGame::Initialize(void)
 	UIMGR->Initialize();
 	COINMGR->Initialize();
 
-	CGameMap::Map_Maker();
+	//CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
+	//CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
+	//CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
+
+	CGameMap::Map_Maker(m_hDC);
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
@@ -69,7 +73,7 @@ void CMainGame::Update(void)
 	{
 		m_pState->Update();
 	}
-	
+	 
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
 	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
@@ -130,6 +134,14 @@ void CMainGame::Render(void)
 		m_iFPS = 0;
 		m_dwFPSTime = GetTickCount();
 	}
+	if (m_pState->Get_State() == STATE_GAME)
+	{
+		OBJMGR->Render(m_hDC);
+		UIMGR->Render(m_hDC);
+		COINMGR->Render(m_hDC);
+	}
+	else
+		m_pState->Render(m_hDC);
 }
 
 void CMainGame::Release(void)

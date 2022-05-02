@@ -119,6 +119,8 @@ void CObjMgr::Late_Update(void)
 
 void CObjMgr::Render(HDC _hdc)
 {
+	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
 	for (auto& iterlist : m_NotBeing_list)
 	{
@@ -128,6 +130,16 @@ void CObjMgr::Render(HDC _hdc)
 		}
 	}
 
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(0, 255, 255));
+	OldBrush = (HBRUSH)SelectObject(_hdc, MyBrush);
+
+	Ellipse(_hdc, 4300 + iScrollX, 180 + iScrollY, 4400 + iScrollX, 280 + iScrollY);
+	Ellipse(_hdc, 4900 + iScrollX, 180 + iScrollY, 5000 + iScrollX, 280 + iScrollY);
+
+	SelectObject(_hdc, OldBrush);
+	DeleteObject(MyBrush);
+
 	for (auto& iterlist : m_Being_list)
 	{
 		for (auto& iter : iterlist)
@@ -135,6 +147,7 @@ void CObjMgr::Render(HDC _hdc)
 			iter->Render(_hdc);
 		}
 	}
+	
 }
 
 void CObjMgr::Release(void)
