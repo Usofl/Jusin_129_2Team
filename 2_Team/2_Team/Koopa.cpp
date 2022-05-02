@@ -23,7 +23,7 @@ void CKoopa::Initialize(void)
 	m_tInfo.fCX = 100.f;
 	m_tInfo.fCY = 250.f;
 
-	m_iHp = 10;
+	m_iHp = 300;
 
 	m_iAtt = 3;
 
@@ -71,6 +71,18 @@ void CKoopa::Late_Update(void)
 void CKoopa::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right + iScrollX, m_tRect.top - 30 + iScrollY);
+
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right - (int)(m_tInfo.fCX * (300.f - m_iHp) / 100.f) + iScrollX, m_tRect.top - 30 + iScrollY);
+
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
 
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20, m_tRect.right + iScrollX, m_tRect.bottom - 20);
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);

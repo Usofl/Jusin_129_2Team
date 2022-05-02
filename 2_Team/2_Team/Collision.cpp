@@ -466,6 +466,52 @@ void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_
 	}
 }
 
+void CCollision::Collision_Fistol_Monster()
+{
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_GOMUFISTOL))
+	{
+		if (Dest->Get_Hp() > 0)
+		{
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
+			{
+				if (Check_Sphere(*Dest, *Sour))
+				{
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+void CCollision::Collision_Gigant_Monster()
+{
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_GIGNATFISTOL))
+	{
+		if (Dest->Get_Hp() > 0)
+		{
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
+			{
+				if (Check_Sphere(*Dest, *Sour))
+				{
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
 void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
 {
 	for (auto& _Line : m_Line_List)

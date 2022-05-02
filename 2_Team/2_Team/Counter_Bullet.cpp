@@ -22,6 +22,8 @@ CCounter_Bullet::~CCounter_Bullet()
 void CCounter_Bullet::Initialize(void)
 {
 	m_iHp = 1;
+	m_iAtt = 1;
+
 	m_fAngle = ACOSF(m_tInfo.fX, m_tInfo.fY, PLAYER->Get_Info().fX, PLAYER->Get_Info().fY);
 
 	if (m_tInfo.fY > PLAYER->Get_Info().fY)

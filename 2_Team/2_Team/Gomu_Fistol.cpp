@@ -29,6 +29,7 @@ void CGomu_Fistol::Initialize(void)
 	m_uiArea = (unsigned int)(m_tInfo.fCX / m_fSpeed) - 7;
 
 	m_iHp = 1;
+	m_iAtt = 1;
 }
 
 const int & CGomu_Fistol::Update(void)
