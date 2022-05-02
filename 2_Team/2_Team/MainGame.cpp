@@ -34,6 +34,7 @@ CMainGame::CMainGame()
 
 CMainGame::~CMainGame()
 {
+	Release();
 }
 
 void CMainGame::Initialize(void)
@@ -55,6 +56,7 @@ void CMainGame::Initialize(void)
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Koopa.bmp", L"Koopa");
 }
 
 
@@ -153,6 +155,7 @@ void CMainGame::Release(void)
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CLineMgr::Get_Instance()->Destroy_Instance();
 	CBmpMgr::Get_Instance()->Destroy_Instance();
+	CUiMgr::Get_Instance()->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)

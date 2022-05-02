@@ -82,7 +82,10 @@ const int& CPlayer::Update(void)
 
 void CPlayer::Late_Update(void)
 {
-
+	if (m_tInfo.fY >= 800)
+	{
+		m_iHp = 0;
+	}
 }
 
 void CPlayer::Render(HDC _hDC)

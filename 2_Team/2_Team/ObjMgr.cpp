@@ -140,7 +140,7 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
 
-	CCollision::Collision_Player_Bullet();
+	//CCollision::Collision_Player_Bullet();
 	CCollision::Collision_Player_Ladder(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, OBJMGR->Get_NotBeing_list(NOTBEING_LADDER));
 	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
@@ -180,40 +180,25 @@ void CObjMgr::Render(HDC _hdc)
 
 void CObjMgr::Release(void)
 {
-	
-	for (auto& iter : m_NotBeing_list[NOTBEING_BLOCK])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_LINE])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_WALL])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_TRAP])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
 	for (auto& iterlist : m_NotBeing_list)
 	{
-		for (auto& iter : iterlist)
+		for (auto iter = iterlist.begin(); iter != iterlist.end();)
 		{
-			iter->Release();
+			(*iter)->Release();
+			Safe_Delete<CObj*>(*iter);
+
+			iter = iterlist.erase(iter);
 		}
 	}
 
 	for (auto& iterlist : m_Being_list)
 	{
-		for (auto& iter : iterlist)
+		for (auto iter = iterlist.begin(); iter != iterlist.end();)
 		{
-			iter->Release();
+			(*iter)->Release();
+			Safe_Delete<CObj*>(*iter);
+
+			iter = iterlist.erase(iter);
 		}
 	}
 }

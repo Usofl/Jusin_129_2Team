@@ -34,11 +34,6 @@ void CGomu_Fistol::Initialize(void)
 
 const int & CGomu_Fistol::Update(void)
 {
-	if (0 >= m_iHp)
-	{
-		return OBJ_DEAD;
-	}
-
 	if (m_uiArea)
 	{
 		m_tInfo.fX += (m_fSpeed * m_iReverse);
@@ -47,6 +42,11 @@ const int & CGomu_Fistol::Update(void)
 	}
 	else
 	{
+		if (0 >= m_iHp && m_AreaStack.empty())
+		{
+			return OBJ_DEAD;
+		}
+
 		m_tInfo.fX = m_AreaStack.top();
 		m_AreaStack.pop();
 	}

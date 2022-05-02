@@ -12,6 +12,7 @@
 #include "GomuFactory.h"
 #include "State.h"
 #include "Portal.h"
+#include "Monster.h"
 
 CCollision::CCollision()
 {
@@ -42,7 +43,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 		_Line_Left = line->Get_LinePoint().tLeft;
 		_Line_Right = line->Get_LinePoint().tRight;
 
-		if (_Obj.Get_Info().fX >= _Line_Left.fX && _Obj.Get_Info().fX <= _Line_Right.fX)
+		if (_Obj.Get_Info().fX + _Obj.Get_Info().fCX * 0.2 >= _Line_Left.fX && _Obj.Get_Info().fX - _Obj.Get_Info().fCX * 0.2 <= _Line_Right.fX)
 		{
 			_fLine_Y = ((_Line_Right.fY - _Line_Left.fY) / (_Line_Right.fX - _Line_Left.fX)) 
 						* (_Obj.Get_Info().fX - _Line_Left.fX)	+ _Line_Left.fY;
@@ -601,6 +602,24 @@ LINEPOINT* CCollision::Collision_Portal()
 	}
 	return nullptr;
 }
+
+void CCollision::Collision_Monster_Player()
+{
+	RECT rc{};
+	
+	CPlayer* Player = static_cast<CPlayer*>(PLAYER);
+
+		for (auto& Monster : OBJMGR->Get_Being_list(BEING_MONSTER))
+		{
+			CMonster* _monster = static_cast<CMonster*>(Monster);
+			if (IntersectRect(&rc, &(Player->Get_Rect()), &(Monster->Get_Rect())))
+			{
+				
+				PLAYER->Set_Hp(PLAYER->Get_Hp() - _monster->Get_Att());
+			}
+		}
+}
+
 
 //void CCollision::Collision_Block_Wall()
 //{

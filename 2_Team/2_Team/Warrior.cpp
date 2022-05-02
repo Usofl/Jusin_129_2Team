@@ -52,29 +52,7 @@ const int& CWarrior::Update(void)
 	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
 	fLineY -= (m_tInfo.fCY * 0.5f);
 
-
-	if (fLineY - 20.f > m_tInfo.fY)
-	{
-		m_bAir = true;
-	}
-
-
-	if (m_bJump)
-	{
-		m_fJumpTime += 0.2f;
-		
-
-		if (bLineCol || m_tInfo.fY - 10.f > fLineY)
-		{
-			m_fJumpTime = 0.f;
-			m_bJump = true;
-			m_bAir = true;
-
-			m_tInfo.fY = fLineY;
-		}
-	}
-	
-
+	m_tInfo.fY = fLineY;
 
 	// 몬스터 움직이는 스피드값
 	m_tInfo.fX += m_fSpeed;
@@ -83,7 +61,6 @@ const int& CWarrior::Update(void)
 	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));
 	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
 
-
 	float	fWidth = long(m_tSword.x - m_tInfo.fX);
 	float	fHeight = long(m_tSword.y - m_tInfo.fY);
 
@@ -91,9 +68,9 @@ const int& CWarrior::Update(void)
 
 	float	fRadian = acosf(fWidth / fDiagonal);
 
-	m_fAngle = (fRadian * 180.f) / PI;
+	//m_fAngle = (fRadian * 180.f) / PI;
 	
-	m_fAngle += 1.f;
+	/*m_fAngle += 1.f;
 	if (m_iReverse)
 	{
 		m_fAngle += 1.f;
@@ -106,7 +83,9 @@ const int& CWarrior::Update(void)
 	if (110.f == m_fAngle || 270.f == m_fAngle)
 	{
 		m_iReverse = !m_iReverse;
-	}
+	}*/
+
+
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -149,8 +128,6 @@ void CWarrior::Late_Update(void)
 
 	}
 
-
-	
 }
 
 void CWarrior::Render(HDC _hDC)
