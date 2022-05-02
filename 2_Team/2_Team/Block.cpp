@@ -74,7 +74,7 @@ const int& CBlock::Update(void)
 		m_bAir = true;
 	}
 
-	m_tBlock_Roof = { { m_tInfo.fX - m_tInfo.fCX * 0.5f-0.3f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f + 0.3f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
+	m_tBlock_Roof = { { m_tInfo.fX - m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f },{ m_tInfo.fX + m_tInfo.fCX * 0.5f, m_tInfo.fY - m_tInfo.fCY * 0.5f - 3.f } };
 	static_cast<CLine*>(m_Block_RoofLine)->Set_Line(m_tBlock_Roof);
 
 	m_tBlock_Right = { { m_tInfo.fX - m_tInfo.fCX * 0.5f + 15.f, m_tInfo.fY - m_tInfo.fCY * 0.5f },{ m_tInfo.fX - m_tInfo.fCX * 0.5f + 15.f, m_tInfo.fY + m_tInfo.fCY * 0.5f } };
