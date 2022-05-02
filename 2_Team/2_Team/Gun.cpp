@@ -14,10 +14,10 @@ CGun::~CGun()
 
 void CGun::Initialize(void)
 {
-	m_tRect.left = 450;
-	m_tRect.right = 475;
-	m_tRect.top = 350;
-	m_tRect.bottom = 355;
+	m_tRect.left = 1450;
+	m_tRect.right = 1475;
+	m_tRect.top = 200;
+	m_tRect.bottom = 205;
 	
 }
 

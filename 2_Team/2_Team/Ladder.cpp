@@ -14,10 +14,10 @@ CLadder::~CLadder()
 
 void CLadder::Initialize(void)
 {
-	m_tRect.left = 670;
-	m_tRect.right = 695;
-	m_tRect.top = 320;
-	m_tRect.bottom = 345;
+	m_tRect.left = 2400;
+	m_tRect.right = 2425;
+	m_tRect.top = 370;
+	m_tRect.bottom = 395;
 	m_tColliradder = m_tRect;
 }
 
@@ -47,7 +47,7 @@ void CLadder::Render(HDC _hDC)
 		Rectangle(_hDC, m_tColliradder.left + iScrollX, m_tColliradder.top + 10, m_tColliradder.right + iScrollX, m_tColliradder.bottom - 10);
 		Rectangle(_hDC, m_tColliradder.left - 5 + iScrollX, m_tColliradder.top - 10, m_tColliradder.left + iScrollX, m_tColliradder.bottom + 10);
 		Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 10, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom + 10);
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < 7; ++i)
 		{
 			if (m_iTime + 700 + (i * 700) < GetTickCount())
 			{
