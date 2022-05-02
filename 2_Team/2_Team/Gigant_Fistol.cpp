@@ -15,6 +15,9 @@ CGigant_Fistol::CGigant_Fistol(const POINT & _tPoint, const int & _iReverse, con
 	m_tInfo.fCX = 30.f * _iSize;
 	m_tInfo.fCY = 15.f * _iSize;
 
+	m_iHp = 10 * _iSize;
+	m_iAtt = 4 * _iSize;
+
 	m_iReverse = _iReverse;
 }
 
