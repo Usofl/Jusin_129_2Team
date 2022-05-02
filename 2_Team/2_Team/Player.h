@@ -65,6 +65,8 @@ private:
 	bool m_bLeft_Move;
 
 	DWORD m_dwGigant;
+	DWORD m_dwMP;
+
 	POINT m_tLeft_Leg;
 	POINT m_tRight_Leg;
 };
