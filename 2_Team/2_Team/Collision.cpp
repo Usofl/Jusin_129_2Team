@@ -404,7 +404,6 @@ void CCollision::Collision_Player_Bullet()
 					static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).front())->PlayerColiision();
 				}
 				Bullet->Set_Hp(0);
-				//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 			}
 		}
 	}
@@ -563,12 +562,10 @@ bool CCollision::Collision_Player_Room()
 {
 	RECT rc;
 	CPlayer* player = static_cast<CPlayer*>(PLAYER);
-	CState* state = new CState;
 	for (auto& _Room : OBJMGR->Get_NotBeing_list(NOTBEING_ROOM))
 	{
 		if (IntersectRect(&rc, &player->Get_Rect(), &_Room->Get_Rect()))
 		{
-				state->Set_State(STATE_END);
 				return true;
 		}
 		else

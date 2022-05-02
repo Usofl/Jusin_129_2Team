@@ -89,6 +89,9 @@ void CState::Render(HDC hDC)
 	else if (m_iState == STATE_END)
 	{
 		TextOut(hDC, WINCX / 2 - 50 , WINCY / 2, TEXT("게임 종료"), 5);
+
+
+		
 	}
 
 	else
@@ -98,7 +101,6 @@ void CState::Render(HDC hDC)
 		Rectangle(hDC, m_tExitRect.left, m_tExitRect.top, m_tExitRect.right, m_tExitRect.bottom);
 		TextOut(hDC, (LONG)((m_tExitRect.left + m_tExitRect.right) * 0.5f) - 20, (LONG)((m_tExitRect.top + m_tExitRect.bottom) * 0.5f - 10), TEXT("Exit"), 4);
 
-		Rectangle(hDC, m_tMouseRect.left, m_tMouseRect.top, m_tMouseRect.right, m_tMouseRect.bottom);
 	}
 }
 

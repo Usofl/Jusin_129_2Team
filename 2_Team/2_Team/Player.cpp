@@ -8,6 +8,8 @@
 #include "CoinMgr.h"
 #include "KeyMgr.h"
 
+
+
 CPlayer::CPlayer()
 	: m_bChange(false)
 	, m_bJump(false)
@@ -25,7 +27,6 @@ CPlayer::CPlayer()
 	, m_tLeft_Leg({ 0,0 })
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
-	, m_iLife(3)
 	, m_iMp(50)
 {
 }
@@ -270,7 +271,7 @@ void CPlayer::PlayerCoinColli()
 	if (m_iCoin == 30)
 	{
 		m_iCoin = 0;
-		m_iLife++;
+		CObjMgr::Set_Life(CObjMgr::Get_Life() + 1);
 	}
 }
 
@@ -283,7 +284,7 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	case ITEM_GUN:
 		break;
 	case ITEM_LIFE:
-		m_iLife++;
+		CObjMgr::Set_Life(CObjMgr::Get_Life() + 1);
 		break;
 	case ITEM_KEY:
 		break;

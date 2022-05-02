@@ -64,7 +64,28 @@ void CMainGame::Update(void)
 
 	if (m_pState->Get_State() == STATE_GAME)
 	{
-		OBJMGR->Update();
+		int iState = OBJMGR->Update();
+
+		if (iState == STATE_OVER)
+		{
+			m_pState->Set_State(STATE_OVER);
+			return;
+		}
+		else if (iState == STATE_END)
+		{
+			m_pState->Set_State(STATE_END);
+			return;
+		}
+
+		CPlayer* player = static_cast<CPlayer*>(PLAYER);
+
+		CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(CObjMgr::Get_Life());
+		CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(player->Get_Coin());
+		m_pState->Get_Life(CObjMgr::Get_Life());
+		m_pState->Get_Coin(player->Get_Coin());
+		UIMGR->Get_Uilist().front()->Get_Hp(player->Get_Hp());
+		UIMGR->Get_Uilist().front()->Get_Mp(player->Get_Mp());
+
 		UIMGR->Update();
 		COINMGR->Update();
 	}
@@ -72,13 +93,6 @@ void CMainGame::Update(void)
 	{
 		m_pState->Update();
 	}
-	 
-	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
-	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
-	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
-	m_pState->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
-	UIMGR->Get_Uilist().front()->Get_Hp(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Hp());
-	UIMGR->Get_Uilist().front()->Get_Mp(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Mp());
 }
 
 void CMainGame::Late_Update(void)
@@ -153,6 +167,7 @@ void CMainGame::Key_Input(void)
 				m_pState->Set_State(STATE_GAME);
 			else if (m_pState->Get_State() == STATE_OVER)
 				m_pState->Set_State(STATE_GAME);
+				
 		}
 		else if (GetAsyncKeyState('G') && CCollision::Collision_Player_Room)
 		{

@@ -63,7 +63,7 @@ void CUI::Update()
 	if (m_iItem == ITEM_GUN)
 		m_bGun = true;
 }
-#define DEGREE (PI / 180.f)
+
 void CUI::Late_Update()
 {
 	m_tCoinRect.left = (LONG)(m_tCoin.fX - (m_tCoin.fCX * sinf(m_fAngle * DEGREE)));

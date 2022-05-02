@@ -1,5 +1,6 @@
 #pragma once
 #include "Being.h"
+#include "ObjMgr.h"
 
 class CPlayer :
 	public CBeing
@@ -26,7 +27,6 @@ public:
 
 	inline const bool& Get_Pool() { return m_bPool;}
 	inline const int& Get_Coin() { return m_iCoin; }
-	inline const int& Get_Life() { return m_iLife; }
 	inline const int& Get_Mp() { return m_iMp; }
 
 	void PlayerCoinColli(void);
@@ -52,7 +52,6 @@ private:
 	bool m_bClim;
 
 	int   m_iCoin;
-	int   m_iLife;
 	int   m_iMp;
 	int   m_iItemtype;
 	float m_fJumpTime;

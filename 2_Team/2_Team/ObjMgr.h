@@ -10,7 +10,7 @@ public:
 	~CObjMgr();
 
 	void Initialize(void);
-	void Update(void);
+	int Update(void);
 	void Late_Update(void);
 	void Render(HDC _hdc);
 	void Release(void);
@@ -57,7 +57,18 @@ public:
 		}		
 	}
 
+	static int& Get_Life()
+	{
+		return m_iLife;
+	}
+
+	static void Set_Life(const int& _life)
+	{
+		m_iLife = _life;
+	}
+
 private:
 	static CObjMgr* m_pInstance;
+	static int m_iLife;
 };
 

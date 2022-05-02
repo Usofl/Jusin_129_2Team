@@ -13,7 +13,7 @@ CRecovery::~CRecovery()
 
 void CRecovery::Initialize(void)
 {
-	m_tInfo.fX = 5500;
+	m_tInfo.fX = 5350;
 	m_tInfo.fY = 400;
 	m_tInfo.fCX = 30;
 	m_tInfo.fCY = 10;

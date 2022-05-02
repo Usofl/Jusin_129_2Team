@@ -2,6 +2,7 @@
 #include "ObjMgr.h"
 #include "Collision.h"
 #include "Player.h"
+#include "State.h"
 #include "CoinMgr.h"
 #include "LineFactory.h"
 #include "BlockFactory.h"
@@ -10,6 +11,7 @@
 #include "ItemMgr.h"
 #include "MonsterFactory.h"
 
+int CObjMgr::m_iLife(3);
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
@@ -24,7 +26,6 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-
 	CObj* player = new CPlayer;
 	OBJMGR->Add_Being(BEING_PLAYER, *player);
 
@@ -53,17 +54,27 @@ void CObjMgr::Initialize(void)
 	OBJMGR->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 }
 
-void CObjMgr::Update(void)
-{	
+int CObjMgr::Update(void)
+{
 	if (PLAYER->Update() == OBJ_DEAD)
 	{
-		Safe_Delete<CObj*>(PLAYER);
-		PLAYER = new CPlayer;
-		PLAYER->Initialize();
-		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Set_Pos(50.f,300.f);
+		if (1 >= (CObjMgr::Get_Life()))
+		{
+			Safe_Delete<CObj*>(PLAYER);
+			return STATE_END;
+		}
+		else
+		{
+			CObjMgr::Set_Life(CObjMgr::Get_Life() - 1);
+			Safe_Delete<CObj*>(PLAYER);
+			OBJMGR->Get_Being_list(BEING_PLAYER).pop_front();
 
-		SCROLLMGR->Set_ScrollX(-SCROLLMGR->Get_ScrollX());
-		
+			OBJMGR->Get_Being_list(BEING_PLAYER).push_back(new CPlayer);
+			PLAYER->Initialize();
+			OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Set_Pos(50.f, 300.f);
+			SCROLLMGR->Set_ScrollX(-SCROLLMGR->Get_ScrollX());
+			return STATE_OVER;
+		}
 	}
 	else
 	{
@@ -101,6 +112,7 @@ void CObjMgr::Update(void)
 			}
 		}
 	}
+	return STATE_GAME;
 }
 
 void CObjMgr::Late_Update(void)
