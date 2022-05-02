@@ -97,16 +97,12 @@ void CKoopa::Jumping(void)
 		m_fPlayer_X = PLAYER->Get_Info().fX;
 		m_bMove_X = true;
 	}
-	
-	
 		
-
-	
 
 	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
 	bool bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
 	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
-	fLineY -= (m_tInfo.fCY * 0.5f);
+	fLineY += (m_tInfo.fCY * 0.4f);
 
 
 	if (fLineY > m_tInfo.fY)
