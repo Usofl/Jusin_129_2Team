@@ -66,9 +66,10 @@ void CGomu_Fistol::Late_Update(void)
 void CGomu_Fistol::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
-	MoveToEx(_hDC, m_tRect.left + (10 * m_iReverse) + iScrollX, (LONG)m_tInfo.fY, nullptr);
-	LineTo(_hDC, m_tRect.right + iScrollX, (LONG)m_tInfo.fY);
+	MoveToEx(_hDC, m_tRect.left + (10 * m_iReverse) + iScrollX, (LONG)m_tInfo.fY + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right + iScrollX, (LONG)m_tInfo.fY + iScrollY);
 }
 
 void CGomu_Fistol::Release(void)

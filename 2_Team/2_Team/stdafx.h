@@ -21,4 +21,18 @@
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #include "Include.h"
 
+#ifdef _DEBUG
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifndef DBG_NEW 
+
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ ) 
+#define new DBG_NEW 
+
+#endif
+#endif
+
 const int& Random_Num(const int& _min, const int& _max);

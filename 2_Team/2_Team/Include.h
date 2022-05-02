@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <stack>
+#include <algorithm>
 
 #include "Enum.h"
 #include "Define.h"

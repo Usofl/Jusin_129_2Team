@@ -35,11 +35,13 @@ void CGun::Late_Update(void)
 void CGun::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	Rectangle(_hDC, m_tRect.left - 2 + iScrollX, m_tRect.top - 5, m_tRect.right + 2 + iScrollX, m_tRect.bottom + 15);
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
-	Rectangle(_hDC, m_tRect.left + 20 + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom + 10);
-	MoveToEx(_hDC, m_tRect.left + 13 + iScrollX, m_tRect.bottom, nullptr);
-	LineTo(_hDC, m_tRect.left + 20 + iScrollX, m_tRect.bottom + 3);
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
+	Rectangle(_hDC, m_tRect.left - 2 + iScrollX, m_tRect.top - 5 + iScrollY, m_tRect.right + 2 + iScrollX, m_tRect.bottom + 15 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+	Rectangle(_hDC, m_tRect.left + 20 + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + 10 + iScrollY);
+	MoveToEx(_hDC, m_tRect.left + 13 + iScrollX, m_tRect.bottom + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.left + 20 + iScrollX, m_tRect.bottom + 3 + iScrollY);
 }
 
 void CGun::Release(void)

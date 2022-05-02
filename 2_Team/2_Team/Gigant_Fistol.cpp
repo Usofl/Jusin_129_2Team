@@ -65,6 +65,8 @@ void CGigant_Fistol::Late_Update(void)
 void CGigant_Fistol::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
 	if (1 != m_iReverse)
 	{
 		long lTemp = m_tRect.left;
@@ -72,28 +74,28 @@ void CGigant_Fistol::Render(HDC _hDC)
 		m_tRect.right = lTemp;
 	}
 	
-	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);
-	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.top);
-	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY), nullptr);
-	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.bottom);
+	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY);
+	MoveToEx(_hDC, (LONG)(PLAYER->Get_Info().fX) + iScrollX, (LONG)(PLAYER->Get_Info().fY) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.left + iScrollX, m_tRect.bottom + iScrollY);
 
 	HBRUSH MyBrush, OldBrush;
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 220, 177));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f));
+	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.3f) + iScrollY);
 
-	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f));
+	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.5f) + iScrollY);
 
-	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f), nullptr);
-	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f));
+	MoveToEx(_hDC, m_tRect.right + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right - (LONG)(m_tInfo.fCX * 0.2f * m_iReverse) + iScrollX, m_tRect.top + (LONG)(m_tInfo.fCY * 0.7f) + iScrollY);
 }
 
 void CGigant_Fistol::Release(void)

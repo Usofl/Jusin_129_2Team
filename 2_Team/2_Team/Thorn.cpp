@@ -38,26 +38,27 @@ void CThorn::Late_Update(void)
 void CThorn::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
-	MoveToEx(_hDC, LONG(m_tInfo.fX - 50 + iScrollX), LONG(m_tInfo.fY - 300), nullptr);
-	LineTo(_hDC, LONG(m_tInfo.fX - 50 + iScrollX), LONG(m_tInfo.fY + 300));
+	MoveToEx(_hDC, LONG(m_tInfo.fX - 50 + iScrollX), LONG(m_tInfo.fY - 300) + iScrollY, nullptr);
+	LineTo(_hDC, LONG(m_tInfo.fX - 50 + iScrollX), LONG(m_tInfo.fY + 300) + iScrollY);
 	
-	MoveToEx(_hDC, m_tInfo.fX - 50+ iScrollX, m_tInfo.fY - 300, nullptr);
-	LineTo(_hDC, m_tInfo.fX + 50+ iScrollX, m_tInfo.fY - 300);
+	MoveToEx(_hDC, m_tInfo.fX - 50+ iScrollX, m_tInfo.fY - 300 + iScrollY, nullptr);
+	LineTo(_hDC, m_tInfo.fX + 50+ iScrollX, m_tInfo.fY - 300 + iScrollY);
 
 	//MoveToEx(_hDC, m_tInfo.fX + 50 + iScrollX, m_tInfo.fY - 300 , nullptr);
 	//LineTo(_hDC, m_tInfo.fX + iScrollX, m_tInfo.fY - 300 + 30);
 	for (int i = 0; i < 10; ++i)
 	{
-		MoveToEx(_hDC, LONG(m_tInfo.fX + 50 + iScrollX), LONG(m_tInfo.fY - 300 + i*60), nullptr);
-		LineTo(_hDC, LONG(m_tInfo.fX + iScrollX), LONG(m_tInfo.fY - 300 + 30 + i*60));
+		MoveToEx(_hDC, LONG(m_tInfo.fX + 50 + iScrollX), LONG(m_tInfo.fY - 300 + i*60) + iScrollY, nullptr);
+		LineTo(_hDC, LONG(m_tInfo.fX + iScrollX), LONG(m_tInfo.fY - 300 + 30 + i*60) + iScrollY);
 
-		MoveToEx(_hDC, m_tInfo.fX + iScrollX, m_tInfo.fY - 300 + 30 + i * 60, nullptr);
-		LineTo(_hDC, m_tInfo.fX + 50 + iScrollX, m_tInfo.fY - 300 + 60 + i * 60);
+		MoveToEx(_hDC, m_tInfo.fX + iScrollX, m_tInfo.fY - 300 + 30 + i * 60 + iScrollY, nullptr);
+		LineTo(_hDC, m_tInfo.fX + 50 + iScrollX, m_tInfo.fY - 300 + 60 + i * 60 + iScrollY);
 	}
 
-	MoveToEx(_hDC, LONG(m_tInfo.fX - 50+ iScrollX), LONG(m_tInfo.fY + 300), nullptr);
-	LineTo(_hDC, LONG(m_tInfo.fX + 50+ iScrollX), LONG(m_tInfo.fY + 300));
+	MoveToEx(_hDC, LONG(m_tInfo.fX - 50+ iScrollX), LONG(m_tInfo.fY + 300) + iScrollY, nullptr);
+	LineTo(_hDC, LONG(m_tInfo.fX + 50+ iScrollX), LONG(m_tInfo.fY + 300) + iScrollY);
 
 
 }
