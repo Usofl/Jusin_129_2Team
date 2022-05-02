@@ -19,5 +19,10 @@ private:
 	float					m_fShootPower;
 	float					m_fShootTime;	
 	float					m_fShootAngle;
+
+
+
+	bool					m_bReverse;
+
 };
 

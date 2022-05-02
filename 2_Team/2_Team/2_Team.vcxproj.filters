@@ -425,20 +425,11 @@
     <ClCompile Include="Counter_Bullet.cpp">
       <Filter>01. Obj\00. Being\00. Player\02.Counter_Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Koopa_Bullet.cpp">
-      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>00. MainGame\01. Map</Filter>
     </ClCompile>
-    <ClCompile Include="BmpMgr.cpp">
-      <Filter>01. Manager\06. BmpMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="MyBmp.cpp">
-      <Filter>01. Manager\06. BmpMgr\00. MyBmp</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>01. Obj\01. NotBeing\03. Portal</Filter>
+    <ClCompile Include="Koopa_Bullet.cpp">
+      <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

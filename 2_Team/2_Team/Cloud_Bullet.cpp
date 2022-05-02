@@ -18,6 +18,7 @@ CCloud_Bullet::~CCloud_Bullet()
 void CCloud_Bullet::Initialize(void)
 {
 	m_iHp = 1;
+	m_iAtt = 5;
 
 	m_tInfo.fCX = 20.f;
 	m_tInfo.fCY = 20.f;

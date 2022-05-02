@@ -394,7 +394,7 @@ void CCollision::Collision_Player_Bullet()
 				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
 			}
 			Bullet->Set_Hp(0);
-			static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
+			//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 		}
 	}
 }

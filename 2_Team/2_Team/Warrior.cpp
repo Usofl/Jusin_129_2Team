@@ -18,8 +18,8 @@ CWarrior::~CWarrior()
 
 void CWarrior::Initialize(void)
 {
-	m_tInfo.fX = 300.f;
-	m_tInfo.fY = 300.f;
+	m_tInfo.fX = 2200.f;
+	m_tInfo.fY = 100.f;
 
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
@@ -30,13 +30,16 @@ void CWarrior::Initialize(void)
 
 	m_fSpeed = 2.f;
 
-	m_fAngle = 0.f;
+	m_fAngle = 330.f;
 	
 	m_fDiagonal = 50.f;
+
+	m_iReverse = false;
 }
 
 const int& CWarrior::Update(void)
 {
+
 	if (!m_iHp)
 	{
 		return OBJ_DEAD;
@@ -56,10 +59,10 @@ const int& CWarrior::Update(void)
 	}
 
 
-	if (m_bJump && m_bAir)
+	if (m_bJump)
 	{
 		m_fJumpTime += 0.2f;
-		float fy = m_fJumpPower * m_fJumpTime - (0.5f * (GRAVITY - 9.7) * (m_fJumpTime * m_fJumpTime));
+		
 
 		if (bLineCol || m_tInfo.fY - 10.f > fLineY)
 		{
@@ -70,31 +73,40 @@ const int& CWarrior::Update(void)
 			m_tInfo.fY = fLineY;
 		}
 	}
-	else if (m_bAir)
-	{
-		m_fJumpTime += 0.2f;
-		m_tInfo.fY += (0.5f * (GRAVITY - 9.7) * (m_fJumpTime * m_fJumpTime));
-
-		if (bLineCol && m_tInfo.fY - 10.f> fLineY)
-		{
-			m_fJumpTime = 0.f;
-			m_bJump = true;
-			m_bAir = true;
-
-			m_tInfo.fY = fLineY;
-		}
-	}
+	
 
 
 	// 몬스터 움직이는 스피드값
 	m_tInfo.fX += m_fSpeed;
 	
-	if(rc.left)
-	m_fAngle += 1.f;
-	
 	// 칼 x 좌표 * -1 곱해서 반대로
 	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));
 	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
+
+
+	float	fWidth = long(m_tSword.x - m_tInfo.fX);
+	float	fHeight = long(m_tSword.y - m_tInfo.fY);
+
+	float	fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
+
+	float	fRadian = acosf(fWidth / fDiagonal);
+
+	m_fAngle = (fRadian * 180.f) / PI;
+	
+	m_fAngle += 1.f;
+	if (m_iReverse)
+	{
+		m_fAngle += 1.f;
+	}
+	else if (!m_iReverse)
+	{
+		m_fAngle -= 1.f;
+	}
+
+	if (110.f == m_fAngle || 270.f == m_fAngle)
+	{
+		m_iReverse = !m_iReverse;
+	}
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -102,8 +114,29 @@ const int& CWarrior::Update(void)
 
 void CWarrior::Late_Update(void)
 {
+	float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
+
+	if (1600.f < fPlayer_X && 2440.f > fPlayer_X)
+	{
+		if (m_tInfo.fX > fPlayer_X)
+		{
+			if (0 < m_fSpeed)
+			{
+				m_iTurn *= -1.f;
+				m_fSpeed *= -1.f;
+			}
+		}
+		else if (m_tInfo.fX < fPlayer_X)
+		{
+			if (0 > m_fSpeed)
+			{
+				m_iTurn *= -1.f;
+				m_fSpeed *= -1.f;
+			}
+		}
+	}
 	// 일정 수치 벽에 박으면
-	if ( 200 >= m_tRect.left || WINCX -200  <= m_tRect.right)
+	if ( 1600.f >= m_tInfo.fX || 2450.f <= m_tInfo.fX)
 	{
 		// 스왑
 		long lTemp = m_tRect.left;
@@ -113,13 +146,11 @@ void CWarrior::Late_Update(void)
 		// 반전을 위한 변수
 		m_iTurn *= -1;
 		m_fSpeed *= -1.f;
+
 	}
 
-	if (m_fAngle >= 25.f)
-	{
-		m_fAngle *= -2.f;
-	}
 
+	
 }
 
 void CWarrior::Render(HDC _hDC)

@@ -167,6 +167,11 @@ void CObjMgr::Release(void)
 		Safe_Delete<CObj*>(iter);
 	}
 
+	for (auto& iter : m_NotBeing_list[NOTBEING_TRAP])
+	{
+		Safe_Delete<CObj*>(iter);
+	}
+
 	for (auto& iterlist : m_NotBeing_list)
 	{
 		for (auto& iter : iterlist)
