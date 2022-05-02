@@ -559,7 +559,6 @@ void CCollision::Collision_Counter_Monster()
 	}
 }
 
-void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
 bool CCollision::Collision_Player_Room()
 {
 	RECT rc;
