@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2_Team.h" />
+    <ClInclude Include="BmpMgr.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinFactory.h" />
     <ClInclude Include="CoinMgr.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Life.h" />
     <ClInclude Include="Koopa_Bullet.h" />
     <ClInclude Include="LineFactory.h" />
+    <ClInclude Include="MyBmp.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="Being.h" />
@@ -185,6 +187,8 @@
     <ClInclude Include="NotBeing.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
+    <ClInclude Include="Portal.h" />
+    <ClInclude Include="PortalFactory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="ScrollMgr.h" />
@@ -202,6 +206,7 @@
     <ClCompile Include="2_Team.cpp" />
     <ClCompile Include="Being.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BmpMgr.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinMgr.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -220,6 +225,7 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="LineMgr.cpp" />
     <ClCompile Include="Cloud_Bullet.cpp" />
+    <ClCompile Include="MyBmp.cpp" />
     <ClCompile Include="M_Cloud.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -228,6 +234,7 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="State.cpp" />

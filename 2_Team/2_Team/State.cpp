@@ -44,7 +44,7 @@ void CState::Update()
 
 void CState::Late_Update()
 {
-	m_tMouseRect.left = m_tMouse.x - (LONG)(m_tMouseInfo.fCX * sinf( RADIAN(m_fMouseAngle)));
+	m_tMouseRect.left = m_tMouse.x - (LONG)(m_tMouseInfo.fCX * sinf(RADIAN(m_fMouseAngle)));
 	m_tMouseRect.right = m_tMouse.x + (LONG)(m_tMouseInfo.fCX * sinf(RADIAN(m_fMouseAngle)));
 	m_tMouseRect.top = m_tMouse.y - (LONG)(m_tMouseInfo.fCY);
 	m_tMouseRect.bottom = m_tMouse.y + (LONG)(m_tMouseInfo.fCY);

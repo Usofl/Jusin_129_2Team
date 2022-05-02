@@ -15,6 +15,7 @@ CPlayer::CPlayer()
 	, m_bLeft_Move(false)
 	, m_bRight_Move(false)
 	, m_bCharging(false)
+	, m_bClim(false)
 	, m_dwGigant(GetTickCount())
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(90.f)
@@ -23,6 +24,7 @@ CPlayer::CPlayer()
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
 	, m_iLife(3)
+	, m_iMp(50)
 {
 }
 
@@ -38,7 +40,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 	
-	m_iHp = 10;
+	m_iHp = 90;
 
 	m_iReverse = 1;
 
@@ -48,7 +50,7 @@ void CPlayer::Initialize(void)
 	m_tRight_Leg = { (LONG)(m_tInfo.fX + LEGSIZE * cos(m_fAngle)) , (LONG)(m_tInfo.fY + LEGSIZE * sin(m_fAngle)) };
 
 	m_bAir = true;
-
+	m_iCoin = 0;
 	m_iReverse = 1;
 
 	m_fJumpPower = 25.f;
@@ -64,7 +66,10 @@ const int& CPlayer::Update(void)
 
 	Key_Input();
 
-	Jumping();
+	if (!m_bClim)
+	{
+		Jumping();
+	}
 	OffSet();
 
 	Update_Rect();
@@ -80,65 +85,74 @@ void CPlayer::Late_Update(void)
 void CPlayer::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
 	//Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
 	HBRUSH MyBrush, OldBrush;
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 212, 0));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
-	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.5f)
-		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.5f) + iScrollY
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f) + iScrollY);
 	
-	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.4f)
-		, m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f));
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.4f) + iScrollY
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f) + iScrollY);
+
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.3f)
-		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f));
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 220, 177));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 
-	MoveToEx(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.3f) - 1 + iScrollX, m_tRect.top + 1, nullptr);
-	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.46f) - 1 + iScrollX, m_tRect.top + 1);
+	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.3f) + iScrollY
+		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f) + iScrollY);
 
-	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f), nullptr);
-	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f));
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
+	MoveToEx(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.3f) - 1 + iScrollX, m_tRect.top + 1 + iScrollY, nullptr);
+	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.46f) - 1 + iScrollX, m_tRect.top + 1 + iScrollY);
+
+	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f) + iScrollY, nullptr);
+	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY);
 
 	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())
 	{
 		// ¿ÞÆÈ
-		LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
-		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f) + iScrollY);
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
 		// ¿À¸¥ÆÈ
-		LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f));
-		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f) + iScrollY);
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
 	}
 	else
 	{
 		// ¿ÞÆÈ
-		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.2f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
-		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f));
-		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
-		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.1f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.55f));
-		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f));
-		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.2f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f) + iScrollY);
+		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f) + iScrollY);
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
+		LineTo(_hDC, (int)(m_tInfo.fX) - ((int)(m_tInfo.fCX * 0.1f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.55f) + iScrollY);
+		LineTo(_hDC, (int)(m_tInfo.fX) + ((int)(m_tInfo.fCX * 0.05f) * m_iReverse) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.5f) + iScrollY);
+		MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
 	}
 
-	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY));
+	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY) + iScrollY);
 
-	LineTo(_hDC, m_tLeft_Leg.x + iScrollX, m_tLeft_Leg.y);
-	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY), nullptr);
-	LineTo(_hDC, m_tRight_Leg.x + iScrollX, m_tRight_Leg.y);
+	LineTo(_hDC, m_tLeft_Leg.x + iScrollX, m_tLeft_Leg.y + iScrollY);
+	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, (int)(m_tInfo.fY) + iScrollY, nullptr);
+	LineTo(_hDC, m_tRight_Leg.x + iScrollX, m_tRight_Leg.y + iScrollY);
 
 	if (m_bBalloon)
 	{
-		Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top + (int)(m_tInfo.fCY * 0.1f)
-			, m_tRect.right + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.1f));
+		Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top + (int)(m_tInfo.fCY * 0.1f) + iScrollY
+			, m_tRect.right + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.1f) + iScrollY);
 
 		// ¿ÞÆÈ
-		MoveToEx(_hDC, (int)m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
-		LineTo(_hDC, m_tRect.left - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
-		MoveToEx(_hDC, (int)m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f), nullptr);
+		MoveToEx(_hDC, (int)m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
+		LineTo(_hDC, m_tRect.left - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f) + iScrollY);
 		// ¿À¸¥ÆÈ
-		LineTo(_hDC, m_tRect.right + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f));
+
+		MoveToEx(_hDC, (int)m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
+		LineTo(_hDC, m_tRect.right + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f) + iScrollY);
 	}
 }
 
@@ -219,25 +233,39 @@ void CPlayer::SetBody(void)
 void CPlayer::OffSet(void)
 {
 	int		iOffSetX = WINCX >> 1;
+	int		iOffSetY = WINCY >> 1;
+
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	int		iItv = 100;
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
+	int		iItvX = 100;
+	int		iItvY = 200;
 
-	if (iOffSetX - iItv > m_tInfo.fX + iScrollX)
+	if (iOffSetX - iItvX > m_tInfo.fX + iScrollX)
 	{ 
 		SCROLLMGR->Set_ScrollX(m_fSpeed);
 	}
 
-	if (iOffSetX + iItv < m_tInfo.fX + iScrollX)
+	if (iOffSetX + iItvX < m_tInfo.fX + iScrollX)
 	{
 		SCROLLMGR->Set_ScrollX(-m_fSpeed);
+	}
+
+	if (iOffSetY - iItvY > m_tInfo.fY + iScrollY)
+	{
+		SCROLLMGR->Set_ScrollY(m_fSpeed + 5.f);
+	}
+
+	if (iOffSetY + iItvY < m_tInfo.fY + iScrollY)
+	{
+		SCROLLMGR->Set_ScrollY(-m_fSpeed - 5.f);
 	}
 }
 
 void CPlayer::PlayerCoinColli()
 {
 	++m_iCoin;
-	if (m_iCoin == 10)
+	if (m_iCoin == 30)
 	{
 		m_iCoin = 0;
 		m_iLife++;
@@ -264,6 +292,22 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	}
 }
 
+void CPlayer::DOWN_Clim_Ladder(void)
+{
+	m_tInfo.fY += m_fSpeed;
+	m_bAir = false;
+	m_bClim = true;
+	SetBody();
+}
+
+void CPlayer::UP_Clim_Ladder(void)
+{
+	m_tInfo.fY -= m_fSpeed;
+	m_bAir = false;
+	m_bClim = true;
+	SetBody();
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (KEYMGR->Key_Pressing(VK_SHIFT) && !m_bRight_Move && !m_bLeft_Move)
@@ -277,6 +321,18 @@ void CPlayer::Key_Input(void)
 		m_fSpeed = 2.f;
 		m_fJumpPower = 15.f;
 		m_fJumpAngle = 90.f;
+	}
+
+	if (KEYMGR->Key_Up(VK_DOWN))
+	{
+		LINEPOINT* _pPortal_Pos = nullptr;
+		_pPortal_Pos = CCollision::Collision_Portal();
+		if (_pPortal_Pos != nullptr)
+		{
+			Set_Pos((*_pPortal_Pos).fX, (*_pPortal_Pos).fY);
+			SetBody();
+			_pPortal_Pos = nullptr;
+		}
 	}
 
 	if (KEYMGR->Key_Pressing('A'))

@@ -3,7 +3,7 @@
 
 
 CUI::CUI()
-	:m_bGun(false)
+	:m_bGun(false), m_iCoin(0)
 {
 }
 
@@ -19,10 +19,20 @@ void CUI::Initialize()
 	m_tLifeRect.top = 5;
 	m_tLifeRect.bottom = 20;
 
+	m_tHp.left = 25;
+	m_tHp.right = 125;
+	m_tHp.top = 70;
+	m_tHp.bottom = 80;
+
 	m_tCoinRect.left = 700;
 	m_tCoinRect.right = 760;
 	m_tCoinRect.top = 20;
 	m_tCoinRect.bottom = 50;
+
+	m_tMp.left = 660;
+	m_tMp.right = 760;
+	m_tMp.top = 530;
+	m_tMp.bottom = 560;
 
 	m_tCoin.fX = 730;
 	m_tCoin.fY = 35;
@@ -105,6 +115,34 @@ void CUI::Render(HDC _hDC)
 		MoveToEx(_hDC, m_tGun.left + 13, m_tGun.bottom, nullptr);
 		LineTo(_hDC, m_tGun.left + 20, m_tGun.bottom + 3);
 	}
+
+	//DRAW HP
+	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.right, m_tHp.bottom);
+	Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.right - 20, m_tHp.bottom + 20);
+
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.left + m_iHp, m_tHp.bottom);
+	if(m_iHp>=20 && m_iHp<=80)
+		Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.left + m_iHp, m_tHp.bottom + 20);
+	else if(80 < m_iHp)
+		Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.left + 80, m_tHp.bottom + 20);
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
+	
+
+	//DRAW MP
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.right, m_tMp.bottom);
+
+
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 255, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp, m_tMp.bottom);
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
 }
 
 void CUI::Release()

@@ -4,10 +4,12 @@
 #include "Player.h"
 #include "ObjMgr.h"
 #include "UiMgr.h"
+#include "KeyMgr.h"
 #include "Block.h"
 #include "Coin.h"
+#include "Ladder.h"
 #include "GomuFactory.h"
-
+#include "Portal.h"
 
 CCollision::CCollision()
 {
@@ -45,7 +47,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 
 			if (_Obj.Get_Info().fY - 20.f <= _fLine_Y)
 			{
-				if (pTarget ||_fY > _fLine_Y)
+				if (pTarget && _fY > _fLine_Y)
 				{
 					pTarget = line;
 					_fY = _fLine_Y;
@@ -116,6 +118,36 @@ void CCollision::Collision_Player_LeftWall()
 	return;
 } 
 
+void CCollision::Collision_Player_Ladder()
+{
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
+
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_LADDER))
+	{
+		if ((LONG)player->Get_Info().fX <= iter->Get_Rect().right &&
+			(LONG)player->Get_Info().fX >= iter->Get_Rect().left &&
+			(LONG)player->Get_Info().fY <= iter->Get_Rect().bottom)
+		{
+			player->Put_ItemType(static_cast<CItem*>(iter)->Itemtype());
+			iter->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(iter)->Itemtype());
+			
+			if (KEYMGR->Key_Pressing(VK_UP))
+			{
+				player->UP_Clim_Ladder();
+			}
+			else if(KEYMGR->Key_Pressing(VK_DOWN))
+			{
+				player->DOWN_Clim_Ladder();
+			}
+			else
+			{
+				player->Set_Clim(false);
+			}
+		}
+	}
+}
+
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
 	for (auto& _player : m_Obj_List)
@@ -154,24 +186,22 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 					
 							if (static_cast<CPlayer*>(_player)->Get_Pool())
 							{
-								_block->Set_Pos(_block->Get_Info().fX + 5.f, _block->Get_Info().fY);
+								float _fTemp = _block->Get_Info().fX + 5.f;
 								if (static_cast<CBlock*>(_block)->Get_Block_Up() != nullptr)
 								{
 									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
 									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
-									continue;
+									return;
 								}
-						/*		else if (static_cast<CBlock*>(_block)->Get_Block_Right() != nullptr)
-								{
-									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
-									continue;
-								}*/
-								else if (static_cast<CBlock*>(_block)->Get_Block_Left() != nullptr)
+								if (Collision_Block_To_RightBlock(_block, _fTemp))
 								{
 									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
-									continue;
+									static_cast<CPlayer*>(_player)->Set_Right_Move(false);
+									//return;
 								}
-								
+
+
+								_block->Set_Pos(_block->Get_Info().fX + 5.f, _block->Get_Info().fY);
 								if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
 									_block->Set_Pos(_player_info.fX - fCX + 10.f, _block->Get_Info().fY);
 							}
@@ -185,19 +215,20 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 						{
 							if (static_cast<CPlayer*>(_player)->Get_Pool())
 							{
-								_block->Set_Pos(_block->Get_Info().fX - 5.f, _block->Get_Info().fY);
+								float _fTemp = _block->Get_Info().fX - 5.f;
 								if (static_cast<CBlock*>(_block)->Get_Block_Up() != nullptr)
 								{
 									static_cast<CPlayer*>(_player)->Set_Left_Move(true);
 									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
-									continue;
+									return;
 								}
-								else if (static_cast<CBlock*>(_block)->Get_Block_Right() != nullptr)
+								if (Collision_Block_To_LeftBlock(_block, _fTemp))
 								{
 									static_cast<CPlayer*>(_player)->Set_Right_Move(true);
-									continue;
+									static_cast<CPlayer*>(_player)->Set_Left_Move(false);
+									//return;
 								}
-								
+								_block->Set_Pos(_block->Get_Info().fX - 5.f, _block->Get_Info().fY);
 								if (abs(_player_info.fX - _block->Get_Info().fX) < fCX)
 									_block->Set_Pos(_player_info.fX + fCX - 10.f, _block->Get_Info().fY);
 							}
@@ -212,6 +243,78 @@ void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<
 			}
 		}
 	}
+}
+
+bool CCollision::Collision_Block_To_LeftBlock(CObj* _Obj, float _fTemp)
+{
+	for (auto& _block : OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK))
+	{
+		if (_Obj == _block)
+		{
+			continue;
+		}
+
+		float fWidth = abs(_fTemp - _block->Get_Info().fX);
+		float fHeight = abs(_Obj->Get_Info().fY - _block->Get_Info().fY);
+
+		float fCX = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f + 5.f;
+		float fCY = (_Obj->Get_Info().fCY + _block->Get_Info().fCY) * 0.5f + 5.f;
+
+		if (fCX > fWidth && fCY > fHeight)
+		{
+			float _fChangeX(fCX - fWidth);
+			float _fChangeY(fCY - fHeight);
+			if (_fChangeX < _fChangeY)
+			{
+				if (_Obj->Get_Info().fY + 0.5f >= _block->Get_Info().fY)
+				{
+					//우충돌
+					if (_fTemp < _block->Get_Info().fX)
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+bool CCollision::Collision_Block_To_RightBlock(CObj* _Obj, float _fTemp)
+{
+	for (auto& _block : OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK))
+	{
+
+		if (_Obj == _block)
+		{
+			continue;
+		}
+
+		float fWidth = abs(_fTemp - _block->Get_Info().fX);
+		float fHeight = abs(_Obj->Get_Info().fY - _block->Get_Info().fY);
+
+		float fCX = (_Obj->Get_Info().fCX + _block->Get_Info().fCX) * 0.5f + 5.f;
+		float fCY = (_Obj->Get_Info().fCY + _block->Get_Info().fCY) * 0.5f + 5.f;
+
+		if (fCX > fWidth && fCY > fHeight)
+		{
+			float _fChangeX(fCX - fWidth);
+			float _fChangeY(fCY - fHeight);
+			if (_fChangeX < _fChangeY)
+			{
+				if (_Obj->Get_Info().fY >= _block->Get_Info().fY)
+				{
+					if (_fTemp > _block->Get_Info().fX)
+					{
+						//_Obj->Set_Pos(_block->Get_Info().fX - _fChangeX, _block->Get_Info().fY);
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
 
 void CCollision::Collision_Block_Block()
@@ -237,7 +340,7 @@ void CCollision::Collision_Block_Block()
 			float fHeight = fabs((_block)->Get_Info().fY - (_block_2)->Get_Info().fY);
 
 			float fCX = ((_block)->Get_Info().fCX + (_block_2)->Get_Info().fCX) * 0.5f;
-			float fCY = ((_block)->Get_Info().fCY + (_block_2)->Get_Info().fCY) * 0.5f;
+			float fCY = ((_block)->Get_Info().fCY + (_block_2)->Get_Info().fCY) * 0.5f + 50.f;
 
 			if (fCX > fWidth && fCY > fHeight)
 			{
@@ -348,24 +451,69 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 		}
 	}
 }
+void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List)
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	for (auto& _iTEM : m_Ladder_List)
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
+		{
+			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
+			_iTEM->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(_iTEM)->Itemtype());
+		}
+	}
+}
 
-//void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
-//{
-//	for (auto& _Line : m_Line_List)
-//	{
-//		CLine* line = static_cast<CLine*>(_Line);
-//
-//		for (auto& _Item : m_Item_List)
-//		{
-//			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
-//			{
-//				(line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
-//					*()
-//			}
-//		}
-//	}
-//}
+void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
+{
+	for (auto& _Line : m_Line_List)
+	{
+		CLine* line = static_cast<CLine*>(_Line);
 
+		for (auto& _Item : m_Item_List)
+		{
+			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
+			{
+				if (((line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
+					*(_Item->Get_Info().fX - line->Get_LinePoint().tLeft.fX) + line->Get_LinePoint().tLeft.fY) == _Item->Get_Info().fY)
+				{
+					static_cast<CItem*>(_Item)->PlayerColiision();
+				}
+			}
+		}
+	}
+}
+
+bool CCollision::Check_Sphere(CObj& pDest, CObj& pSour)
+{
+	// sqrt : 루트를 씌워주는 함수
+	float	fDiagonal = DIAGONAL(pDest.Get_Info().fX, pDest.Get_Info().fY, pSour.Get_Info().fX, pSour.Get_Info().fY);
+
+	float	fRadius = (pDest.Get_Info().fCX + pSour.Get_Info().fCX) * 0.5f;
+
+	return fRadius > fDiagonal;
+}
+
+LINEPOINT* CCollision::Collision_Portal()
+{	
+	std::list<CObj*>& _Portal_List = OBJMGR->Get_NotBeing_list(NOTBEING_PORTAL);
+
+	CPortal* _pPortal = nullptr;
+	LINEPOINT _pTarget_Pos({ 0,0 });
+	
+	for (auto& _portal : _Portal_List)
+	{
+		_pPortal = static_cast<CPortal*>(_portal);
+		_pTarget_Pos = _pPortal->Get_Portal();
+		if (Check_Sphere(*PLAYER, *_portal))
+		{
+			return &_pTarget_Pos;
+		}
+	}
+	return nullptr;
+}
 
 //void CCollision::Collision_Block_Wall()
 //{

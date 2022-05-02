@@ -27,13 +27,17 @@ public:
 	inline const bool& Get_Pool() { return m_bPool;}
 	inline const int& Get_Coin() { return m_iCoin; }
 	inline const int& Get_Life() { return m_iLife; }
+	inline const int& Get_Mp() { return m_iMp; }
 
 	void PlayerCoinColli(void);
 	void Put_ItemType(const int& _Itemtype);
+	void DOWN_Clim_Ladder(void);
+	void UP_Clim_Ladder(void);
 
-	void Set_Jump() { m_bJump = false; }
-	void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
-	void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
+	inline void Set_Jump() { m_bJump = false; }
+	inline void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
+	inline void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
+	inline void Set_Clim(const bool& _bClim) { m_bClim = _bClim; }
 
 private:
 	void Key_Input(void);
@@ -45,9 +49,11 @@ private:
 	bool m_bPool;
 	bool m_bBalloon;
 	bool m_bCharging;
+	bool m_bClim;
 
 	int   m_iCoin;
 	int   m_iLife;
+	int   m_iMp;
 	int   m_iItemtype;
 	float m_fJumpTime;
 	float m_fJumpPower;

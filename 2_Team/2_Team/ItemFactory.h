@@ -30,7 +30,7 @@ public:
 		Obj->Initialize();
 		return Obj;
 	}
-	static CObj*	Create_KEY()
+	static CObj*	Create_Key()
 	{
 		CObj* Obj = new CKey;
 		Obj->Initialize();

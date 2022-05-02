@@ -7,6 +7,7 @@
 #include "TrapFactory.h"
 #include "ItemFactory.h"
 #include "ItemMgr.h"
+#include "MonsterFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -37,6 +38,11 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
+	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
+	OBJMGR->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 }
 
 void CObjMgr::Update(void)
@@ -100,10 +106,14 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
 
+	CCollision::Collision_Player_Ladder();
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
 
 	CCollision::Collision_Player_Bullet();
+	//CCollision::Collision_Player_Ladder(OBJ);
+	//CCollision::Collision_Key_Line(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), OBJMGR->Get_NotBeing_list(NOTBEING_LINE));
+	//CCollision::Collision_Line(OBJMGR->Get_NotBeing_list(NOTBEING_LINE), OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), 0);
 }
 
 void CObjMgr::Render(HDC _hdc)
@@ -116,6 +126,8 @@ void CObjMgr::Render(HDC _hdc)
 		}
 	}
 
+	
+
 	for (auto& iterlist : m_Being_list)
 	{
 		for (auto& iter : iterlist)
@@ -123,10 +135,27 @@ void CObjMgr::Render(HDC _hdc)
 			iter->Render(_hdc);
 		}
 	}
+	
 }
 
 void CObjMgr::Release(void)
 {
+	
+	for (auto& iter : m_NotBeing_list[NOTBEING_BLOCK])
+	{
+		Safe_Delete<CObj*>(iter);
+	}
+
+	for (auto& iter : m_NotBeing_list[NOTBEING_LINE])
+	{
+		Safe_Delete<CObj*>(iter);
+	}
+
+	for (auto& iter : m_NotBeing_list[NOTBEING_WALL])
+	{
+		Safe_Delete<CObj*>(iter);
+	}
+
 	for (auto& iterlist : m_NotBeing_list)
 	{
 		for (auto& iter : iterlist)

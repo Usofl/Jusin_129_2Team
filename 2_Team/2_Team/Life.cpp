@@ -46,7 +46,22 @@ void CLife::Late_Update(void)
 void CLife::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom );
+	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+
+	MoveToEx(_hDC, (LONG)((m_tRect.left + m_tRect.right) * 0.5f + iScrollX), m_tRect.bottom + iScrollY, nullptr);
+	LineTo(_hDC, (LONG)((m_tRect.left + m_tRect.right) * 0.5f + iScrollX), m_tRect.bottom + 10 + iScrollY);
+
+	LineTo(_hDC, (LONG)((m_tRect.left + m_tRect.right) * 0.5f - 7 + iScrollX), m_tRect.bottom + 20 + iScrollY);
+
+	MoveToEx(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 + iScrollX), m_tRect.bottom + 10 + iScrollY, nullptr);
+	LineTo(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 + 7 + iScrollX), m_tRect.bottom + 20 + iScrollY);
+
+	MoveToEx(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 + iScrollX), m_tRect.bottom + 2 + iScrollY, nullptr);
+	LineTo(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 - 7 + iScrollX), m_tRect.bottom + 10 + iScrollY);
+
+	MoveToEx(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 + iScrollX), m_tRect.bottom + 2 + iScrollY, nullptr);
+	LineTo(_hDC, (LONG)((m_tRect.left + m_tRect.right)*0.5 + 7 + iScrollX), m_tRect.bottom + 10 + iScrollY);
 }
 
 void CLife::Release(void)
