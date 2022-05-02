@@ -115,7 +115,7 @@ void CPlayer::Render(HDC _hDC)
 	MoveToEx(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f) + iScrollY, nullptr);
 	LineTo(_hDC, (int)(m_tInfo.fX) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY);
 
-	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())
+	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty() && OBJMGR->Get_Being_list(BEING_GIGNATFISTOL).empty())
 	{
 		// ¿ÞÆÈ
 		LineTo(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.4f) + iScrollY);
@@ -375,7 +375,7 @@ void CPlayer::Key_Input(void)
 				if (15.f <= m_fCharging)
 				{
 					POINT tPoint = { (LONG)(m_tInfo.fX + Random_Num(-20, 20)), (LONG)(m_tInfo.fY + Random_Num(-40, 10)) };
-					OBJMGR->Add_Being(BEING_GOMUFISTOL, *CGomuFactory::Create_Gigant_Fistol(tPoint, m_iReverse, m_fCharging));
+					OBJMGR->Add_Being(BEING_GIGNATFISTOL, *CGomuFactory::Create_Gigant_Fistol(tPoint, m_iReverse, m_fCharging));
 
 					m_fCharging = 0.f;
 					m_dwGigant = GetTickCount();
@@ -413,7 +413,7 @@ void CPlayer::Key_Input(void)
 		SetBody();
 	}
 
-	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty())
+	if (OBJMGR->Get_Being_list(BEING_GOMUFISTOL).empty() && OBJMGR->Get_Being_list(BEING_GIGNATFISTOL).empty())
 	{
 		if (GetAsyncKeyState(VK_RIGHT))
 		{

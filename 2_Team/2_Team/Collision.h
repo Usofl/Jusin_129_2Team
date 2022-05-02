@@ -28,9 +28,8 @@ public:
 	static void Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List);
 	static void Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List);
 	static void Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List);
+	static void Collision_Fistol_Monster();
+	static void Collision_Gigant_Monster();
 
 	static bool Check_Sphere(CObj& pDest, CObj& pSour);
-	static void Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour);
-
-	
 };
