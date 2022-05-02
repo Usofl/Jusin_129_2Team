@@ -24,7 +24,7 @@ CMainGame::CMainGame()
 	: m_dwFPSTime(GetTickCount())
 	, m_iFPS(0)
 	, m_Pause(false)
-	, m_dwTime(GetTickCount())
+	, m_dwPauseTime(GetTickCount())
 {
 	ZeroMemory(m_szFPS, sizeof(TCHAR) * 64);
 }
@@ -132,7 +132,7 @@ void CMainGame::Release(void)
 
 void CMainGame::Key_Input(void)
 {
-	if (m_dwTime + 200 < GetTickCount())
+	if (m_dwPauseTime + 200 < GetTickCount())
 	{
 		if (GetAsyncKeyState('R'))
 		{
@@ -143,6 +143,6 @@ void CMainGame::Key_Input(void)
 			else if (m_pState->Get_State() == STATE_OVER)
 				m_pState->Set_Pause(STATE_GAME);
 		}
-		m_dwTime = GetTickCount();
+		m_dwPauseTime = GetTickCount();
 	}
 }

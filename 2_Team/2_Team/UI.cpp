@@ -21,8 +21,8 @@ void CUI::Initialize()
 
 	m_tHp.left = 25;
 	m_tHp.right = 125;
-	m_tHp.top = 50;
-	m_tHp.bottom = 60;
+	m_tHp.top = 70;
+	m_tHp.bottom = 80;
 
 	m_tCoinRect.left = 700;
 	m_tCoinRect.right = 760;
@@ -118,11 +118,31 @@ void CUI::Render(HDC _hDC)
 
 	//DRAW HP
 	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.right, m_tHp.bottom);
+	Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.right - 20, m_tHp.bottom + 20);
+
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.left + m_iHp, m_tHp.bottom);
+	if(m_iHp>=20 && m_iHp<=80)
+		Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.left + m_iHp, m_tHp.bottom + 20);
+	else if(80 < m_iHp)
+		Rectangle(_hDC, m_tHp.left + 20, m_tHp.top - 20, m_tHp.left + 80, m_tHp.bottom + 20);
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
+	
 
 	//DRAW MP
 	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.right, m_tMp.bottom);
+
+
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 255, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp, m_tMp.bottom);
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
 }
 
 void CUI::Release()

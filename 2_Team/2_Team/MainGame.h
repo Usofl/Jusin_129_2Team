@@ -26,7 +26,7 @@ private:
 
 	CState*		m_pState;
 	bool        m_Pause;
-	DWORD       m_dwTime;
+	DWORD       m_dwPauseTime;
 
 };
 

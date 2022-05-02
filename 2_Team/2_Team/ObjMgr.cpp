@@ -41,6 +41,7 @@ void CObjMgr::Initialize(void)
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Ladder());
+	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
 }
 
 void CObjMgr::Update(void)
