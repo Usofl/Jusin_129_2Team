@@ -23,8 +23,7 @@ CPlayer::CPlayer()
 	, m_tRight_Leg({ 0,0 })
 	, m_iCoin(0)
 	, m_iLife(3)
-	, m_iMp(100)
-	, m_iHp(100)
+	, m_iMp(50)
 {
 }
 
@@ -40,7 +39,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 	
-	m_iHp = 10;
+	m_iHp = 50;
 
 	m_iReverse = 1;
 
@@ -55,6 +54,9 @@ void CPlayer::Initialize(void)
 
 	m_fJumpPower = 25.f;
 	m_fSpeed = 2.f;
+
+
+
 }
 
 const int& CPlayer::Update(void)

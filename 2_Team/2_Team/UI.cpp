@@ -118,9 +118,11 @@ void CUI::Render(HDC _hDC)
 
 	//DRAW HP
 	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.right, m_tHp.bottom);
+	Rectangle(_hDC, m_tHp.left, m_tHp.top, m_tHp.left + m_iHp, m_tHp.bottom);
 
 	//DRAW MP
 	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.right, m_tMp.bottom);
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp, m_tMp.bottom);
 }
 
 void CUI::Release()
