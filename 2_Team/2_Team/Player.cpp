@@ -288,6 +288,13 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	}
 }
 
+void CPlayer::Clim_Ladder(void)
+{
+	m_tInfo.fY += m_fSpeed + 15.f;
+	m_bAir = false;
+	SetBody();
+}
+
 void CPlayer::Key_Input(void)
 {
 	if (KEYMGR->Key_Pressing(VK_SHIFT) && !m_bRight_Move && !m_bLeft_Move)

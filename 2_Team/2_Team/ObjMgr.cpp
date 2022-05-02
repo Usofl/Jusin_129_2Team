@@ -22,6 +22,12 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
+
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
+	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
+
 	for (auto& iterlist : m_NotBeing_list)
 	{
 		for (auto& iter : iterlist)
@@ -37,11 +43,6 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Ladder());
-	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
 }
 
 void CObjMgr::Update(void)
@@ -105,6 +106,7 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
 
+	CCollision::Collision_Player_Ladder();
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
 

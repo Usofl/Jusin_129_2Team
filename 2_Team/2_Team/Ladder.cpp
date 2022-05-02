@@ -25,6 +25,7 @@ const int & CLadder::Update(void)
 {
 	//if (m_iHp == 0)
 		//m_tRect.top = 95;
+
 	return OBJ_NOEVENT;
 }
 
@@ -39,15 +40,14 @@ void CLadder::Render(HDC _hDC)
 	//45 Â÷ÀÌ³ª¾ßµÊ!
 	if (m_iHp == 0)
 	{
-
 		if (!m_bCount)
 		{
 			m_iTime = (GetTickCount());
 			m_bCount = true;
 		}
-		Rectangle(_hDC, m_tColliradder.left + iScrollX, m_tColliradder.top + 10, m_tColliradder.right + iScrollX, m_tColliradder.bottom - 10);
-		Rectangle(_hDC, m_tColliradder.left - 5 + iScrollX, m_tColliradder.top - 10, m_tColliradder.left + iScrollX, m_tColliradder.bottom + 10);
-		Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 10, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom + 10);
+		Rectangle(_hDC, m_tColliradder.left + iScrollX, m_tColliradder.top + 10 + iScrollY, m_tColliradder.right + iScrollX, m_tColliradder.bottom - 10 + iScrollY);
+		Rectangle(_hDC, m_tColliradder.left - 5 + iScrollX, m_tColliradder.top - 10 + iScrollY, m_tColliradder.left + iScrollX, m_tColliradder.bottom + 10 + iScrollY);
+		Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 10 + iScrollY, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom + 10 + iScrollY);
 		for (int i = 0; i < 7; ++i)
 		{
 			if (m_iTime + 700 + (i * 700) < GetTickCount())

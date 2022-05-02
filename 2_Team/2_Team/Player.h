@@ -31,6 +31,7 @@ public:
 
 	void PlayerCoinColli(void);
 	void Put_ItemType(const int& _Itemtype);
+	void Clim_Ladder(void);
 
 	void Set_Jump() { m_bJump = false; }
 	void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
