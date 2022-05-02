@@ -142,6 +142,8 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Counter_Monster();
 
 	CCollision::Collision_Player_Room();
+
+	CCollision::Collision_Monster_Player();
 }
 
 void CObjMgr::Render(HDC _hdc)

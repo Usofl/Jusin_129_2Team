@@ -18,7 +18,7 @@ public:
 	void				Update_Rect	(void);
 
 public:
-	inline	void		Set_Hp		(const int& _iHp)		{ m_iHp = _iHp;	}
+	inline	virtual void		Set_Hp		(const int& _iHp)		{ m_iHp = _iHp;	}
 	inline	void		Set_Att		(const int& _iAtt)		{ m_iAtt = _iAtt; }
 	inline	void		Set_Speed	(const float& _fSpeed)	{ m_fSpeed = _fSpeed; }
 	inline	void		Set_Angle	(const float& _fAngle)	{ m_fAngle = _fAngle; }

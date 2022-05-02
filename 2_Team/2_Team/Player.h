@@ -39,6 +39,15 @@ public:
 	inline void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
 	inline void Set_Clim(const bool& _bClim) { m_bClim = _bClim; }
 
+	inline	void		Set_Hp(const int& _iHp) 
+	{ 
+		if (m_dwAttacked + 3000 < GetTickCount())
+		{
+			m_iHp = _iHp;
+			m_dwAttacked = GetTickCount();
+		}
+	}
+
 private:
 	void Key_Input(void);
 	const bool& Front_Leg(void) { return m_tLeft_Leg.x > m_tRight_Leg.x; }
@@ -64,6 +73,7 @@ private:
 	bool m_bRight_Move;
 	bool m_bLeft_Move;
 
+	DWORD m_dwAttacked;
 	DWORD m_dwGigant;
 	DWORD m_dwMP;
 	DWORD m_dwBalloon;

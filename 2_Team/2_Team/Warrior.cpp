@@ -58,15 +58,14 @@ const int& CWarrior::Update(void)
 	m_tInfo.fX += m_fSpeed;
 	
 	// Ä® x ÁÂÇ¥ * -1 °öÇØ¼­ ¹Ý´ë·Î
-	m_tSword.x = long(m_tInfo.fX + (m_fDiagonal * cosf((m_fAngle * PI) / 180.f) * m_iTurn));
-	m_tSword.y = long(m_tInfo.fY - m_fDiagonal * sinf((m_fAngle * PI) / 180.f));
 
-	float	fWidth = long(m_tSword.x - m_tInfo.fX);
+
+	/*float	fWidth = long(m_tSword.x - m_tInfo.fX);
 	float	fHeight = long(m_tSword.y - m_tInfo.fY);
 
 	float	fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
-	float	fRadian = acosf(fWidth / fDiagonal);
+	float	fRadian = acosf(fWidth / fDiagonal);*/
 
 	//m_fAngle = (fRadian * 180.f) / PI;
 	
@@ -146,12 +145,9 @@ void CWarrior::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-
 	Rectangle(_hDC, m_tRect.left - (20 * m_iTurn) + iScrollX, m_tRect.top + iScrollY, m_tRect.right - (20 * m_iTurn) + iScrollX, m_tRect.bottom + iScrollY);
 	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom - 20 + iScrollY);
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
-	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn) + iScrollX, (LONG)m_tInfo.fY - 10 + iScrollY, nullptr);	// Áß½É x ¹ÝÀü * -1
-	LineTo(_hDC, (LONG)m_tSword.x + iScrollX, (LONG)m_tSword.y + iScrollY);
 
 }
 
