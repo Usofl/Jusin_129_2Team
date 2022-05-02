@@ -57,6 +57,7 @@ void CLadder::Render(HDC _hDC)
 				Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 55 - (45 * i) + iScrollY, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom - 35 - (45 * i) + iScrollY);
 			}
 		}
+		m_tRect.top -= 315;
 	}
 	else
 	{

@@ -7,6 +7,7 @@
 #include "TrapFactory.h"
 #include "ItemFactory.h"
 #include "ItemMgr.h"
+#include "MonsterFactory.h"
 
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
@@ -22,12 +23,6 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
-
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
-	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
-
 	for (auto& iterlist : m_NotBeing_list)
 	{
 		for (auto& iter : iterlist)
@@ -43,6 +38,11 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
+	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
+	OBJMGR->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 }
 
 void CObjMgr::Update(void)
@@ -111,6 +111,11 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Block_Block();
 
 	CCollision::Collision_Player_Bullet();
+	CCollision::Collision_Player_Ladder(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, OBJMGR->Get_NotBeing_list(NOTBEING_LADDER));
+	//CCollision::Collision_Player_Ladder(OBJ);
+	//CCollision::Collision_Key_Line(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), OBJMGR->Get_NotBeing_list(NOTBEING_LINE));
+	//CCollision::Collision_Line(OBJMGR->Get_NotBeing_list(NOTBEING_LINE), OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), 0);
 }
 
 void CObjMgr::Render(HDC _hdc)

@@ -115,8 +115,8 @@ void CMainGame::Render(void)
 
 	if (m_pState->Get_State() == STATE_GAME)
 	{
-		OBJMGR->Render(hMemDC);
 		COINMGR->Render(hMemDC);
+		OBJMGR->Render(hMemDC);
 		UIMGR->Render(hMemDC);
 	}
 	else

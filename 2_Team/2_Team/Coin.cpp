@@ -85,8 +85,8 @@ void CCoin::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	MoveToEx(_hDC, m_tCircle.left + iScrollX, m_tCircle.top + 15, nullptr);
-	LineTo(_hDC, m_tCircle.right + iScrollX, m_tCircle.top + 15);
+	MoveToEx(_hDC, m_tCircle.left + iScrollX, m_tCircle.top + 35+ iScrollY, nullptr);
+	LineTo(_hDC, m_tCircle.right + iScrollX, m_tCircle.top + 35 + iScrollY);
 
 	//Rectangle(_hDC, m_tCircle.left + 20 + iScrollX, m_tCoin.top + 14 + iScrollY, m_tCoin.right + iScrollX, m_tCoin.bottom - 13 + iScrollY);
 }
