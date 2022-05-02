@@ -45,9 +45,9 @@ void CLadder::Render(HDC _hDC)
 			m_iTime = (GetTickCount());
 			m_bCount = true;
 		}
-		Rectangle(_hDC, m_tColliradder.left + iScrollX, m_tColliradder.top + 10, m_tColliradder.right + iScrollX, m_tColliradder.bottom - 10);
-		Rectangle(_hDC, m_tColliradder.left - 5 + iScrollX, m_tColliradder.top - 10, m_tColliradder.left + iScrollX, m_tColliradder.bottom + 10);
-		Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 10, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom + 10);
+		Rectangle(_hDC, m_tColliradder.left + iScrollX, m_tColliradder.top + 10 + iScrollY, m_tColliradder.right + iScrollX, m_tColliradder.bottom - 10 + iScrollY);
+		Rectangle(_hDC, m_tColliradder.left - 5 + iScrollX, m_tColliradder.top - 10 + iScrollY, m_tColliradder.left + iScrollX, m_tColliradder.bottom + 10 + iScrollY);
+		Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 10 + iScrollY, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom + 10 + iScrollY);
 		for (int i = 0; i < 7; ++i)
 		{
 			if (m_iTime + 700 + (i * 700) < GetTickCount())
@@ -57,6 +57,7 @@ void CLadder::Render(HDC _hDC)
 				Rectangle(_hDC, m_tColliradder.right + iScrollX, m_tColliradder.top - 55 - (45 * i) + iScrollY, m_tColliradder.right + 5 + iScrollX, m_tColliradder.bottom - 35 - (45 * i) + iScrollY);
 			}
 		}
+		m_tRect.top -= 315;
 	}
 	else
 	{

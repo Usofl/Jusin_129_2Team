@@ -57,6 +57,8 @@ void CGameMap::Map_Maker()
 
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2500,600 }, { 2750,600 }));
 
+	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2500,400 }, { 2750,400 }));
+
 
 	OBJMGR->Add_Notbeing(NOTBEING_WALL, *CLineFactory::Create_Line({ 2750,400 }, { 2750,600 }));
 

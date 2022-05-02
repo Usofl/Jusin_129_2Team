@@ -6,6 +6,7 @@
 #include "UiMgr.h"
 #include "Block.h"
 #include "Coin.h"
+#include "Ladder.h"
 #include "GomuFactory.h"
 
 
@@ -348,23 +349,40 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 		}
 	}
 }
+void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List)
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	for (auto& _iTEM : m_Ladder_List)
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
+		{
+			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
+			_iTEM->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(_iTEM)->Itemtype());
+		}
+	}
+}
 
-//void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
-//{
-//	for (auto& _Line : m_Line_List)
-//	{
-//		CLine* line = static_cast<CLine*>(_Line);
-//
-//		for (auto& _Item : m_Item_List)
-//		{
-//			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
-//			{
-//				(line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
-//					*()
-//			}
-//		}
-//	}
-//}
+void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
+{
+	for (auto& _Line : m_Line_List)
+	{
+		CLine* line = static_cast<CLine*>(_Line);
+
+		for (auto& _Item : m_Item_List)
+		{
+			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
+			{
+				if (((line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
+					*(_Item->Get_Info().fX - line->Get_LinePoint().tLeft.fX) + line->Get_LinePoint().tLeft.fY) == _Item->Get_Info().fY)
+				{
+					static_cast<CItem*>(_Item)->PlayerColiision();
+				}
+			}
+		}
+	}
+}
 
 
 //void CCollision::Collision_Block_Wall()

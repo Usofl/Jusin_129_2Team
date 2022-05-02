@@ -14,8 +14,10 @@ CKey::~CKey()
 
 void CKey::Initialize(void)
 {
-	m_tInfo.fX = 2250.f;
-	m_tInfo.fY = 30.f;
+	//m_tInfo.fX = 2250.f;
+	//m_tInfo.fY = 30.f;
+	m_tInfo.fX = 100.f;
+	m_tInfo.fY = 300.f;
 	m_tInfo.fCX = 50.f;
 	m_tInfo.fCY = 50.f;
 
@@ -84,5 +86,7 @@ void CKey::Release(void)
 void CKey::PlayerColiision(void)
 {
 	if (m_iHp == 0)
-		m_bPlayercolli = true; 
+		m_bPlayercolli = true;
+	else if (m_bPlayercolli == true)
+		m_bPlayercolli = false;
 }
