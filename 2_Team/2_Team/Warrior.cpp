@@ -40,7 +40,7 @@ void CWarrior::Initialize(void)
 const int& CWarrior::Update(void)
 {
 
-	if (!m_iHp)
+	if (m_iHp <= 0 )
 	{
 		return OBJ_DEAD;
 	}

@@ -47,7 +47,7 @@ const int& CKoopa::Update(void)
 
 	if (OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX >= 5500 && OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX <= 6400)
 	{
-		if (m_dwJumpTiming + 6000 < GetTickCount())
+		if (m_dwJumpTiming + 5000 < GetTickCount())
 		{
 			m_bJump = true;
 			m_bAir = true;
