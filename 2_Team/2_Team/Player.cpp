@@ -323,6 +323,18 @@ void CPlayer::Key_Input(void)
 		m_fJumpAngle = 90.f;
 	}
 
+	if (KEYMGR->Key_Up(VK_DOWN))
+	{
+		LINEPOINT* _pPortal_Pos = nullptr;
+		_pPortal_Pos = CCollision::Collision_Portal();
+		if (_pPortal_Pos != nullptr)
+		{
+			Set_Pos((*_pPortal_Pos).fX, (*_pPortal_Pos).fY);
+			SetBody();
+			_pPortal_Pos = nullptr;
+		}
+	}
+
 	if (KEYMGR->Key_Pressing('A'))
 	{
 		m_bPool = true;

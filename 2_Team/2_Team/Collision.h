@@ -19,6 +19,7 @@ public:
 	//static void Collision_Block_Wall();
 	static bool Collision_Block_To_LeftBlock(CObj* _Obj, float _fTemp);
 	static bool Collision_Block_To_RightBlock(CObj* _Obj, float _fTemp);
+	static LINEPOINT* Collision_Portal();
 
 public:
 	static void Collision_Player_Bullet(); 
@@ -30,7 +31,7 @@ public:
 	static void Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List);
 
 	static bool Check_Sphere(CObj& pDest, CObj& pSour);
-	static void Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour);
+	//static void Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour);
 
 	
 };

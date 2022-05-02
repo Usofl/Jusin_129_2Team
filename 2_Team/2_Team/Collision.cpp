@@ -9,7 +9,7 @@
 #include "Coin.h"
 #include "Ladder.h"
 #include "GomuFactory.h"
-
+#include "Portal.h"
 
 CCollision::CCollision()
 {
@@ -496,20 +496,24 @@ bool CCollision::Check_Sphere(CObj& pDest, CObj& pSour)
 	return fRadius > fDiagonal;
 }
 
-//void CCollision::Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour)
-//{
-//	for (auto& Dest : _Dest)
-//	{
-//		for (auto& Sour : _Sour)
-//		{
-//			if (Check_Sphere(*Dest, *Sour))
-//			{
-//				Dest->Set_Dead();
-//				Sour->Set_Dead();
-//			}
-//		}
-//	}
-//}
+LINEPOINT* CCollision::Collision_Portal()
+{	
+	std::list<CObj*>& _Portal_List = OBJMGR->Get_NotBeing_list(NOTBEING_PORTAL);
+
+	CPortal* _pPortal = nullptr;
+	LINEPOINT _pTarget_Pos({ 0,0 });
+	
+	for (auto& _portal : _Portal_List)
+	{
+		_pPortal = static_cast<CPortal*>(_portal);
+		_pTarget_Pos = _pPortal->Get_Portal();
+		if (Check_Sphere(*PLAYER, *_portal))
+		{
+			return &_pTarget_Pos;
+		}
+	}
+	return nullptr;
+}
 
 //void CCollision::Collision_Block_Wall()
 //{

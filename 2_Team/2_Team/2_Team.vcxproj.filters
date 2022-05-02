@@ -316,7 +316,7 @@
       <Filter>01. Obj\01. NotBeing\03. Portal</Filter>
     </ClInclude>
     <ClInclude Include="PortalFactory.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>00. Pattern\00. AbstractFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
