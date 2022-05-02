@@ -5,6 +5,6 @@ public:
 	CGameMap();
 	~CGameMap();
 
-	static void Map_Maker();
+	static void Map_Maker(HDC _hDC);
 };
 

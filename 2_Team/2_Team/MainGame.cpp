@@ -51,7 +51,7 @@ void CMainGame::Initialize(void)
 	//CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(WARRIOR_TURTLE));
 	//CObjMgr::Get_Instance()->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(BOSS_KOOPA));
 
-	CGameMap::Map_Maker();
+	CGameMap::Map_Maker(m_hDC);
 
 }
 
@@ -70,7 +70,7 @@ void CMainGame::Update(void)
 	{
 		m_pState->Update();
 	}
-	
+	 
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
 	CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Coin(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Coin());
 	m_pState->Get_Life(static_cast<CPlayer*>(CObjMgr::Get_Instance()->Get_Being_list(BEING_PLAYER).front())->Get_Life());
@@ -115,6 +115,8 @@ void CMainGame::Render(void)
 	}
 	else
 		m_pState->Render(m_hDC);
+
+
 }
 
 void CMainGame::Release(void)
