@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "ObjMgr.h"
 #include "UiMgr.h"
+#include "KeyMgr.h"
 #include "Block.h"
 #include "Coin.h"
 #include "Ladder.h"
@@ -117,6 +118,25 @@ void CCollision::Collision_Player_LeftWall()
 	static_cast<CPlayer*>(PLAYER)->Set_Right_Move(false);
 	return;
 } 
+
+void CCollision::Collision_Player_Ladder()
+{
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
+
+	for (auto& iter : OBJMGR->Get_NotBeing_list(NOTBEING_LADDER))
+	{
+		if ((LONG)player->Get_Info().fX <= iter->Get_Rect().right &&
+			(LONG)player->Get_Info().fX >= iter->Get_Rect().left &&
+			(LONG)player->Get_Info().fY <= iter->Get_Rect().bottom &&
+			(LONG)player->Get_Info().fY >= iter->Get_Rect().top)
+		{
+			if (KEYMGR->Key_Pressing(VK_UP))
+			{
+				player->Clim_Ladder();
+			}
+		}
+	}
+}
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {

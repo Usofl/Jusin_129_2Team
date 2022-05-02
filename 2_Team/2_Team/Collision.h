@@ -21,7 +21,8 @@ public:
 	static bool Collision_Block_To_RightBlock(CObj* _Obj, float _fTemp);
 
 public:
-	static void Collision_Player_Bullet();
+	static void Collision_Player_Bullet(); 
+	static void Collision_Player_Ladder();
 
 	static void Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List);
 	static void Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List);

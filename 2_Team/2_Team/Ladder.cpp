@@ -25,6 +25,7 @@ const int & CLadder::Update(void)
 {
 	//if (m_iHp == 0)
 		//m_tRect.top = 95;
+
 	return OBJ_NOEVENT;
 }
 
@@ -39,7 +40,6 @@ void CLadder::Render(HDC _hDC)
 	//45 Â÷ÀÌ³ª¾ßµÊ!
 	if (m_iHp == 0)
 	{
-
 		if (!m_bCount)
 		{
 			m_iTime = (GetTickCount());

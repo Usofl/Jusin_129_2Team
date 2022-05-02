@@ -54,9 +54,6 @@ void CPlayer::Initialize(void)
 
 	m_fJumpPower = 25.f;
 	m_fSpeed = 2.f;
-
-
-
 }
 
 const int& CPlayer::Update(void)
@@ -95,6 +92,7 @@ void CPlayer::Render(HDC _hDC)
 	
 	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.4f) + iScrollY
 		, m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)((m_tInfo.fCY / 3.f) * 2.3f) + iScrollY);
+
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
@@ -147,8 +145,9 @@ void CPlayer::Render(HDC _hDC)
 		// ¿ÞÆÈ
 		MoveToEx(_hDC, (int)m_tRect.left + (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
 		LineTo(_hDC, m_tRect.left - (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f) + iScrollY);
-		MoveToEx(_hDC, (int)m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f + iScrollY), nullptr);
 		// ¿À¸¥ÆÈ
+
+		MoveToEx(_hDC, (int)m_tRect.right - (int)(m_tInfo.fCX * 0.1f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.7f) + iScrollY, nullptr);
 		LineTo(_hDC, m_tRect.right + (int)(m_tInfo.fCX * 0.2f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.6f) + iScrollY);
 	}
 }
@@ -293,6 +292,13 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	default:
 		break;
 	}
+}
+
+void CPlayer::Clim_Ladder(void)
+{
+	m_tInfo.fY += m_fSpeed + 15.f;
+	m_bAir = false;
+	SetBody();
 }
 
 void CPlayer::Key_Input(void)

@@ -110,6 +110,7 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
 
+	CCollision::Collision_Player_Ladder();
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
 
