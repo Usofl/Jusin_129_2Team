@@ -23,6 +23,10 @@ CObjMgr::~CObjMgr()
 
 void CObjMgr::Initialize(void)
 {
+
+	CObj* player = new CPlayer;
+	OBJMGR->Add_Being(BEING_PLAYER, *player);
+
 	for (auto& iterlist : m_NotBeing_list)
 	{
 		for (auto& iter : iterlist)
@@ -47,43 +51,48 @@ void CObjMgr::Initialize(void)
 
 void CObjMgr::Update(void)
 {	
-	for (auto& list_iter : m_NotBeing_list)
+	if (PLAYER->Update() == OBJ_DEAD)
 	{
-		for (auto& iter = list_iter.begin(); iter != list_iter.end();)
+		Safe_Delete<CObj*>(PLAYER);
+		PLAYER = new CPlayer;
+		PLAYER->Initialize();
+	}
+	else
+	{
+		for (auto& list_iter : m_NotBeing_list)
 		{
-			if ((*iter)->Update() == OBJ_DEAD)
+			for (auto& iter = list_iter.begin(); iter != list_iter.end();)
 			{
-				Safe_Delete<CObj*>(*iter);
-				iter = list_iter.erase(iter);
+				if ((*iter)->Update() == OBJ_DEAD)
+				{
+					Safe_Delete<CObj*>(*iter);
+					iter = list_iter.erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
 			}
-			else
+		}
+
+
+
+		for (int i = BEING_MONSTER; i < BEING_END; ++i)
+		{
+			for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
 			{
-				++iter;
+				if ((*iter)->Update() == OBJ_DEAD)
+				{
+					Safe_Delete<CObj*>(*iter);
+					iter = m_Being_list[i].erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
 			}
 		}
 	}
-
-	if (PLAYER->Update() == OBJ_DEAD)
-	{
-
-	}
-
-	for (int i = BEING_MONSTER; i < BEING_END ; ++i)
-	{
-		for (auto& iter = m_Being_list[i].begin(); iter != m_Being_list[i].end();)
-		{
-			if ((*iter)->Update() == OBJ_DEAD)
-			{
-				Safe_Delete<CObj*>(*iter);
-				iter = m_Being_list[i].erase(iter);
-			}
-			else
-			{
-				++iter;
-			}
-		}		
-	}
-
 }
 
 void CObjMgr::Late_Update(void)
@@ -105,6 +114,7 @@ void CObjMgr::Late_Update(void)
 	}
 	CCollision::Collision_Player_LeftWall();
 	CCollision::Collision_Player_RightWall();
+	CCollision::Collision_Thorn();
 
 	CCollision::Collision_Player_Ladder();
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
