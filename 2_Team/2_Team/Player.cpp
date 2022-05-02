@@ -18,6 +18,7 @@ CPlayer::CPlayer()
 	, m_bClim(false)
 	, m_dwGigant(GetTickCount())
 	, m_dwMP(GetTickCount())
+	, m_dwBalloon(GetTickCount())
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(90.f)
 	, m_fCharging(0.f)
@@ -317,7 +318,7 @@ void CPlayer::Key_Input(void)
 		m_fJumpPower = 27.f;
 		m_fJumpAngle = 30.f;
 
-		if (m_dwMP + 700 < GetTickCount() && m_iMp <= 100)
+		if (m_dwMP + 700 < GetTickCount() && m_iMp > 0)
 		{
 			--m_iMp;
 
@@ -364,6 +365,13 @@ void CPlayer::Key_Input(void)
 		m_bBalloon = true;
 		m_fJumpPower = 10.f;
 		m_fSpeed = 1.f;
+
+		if (m_dwBalloon + 700 < GetTickCount() && m_iMp > 0)
+		{
+			m_iMp -= 2;
+
+			m_dwBalloon = GetTickCount();
+		}
 	}
 	else
 	{
