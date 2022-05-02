@@ -66,7 +66,7 @@ void CM_Cloud::Render(HDC _hDC)
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right - (int)(m_tInfo.fCX * (1.f - m_iHp) / 100.f) + iScrollX, m_tRect.top - 10 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.left + (int)(m_tInfo.fCX * m_iHp / 5.f) + iScrollX, m_tRect.top - 10 + iScrollY);
 
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);

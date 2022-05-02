@@ -57,6 +57,9 @@ void CObjMgr::Update(void)
 		PLAYER = new CPlayer;
 		PLAYER->Initialize();
 		OBJMGR->Get_NotBeing_list(NOTBEING_TRAP).front()->Set_Pos(50.f,300.f);
+
+		SCROLLMGR->Set_ScrollX(-SCROLLMGR->Get_ScrollX());
+		
 	}
 	else
 	{
@@ -122,6 +125,10 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Block_Block();
 
 	CCollision::Collision_Player_Bullet();
+
+	CCollision::Collision_Fistol_Monster();
+	CCollision::Collision_Gigant_Monster();
+	CCollision::Collision_Counter_Monster();
 	//CCollision::Collision_Player_Ladder(OBJ);
 	//CCollision::Collision_Key_Line(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), OBJMGR->Get_NotBeing_list(NOTBEING_LINE));
 	//CCollision::Collision_Line(OBJMGR->Get_NotBeing_list(NOTBEING_LINE), OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), 0);

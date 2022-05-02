@@ -240,7 +240,7 @@ void CPlayer::OffSet(void)
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
-	int		iItvX = 100;
+	int		iItvX = 150;
 	int		iItvY = 200;
 
 	if (iOffSetX - iItvX > m_tInfo.fX + iScrollX)

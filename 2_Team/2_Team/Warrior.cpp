@@ -24,7 +24,7 @@ void CWarrior::Initialize(void)
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
-	m_iHp = 3;
+	m_iHp = 10;
 
 	m_iAtt = 1;
 
@@ -164,7 +164,7 @@ void CWarrior::Render(HDC _hDC)
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right - (int)(m_tInfo.fCX * (3.f - m_iHp) / 100.f) + iScrollX, m_tRect.top - 30 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.left + (int)((m_tInfo.fCX * m_iHp / 10.f)) + iScrollX, m_tRect.top - 30 + iScrollY);
 
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);

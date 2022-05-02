@@ -31,6 +31,7 @@ public:
 	static void Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List);
 	static void Collision_Fistol_Monster();
 	static void Collision_Gigant_Monster();
+	static void Collision_Counter_Monster();
 
 	static bool Check_Sphere(CObj& pDest, CObj& pSour);
 };

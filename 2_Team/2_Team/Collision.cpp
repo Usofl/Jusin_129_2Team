@@ -387,14 +387,21 @@ void CCollision::Collision_Player_Bullet()
 
 	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_MONSTERBULLET))
 	{
-		if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
+		if(0 < Bullet->Get_Hp())
 		{
-			if (player->Get_Balloon())
+			if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
 			{
-				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
+				if (player->Get_Balloon())
+				{
+					OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info()));
+				}
+				else
+				{
+					player->Set_Hp(player->Get_Hp() - Bullet->Get_Att());
+				}
+				Bullet->Set_Hp(0);
+				//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 			}
-			Bullet->Set_Hp(0);
-			//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 		}
 	}
 }
@@ -492,6 +499,29 @@ void CCollision::Collision_Fistol_Monster()
 void CCollision::Collision_Gigant_Monster()
 {
 	for (auto& Dest : OBJMGR->Get_Being_list(BEING_GIGNATFISTOL))
+	{
+		if (Dest->Get_Hp() > 0)
+		{
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
+			{
+				if (Check_Sphere(*Dest, *Sour))
+				{
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+void CCollision::Collision_Counter_Monster()
+{
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_COUNTERBULLET))
 	{
 		if (Dest->Get_Hp() > 0)
 		{

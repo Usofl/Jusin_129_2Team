@@ -79,13 +79,13 @@ void CKoopa::Render(HDC _hDC)
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right - (int)(m_tInfo.fCX * (300.f - m_iHp) / 100.f) + iScrollX, m_tRect.top - 30 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.left + (int)(m_tInfo.fCX * m_iHp / 300.f) + iScrollX, m_tRect.top - 30 + iScrollY);
 
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20, m_tRect.right + iScrollX, m_tRect.bottom - 20);
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top, m_tRect.right + iScrollX, m_tRect.bottom);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom - 20 + iScrollY);
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 }
 
 void CKoopa::Release(void)
