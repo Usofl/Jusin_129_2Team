@@ -6,6 +6,7 @@
 #include "ObjMgr.h"
 #include "Koopa_Crash.h"
 
+#include "BmpMgr.h"
 
 
 

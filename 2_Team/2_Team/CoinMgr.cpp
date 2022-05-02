@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CoinMgr.h"
+#include "ObjMgr.h"
 CCoinMgr*		CCoinMgr::m_pInstance = nullptr;
 
 CCoinMgr::CCoinMgr()
@@ -85,5 +86,12 @@ void CCoinMgr::Render(HDC hDC)
 
 void CCoinMgr::Release(void)
 {
+	for (auto iter = m_CoinList.begin(); iter != m_CoinList.end();)
+	{
+		(*iter)->Release();
+		Safe_Delete<CCoin*>(*iter);
+
+		iter = m_CoinList.erase(iter);
+	}
 }
 

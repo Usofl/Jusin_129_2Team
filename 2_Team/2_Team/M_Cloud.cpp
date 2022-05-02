@@ -31,6 +31,7 @@ void CM_Cloud::Initialize(void)
 
 const int& CM_Cloud::Update(void)
 {
+
 	if (m_iHp <= 0)
 	{
 		return OBJ_DEAD;
@@ -59,6 +60,17 @@ void CM_Cloud::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right + iScrollX, m_tRect.top - 10 + iScrollY);
+
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.left + (int)(m_tInfo.fCX * m_iHp / 5.f) + iScrollX, m_tRect.top - 10 + iScrollY);
+
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
 
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
 

@@ -15,7 +15,7 @@ public:
 
 	const int& Get_State() { return m_iState; }
 	const void Pause(HDC _hDC) { TextOut(_hDC, WINCX / 2 - 100, WINCY / 2, TEXT("�ð�������"), 5); }
-	void Set_Pause(int _State) { m_iState = _State; }
+	void Set_State(int _State) { m_iState = _State; }
 	void Get_Life(int _Life) { m_iLife = _Life; }
 	void Get_Coin(int _Coin) { m_iCoin = _Coin; }
 

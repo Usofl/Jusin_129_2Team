@@ -8,7 +8,9 @@
 #include "Block.h"
 #include "Coin.h"
 #include "Ladder.h"
+#include "Key.h"
 #include "GomuFactory.h"
+#include "State.h"
 #include "Portal.h"
 #include "Monster.h"
 
@@ -41,7 +43,7 @@ bool CCollision::Collision_Line(const CObj& _Obj, const std::list<CObj*>& m_Line
 		_Line_Left = line->Get_LinePoint().tLeft;
 		_Line_Right = line->Get_LinePoint().tRight;
 
-		if (_Obj.Get_Info().fX >= _Line_Left.fX && _Obj.Get_Info().fX <= _Line_Right.fX)
+		if (_Obj.Get_Info().fX + _Obj.Get_Info().fCX * 0.2 >= _Line_Left.fX && _Obj.Get_Info().fX - _Obj.Get_Info().fCX * 0.2 <= _Line_Right.fX)
 		{
 			_fLine_Y = ((_Line_Right.fY - _Line_Left.fY) / (_Line_Right.fX - _Line_Left.fX)) 
 						* (_Obj.Get_Info().fX - _Line_Left.fX)	+ _Line_Left.fY;
@@ -148,6 +150,7 @@ void CCollision::Collision_Player_Ladder()
 		}
 	}
 }
+
 
 void CCollision::Collision_Player_Block(std::list<CObj*>& m_Obj_List, std::list<CObj*>& m_Block_List)
 {
@@ -388,14 +391,22 @@ void CCollision::Collision_Player_Bullet()
 
 	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_MONSTERBULLET))
 	{
-		if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
+		if(0 < Bullet->Get_Hp())
 		{
-			if (player->Get_Balloon())
+			if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
 			{
-				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
+				if (player->Get_Balloon())
+				{
+					OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info()));
+				}
+				else
+				{
+					player->Set_Hp(player->Get_Hp() - Bullet->Get_Att());
+					static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).front())->PlayerColiision();
+				}
+				Bullet->Set_Hp(0);
+				//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 			}
-			Bullet->Set_Hp(0);
-			//static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 		}
 	}
 }
@@ -452,6 +463,20 @@ void CCollision::Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List
 		}
 	}
 }
+void CCollision::Collision_Player_Key(CObj& _Obj, std::list<CObj*>& m_Item_List)
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(&_Obj);
+	for (auto& _iTEM : m_Item_List)
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
+		{
+			player->Put_ItemType(static_cast<CKey*>(_iTEM)->Itemtype());
+			_iTEM->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CKey*>(_iTEM)->Itemtype());
+		}
+	}
+}
 void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List)
 {
 	RECT rc;
@@ -460,30 +485,93 @@ void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_
 	{
 		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
 		{
-			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
 			_iTEM->Set_Hp(0);
 			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(_iTEM)->Itemtype());
 		}
 	}
 }
 
-void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List)
+void CCollision::Collision_Fistol_Monster()
 {
-	for (auto& _Line : m_Line_List)
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_GOMUFISTOL))
 	{
-		CLine* line = static_cast<CLine*>(_Line);
-
-		for (auto& _Item : m_Item_List)
+		if (Dest->Get_Hp() > 0)
 		{
-			if (line->Get_LinePoint().tLeft.fX < _Item->Get_Info().fX && line->Get_LinePoint().tRight.fX > _Item->Get_Info().fX)
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
 			{
-				if (((line->Get_LinePoint().tRight.fY - line->Get_LinePoint().tLeft.fY) / (line->Get_LinePoint().tRight.fX - line->Get_LinePoint().tLeft.fX)
-					*(_Item->Get_Info().fX - line->Get_LinePoint().tLeft.fX) + line->Get_LinePoint().tLeft.fY) == _Item->Get_Info().fY)
+				if (Check_Sphere(*Dest, *Sour))
 				{
-					static_cast<CItem*>(_Item)->PlayerColiision();
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
 				}
 			}
 		}
+	}
+}
+
+void CCollision::Collision_Gigant_Monster()
+{
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_GIGNATFISTOL))
+	{
+		if (Dest->Get_Hp() > 0)
+		{
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
+			{
+				if (Check_Sphere(*Dest, *Sour))
+				{
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+void CCollision::Collision_Counter_Monster()
+{
+	for (auto& Dest : OBJMGR->Get_Being_list(BEING_COUNTERBULLET))
+	{
+		if (Dest->Get_Hp() > 0)
+		{
+			for (auto& Sour : OBJMGR->Get_Being_list(BEING_MONSTER))
+			{
+				if (Check_Sphere(*Dest, *Sour))
+				{
+					Dest->Set_Hp(Dest->Get_Hp() - Sour->Get_Att());
+					Sour->Set_Hp(Sour->Get_Hp() - Dest->Get_Att());
+
+					if (Dest->Get_Hp() <= 0)
+					{
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+bool CCollision::Collision_Player_Room()
+{
+	RECT rc;
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
+	for (auto& _Room : OBJMGR->Get_NotBeing_list(NOTBEING_ROOM))
+	{
+		if (IntersectRect(&rc, &player->Get_Rect(), &_Room->Get_Rect()))
+		{
+				return true;
+		}
+		else
+			return false;
 	}
 }
 

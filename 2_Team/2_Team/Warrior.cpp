@@ -24,7 +24,7 @@ void CWarrior::Initialize(void)
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
-	m_iHp = 3;
+	m_iHp = 10;
 
 	m_iAtt = 1;
 
@@ -135,10 +135,22 @@ void CWarrior::Render(HDC _hDC)
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right + iScrollX, m_tRect.top - 30 + iScrollY);
+
+	HBRUSH MyBrush, OldBrush;
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+
+	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.left + (int)((m_tInfo.fCX * m_iHp / 10.f)) + iScrollX, m_tRect.top - 30 + iScrollY);
+
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
+
+
 	Rectangle(_hDC, m_tRect.left - (20 * m_iTurn) + iScrollX, m_tRect.top + iScrollY, m_tRect.right - (20 * m_iTurn) + iScrollX, m_tRect.bottom + iScrollY);
-	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY ,m_tRect.right + iScrollX, m_tRect.bottom - 20 + iScrollY);
+	Ellipse(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom - 20 + iScrollY);
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
-	MoveToEx(_hDC, (LONG)m_tInfo.fX + + iScrollX, (LONG)m_tInfo.fY + iScrollY, nullptr);	// 중심 x 반전 * -1
+	MoveToEx(_hDC, (LONG)m_tInfo.fX + (20 * m_iTurn) + iScrollX, (LONG)m_tInfo.fY - 10 + iScrollY, nullptr);	// 중심 x 반전 * -1
 	LineTo(_hDC, (LONG)m_tSword.x + iScrollX, (LONG)m_tSword.y + iScrollY);
 
 }

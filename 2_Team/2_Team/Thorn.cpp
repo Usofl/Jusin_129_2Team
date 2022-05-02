@@ -15,10 +15,10 @@ void CThorn::Initialize(void)
 {
 	m_tInfo.fX = 50.f;
 	m_tInfo.fY = 300.f;
-	m_tInfo.fCX = 100.f;
-	m_tInfo.fCX = 600.f;
+	m_tInfo.fCX = 150.f;
+	m_tInfo.fCY = 600.f;
 
-	m_fSpeed = 0.3f;
+	m_fSpeed = 0.6f;
 }
 
 const int & CThorn::Update(void)

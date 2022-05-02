@@ -29,7 +29,7 @@ void CUI::Initialize()
 	m_tCoinRect.top = 20;
 	m_tCoinRect.bottom = 50;
 
-	m_tMp.left = 660;
+	m_tMp.left = 560;
 	m_tMp.right = 760;
 	m_tMp.top = 530;
 	m_tMp.bottom = 560;
@@ -133,13 +133,13 @@ void CUI::Render(HDC _hDC)
 
 	
 
-	//DRAW MP
+	//DRAW MP 스태미나
 	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.right, m_tMp.bottom);
 
 
 	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 255, 0));
 	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
-	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp, m_tMp.bottom);
+	Rectangle(_hDC, m_tMp.left, m_tMp.top, m_tMp.left + m_iMp * 2 , m_tMp.bottom);
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
