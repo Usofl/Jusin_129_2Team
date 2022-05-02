@@ -9,6 +9,7 @@ CUiMgr::CUiMgr()
 
 CUiMgr::~CUiMgr()
 {
+	Release();
 }
 
 void CUiMgr::Initialize(void)
@@ -46,4 +47,11 @@ void CUiMgr::Render(HDC hDC)
 
 void CUiMgr::Release(void)
 {
+	for (auto iter = m_UiList.begin(); iter != m_UiList.end();)
+	{
+		(*iter)->Release();
+		Safe_Delete<CUI*>(*iter);
+
+		iter = m_UiList.erase(iter);
+	}
 }

@@ -168,40 +168,25 @@ void CObjMgr::Render(HDC _hdc)
 
 void CObjMgr::Release(void)
 {
-	
-	for (auto& iter : m_NotBeing_list[NOTBEING_BLOCK])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_LINE])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_WALL])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
-	for (auto& iter : m_NotBeing_list[NOTBEING_TRAP])
-	{
-		Safe_Delete<CObj*>(iter);
-	}
-
 	for (auto& iterlist : m_NotBeing_list)
 	{
-		for (auto& iter : iterlist)
+		for (auto iter = iterlist.begin(); iter != iterlist.end();)
 		{
-			iter->Release();
+			(*iter)->Release();
+			Safe_Delete<CObj*>(*iter);
+
+			iter = iterlist.erase(iter);
 		}
 	}
 
 	for (auto& iterlist : m_Being_list)
 	{
-		for (auto& iter : iterlist)
+		for (auto iter = iterlist.begin(); iter != iterlist.end();)
 		{
-			iter->Release();
+			(*iter)->Release();
+			Safe_Delete<CObj*>(*iter);
+
+			iter = iterlist.erase(iter);
 		}
 	}
 }

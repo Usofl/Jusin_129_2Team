@@ -34,6 +34,7 @@ CMainGame::CMainGame()
 
 CMainGame::~CMainGame()
 {
+	Release();
 }
 
 void CMainGame::Initialize(void)
@@ -140,6 +141,7 @@ void CMainGame::Release(void)
 	CKeyMgr::Get_Instance()->Destroy_Instance();
 	CLineMgr::Get_Instance()->Destroy_Instance();
 	CBmpMgr::Get_Instance()->Destroy_Instance();
+	CUiMgr::Get_Instance()->Destroy_Instance();
 }
 
 void CMainGame::Key_Input(void)

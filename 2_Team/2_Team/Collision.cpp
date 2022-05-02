@@ -563,12 +563,10 @@ bool CCollision::Collision_Player_Room()
 {
 	RECT rc;
 	CPlayer* player = static_cast<CPlayer*>(PLAYER);
-	CState* state = new CState;
 	for (auto& _Room : OBJMGR->Get_NotBeing_list(NOTBEING_ROOM))
 	{
 		if (IntersectRect(&rc, &player->Get_Rect(), &_Room->Get_Rect()))
 		{
-				state->Set_State(STATE_END);
 				return true;
 		}
 		else
