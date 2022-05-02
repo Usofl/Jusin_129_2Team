@@ -80,6 +80,7 @@ void CKoopa::Render(HDC _hDC)
 {
 	int		iScrollX = (int)SCROLLMGR->Get_ScrollX();
 	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
+	
 
 	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 40 + iScrollY, m_tRect.right + iScrollX, m_tRect.top - 30 + iScrollY);
 
@@ -92,19 +93,40 @@ void CKoopa::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+	if (m_tInfo.fX < PLAYER->Get_Info().fX)
+	{
+		HDC		hRMemDC = CBmpMgr::Get_Instance()->Find_Image(L"RKoopa");
 
-	GdiTransparentBlt(_hDC, 
-		int(m_tRect.left + iScrollX),
-		int(m_tRect.top) + iScrollY,
-		int(m_tInfo.fCX),
-		int(m_tInfo.fCY),
-		hMemDC,	
-		0,
-		0,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
-		RGB(255, 255, 255));		
+		GdiTransparentBlt(_hDC,
+			int(m_tRect.left + iScrollX),
+			int(m_tRect.top) + iScrollY,
+			int(m_tInfo.fCX),
+			int(m_tInfo.fCY),
+			hRMemDC,
+			0,
+			0,
+			(int)m_tInfo.fCX,
+			(int)m_tInfo.fCY,
+			RGB(255, 255, 255));
+	}
+	else
+	{
+		HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+
+		GdiTransparentBlt(_hDC,
+			int(m_tRect.left + iScrollX),
+			int(m_tRect.top) + iScrollY,
+			int(m_tInfo.fCX),
+			int(m_tInfo.fCY),
+			hMemDC,
+			0,
+			0,
+			(int)m_tInfo.fCX,
+			(int)m_tInfo.fCY,
+			RGB(255, 255, 255));
+	}
+
+			
 }
 
 void CKoopa::Release(void)

@@ -41,7 +41,7 @@ public:
 
 	inline	void		Set_Hp(const int& _iHp) 
 	{ 
-		if (m_dwAttacked + 3000 < GetTickCount())
+		if (m_dwAttacked + 2000 < GetTickCount())
 		{
 			m_iHp = _iHp;
 			m_dwAttacked = GetTickCount();

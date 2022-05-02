@@ -140,7 +140,7 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Player_Block(OBJMGR->Get_Being_list(BEING_PLAYER), OBJMGR->Get_NotBeing_list(NOTBEING_BLOCK));
 	CCollision::Collision_Block_Block();
 
-	//CCollision::Collision_Player_Bullet();
+	CCollision::Collision_Player_Bullet();
 	CCollision::Collision_Player_Ladder(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
 		, OBJMGR->Get_NotBeing_list(NOTBEING_LADDER));
 	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
