@@ -15,6 +15,7 @@ CPlayer::CPlayer()
 	, m_bLeft_Move(false)
 	, m_bRight_Move(false)
 	, m_bCharging(false)
+	, m_bClim(false)
 	, m_dwGigant(GetTickCount())
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(90.f)
@@ -65,7 +66,10 @@ const int& CPlayer::Update(void)
 
 	Key_Input();
 
-	Jumping();
+	if (!m_bClim)
+	{
+		Jumping();
+	}
 	OffSet();
 
 	Update_Rect();
@@ -288,10 +292,19 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	}
 }
 
-void CPlayer::Clim_Ladder(void)
+void CPlayer::DOWN_Clim_Ladder(void)
 {
-	m_tInfo.fY += m_fSpeed + 15.f;
+	m_tInfo.fY += m_fSpeed;
 	m_bAir = false;
+	m_bClim = true;
+	SetBody();
+}
+
+void CPlayer::UP_Clim_Ladder(void)
+{
+	m_tInfo.fY -= m_fSpeed;
+	m_bAir = false;
+	m_bClim = true;
 	SetBody();
 }
 

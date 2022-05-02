@@ -126,12 +126,23 @@ void CCollision::Collision_Player_Ladder()
 	{
 		if ((LONG)player->Get_Info().fX <= iter->Get_Rect().right &&
 			(LONG)player->Get_Info().fX >= iter->Get_Rect().left &&
-			(LONG)player->Get_Info().fY <= iter->Get_Rect().bottom &&
-			(LONG)player->Get_Info().fY >= iter->Get_Rect().top)
+			(LONG)player->Get_Info().fY <= iter->Get_Rect().bottom)
 		{
+			player->Put_ItemType(static_cast<CItem*>(iter)->Itemtype());
+			iter->Set_Hp(0);
+			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(iter)->Itemtype());
+			
 			if (KEYMGR->Key_Pressing(VK_UP))
 			{
-				player->Clim_Ladder();
+				player->UP_Clim_Ladder();
+			}
+			else if(KEYMGR->Key_Pressing(VK_DOWN))
+			{
+				player->DOWN_Clim_Ladder();
+			}
+			else
+			{
+				player->Set_Clim(false);
 			}
 		}
 	}
@@ -475,6 +486,30 @@ void CCollision::Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<COb
 	}
 }
 
+bool CCollision::Check_Sphere(CObj& pDest, CObj& pSour)
+{
+	// sqrt : 루트를 씌워주는 함수
+	float	fDiagonal = DIAGONAL(pDest.Get_Info().fX, pDest.Get_Info().fY, pSour.Get_Info().fX, pSour.Get_Info().fY);
+
+	float	fRadius = (pDest.Get_Info().fCX + pSour.Get_Info().fCX) * 0.5f;
+
+	return fRadius > fDiagonal;
+}
+
+//void CCollision::Collision_Sphere(std::list<CObj*>& _Dest, std::list<CObj*>& _Sour)
+//{
+//	for (auto& Dest : _Dest)
+//	{
+//		for (auto& Sour : _Sour)
+//		{
+//			if (Check_Sphere(*Dest, *Sour))
+//			{
+//				Dest->Set_Dead();
+//				Sour->Set_Dead();
+//			}
+//		}
+//	}
+//}
 
 //void CCollision::Collision_Block_Wall()
 //{

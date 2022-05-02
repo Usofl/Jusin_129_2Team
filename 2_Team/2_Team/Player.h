@@ -31,11 +31,13 @@ public:
 
 	void PlayerCoinColli(void);
 	void Put_ItemType(const int& _Itemtype);
-	void Clim_Ladder(void);
+	void DOWN_Clim_Ladder(void);
+	void UP_Clim_Ladder(void);
 
-	void Set_Jump() { m_bJump = false; }
-	void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
-	void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
+	inline void Set_Jump() { m_bJump = false; }
+	inline void Set_Right_Move(const bool& _bMove) { m_bRight_Move = _bMove; }
+	inline void Set_Left_Move(const bool& _bMove) { m_bLeft_Move = _bMove; }
+	inline void Set_Clim(const bool& _bClim) { m_bClim = _bClim; }
 
 private:
 	void Key_Input(void);
@@ -47,6 +49,7 @@ private:
 	bool m_bPool;
 	bool m_bBalloon;
 	bool m_bCharging;
+	bool m_bClim;
 
 	int   m_iCoin;
 	int   m_iLife;
