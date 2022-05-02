@@ -25,15 +25,14 @@ void CKoopa_Bullet::Initialize(void)
 
 	m_fShootPower = 6.f;
 	m_fShootTime = 0.f;
+
+
 }
 
 const int & CKoopa_Bullet::Update(void)
 {
 	if (0 >= m_iHp)
 		return OBJ_DEAD;
-
-	float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
-	float fPlayer_Y = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fY;
 
 	if (!m_bReverse)
 	{
@@ -71,7 +70,7 @@ void CKoopa_Bullet::Late_Update(void)
 {
 	if (m_tInfo.fY + (m_tInfo.fCY * 1.5) >= WINCY)
 	{
-		Set_Hp(0);
+		m_iHp = 0;
 	}
 }
 

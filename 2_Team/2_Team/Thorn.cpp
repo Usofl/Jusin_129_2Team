@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Thorn.h"
+#include "ObjMgr.h"
 
 
 CThorn::CThorn()
+	: m_bBoss(false)
 {
 }
 
@@ -24,7 +26,10 @@ void CThorn::Initialize(void)
 const int & CThorn::Update(void)
 {
 	// TODO: 여기에 반환 구문을 삽입합니다.
-	m_tInfo.fX += m_fSpeed;
+	if (!m_bBoss)
+	{
+		m_tInfo.fX += m_fSpeed;
+	}
 
 	Update_Rect();
 	return OBJ_NOEVENT;
@@ -33,6 +38,11 @@ const int & CThorn::Update(void)
 
 void CThorn::Late_Update(void)
 {
+	if (PLAYER->Get_Info().fX > 5550)
+	{
+		m_tInfo.fX = 5400;
+		m_bBoss = true;
+	}
 }
 
 void CThorn::Render(HDC _hDC)

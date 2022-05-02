@@ -412,14 +412,23 @@ void CCollision::Collision_Player_Bullet()
 
 void CCollision::Collision_Player_KOOPA_Bullet()
 {
+	CPlayer* player = static_cast<CPlayer*>(PLAYER);
+
 	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_KOOPABULLET))
 	{
 		if (0 < Bullet->Get_Hp())
 		{
-			if (Check_Sphere(*PLAYER, *Bullet))
+			if (Check_Sphere(*player, *Bullet))
 			{
-				PLAYER->Set_Hp(PLAYER->Get_Hp() - Bullet->Get_Att());
-				static_cast<CItem*>(OBJMGR->Get_NotBeing_list(ITEM_KEY).front())->PlayerColiision();
+				if (player->Get_Balloon())
+				{
+					OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info()));
+				}
+				else
+				{
+					player->Set_Hp(player->Get_Hp() - Bullet->Get_Att());
+					static_cast<CItem*>(OBJMGR->Get_NotBeing_list(ITEM_KEY).front())->PlayerColiision();
+				}
 				Bullet->Set_Hp(0);
 			}
 		}
