@@ -14,7 +14,7 @@ void	Safe_Delete(T& Temp)
 }
 
 template<typename T>
-void	Safe_Delete_Array(T& Temp)
+void	Safe_Delete_Dymamic_Array(T& Temp)
 {
 	if (Temp)
 	{

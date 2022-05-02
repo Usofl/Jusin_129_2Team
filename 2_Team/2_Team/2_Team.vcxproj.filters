@@ -142,6 +142,9 @@
     <Filter Include="01. Manager\06. BmpMgr\00. MyBmp">
       <UniqueIdentifier>{a9634bd6-b17e-4eb5-901c-fcc199d1dfc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\03. Portal">
+      <UniqueIdentifier>{c25fe233-fdc6-4a20-8108-a72e7f7ef57e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -309,6 +312,12 @@
     <ClInclude Include="MyBmp.h">
       <Filter>01. Manager\06. BmpMgr\00. MyBmp</Filter>
     </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>01. Obj\01. NotBeing\03. Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="PortalFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -427,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="MyBmp.cpp">
       <Filter>01. Manager\06. BmpMgr\00. MyBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>01. Obj\01. NotBeing\03. Portal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
