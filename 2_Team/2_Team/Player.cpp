@@ -21,6 +21,7 @@ CPlayer::CPlayer()
 	, m_dwGigant(GetTickCount())
 	, m_dwMP(GetTickCount())
 	, m_dwBalloon(GetTickCount())
+	, m_dwAttacked(GetTickCount())
 	, m_fJumpTime(0.f)
 	, m_fJumpAngle(90.f)
 	, m_fCharging(0.f)
@@ -245,7 +246,7 @@ void CPlayer::OffSet(void)
 	int		iScrollY = (int)SCROLLMGR->Get_ScrollY();
 
 	int		iItvX = 150;
-	int		iItvY = 200;
+	int		iItvY = 250;
 
 	if (iOffSetX - iItvX > m_tInfo.fX + iScrollX)
 	{ 

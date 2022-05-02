@@ -23,6 +23,7 @@ public:
 
 public:
 	static void Collision_Player_Bullet(); 
+	static void Collision_Player_KOOPA_Bullet();
 	static void Collision_Player_Ladder();
 
 	static void Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List);
@@ -39,5 +40,5 @@ public:
 
 public:
 	static void Collision_Monster_Player();
-	
+
 };

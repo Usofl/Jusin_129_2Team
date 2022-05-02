@@ -15,6 +15,7 @@
 #include "Monster.h"
 
 CCollision::CCollision()
+
 {
 }
 
@@ -386,14 +387,13 @@ void CCollision::Collision_Block_Block()
 
 void CCollision::Collision_Player_Bullet()
 {
-	RECT rc{};
 	CPlayer* player = static_cast<CPlayer*>(PLAYER);
 
 	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_MONSTERBULLET))
 	{
 		if(0 < Bullet->Get_Hp())
 		{
-			if (IntersectRect(&rc, &(player->Get_Rect()), &(Bullet->Get_Rect())))
+			if (Check_Sphere(*player, *Bullet))
 			{
 				if (player->Get_Balloon())
 				{
@@ -402,8 +402,24 @@ void CCollision::Collision_Player_Bullet()
 				else
 				{
 					player->Set_Hp(player->Get_Hp() - Bullet->Get_Att());
-					static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).front())->PlayerColiision();
+					static_cast<CItem*>(OBJMGR->Get_NotBeing_list(ITEM_KEY).front())->PlayerColiision();
 				}
+				Bullet->Set_Hp(0);
+			}
+		}
+	}
+}
+
+void CCollision::Collision_Player_KOOPA_Bullet()
+{
+	for (auto& Bullet : OBJMGR->Get_Being_list(BEING_KOOPABULLET))
+	{
+		if (0 < Bullet->Get_Hp())
+		{
+			if (Check_Sphere(*PLAYER, *Bullet))
+			{
+				PLAYER->Set_Hp(PLAYER->Get_Hp() - Bullet->Get_Att());
+				static_cast<CItem*>(OBJMGR->Get_NotBeing_list(ITEM_KEY).front())->PlayerColiision();
 				Bullet->Set_Hp(0);
 			}
 		}

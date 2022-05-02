@@ -10,6 +10,7 @@ CKoopa_Bullet::CKoopa_Bullet()
 
 CKoopa_Bullet::~CKoopa_Bullet()
 {
+	Release();
 }
 
 void CKoopa_Bullet::Initialize(void)
@@ -24,13 +25,11 @@ void CKoopa_Bullet::Initialize(void)
 
 	m_fShootPower = 6.f;
 	m_fShootTime = 0.f;
-
-
 }
 
 const int & CKoopa_Bullet::Update(void)
 {
-	if (!m_iHp)
+	if (0 >= m_iHp)
 		return OBJ_DEAD;
 
 	float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
