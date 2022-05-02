@@ -98,8 +98,14 @@ void CPlayer::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
+	MyBrush = (HBRUSH)CreateSolidBrush(RGB(255, 220, 177));
+	OldBrush = (HBRUSH)SelectObject(_hDC, MyBrush);
+
 	Ellipse(_hDC, m_tRect.left + (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.top - (int)(m_tInfo.fCY * 0.3f) + iScrollY
 		, m_tRect.right - (int)(m_tInfo.fCX * 0.25f) + iScrollX, m_tRect.bottom - (int)(m_tInfo.fCY * 0.8f) + iScrollY);
+
+	SelectObject(_hDC, OldBrush);
+	DeleteObject(MyBrush);
 
 	MoveToEx(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.3f) - 1 + iScrollX, m_tRect.top + 1 + iScrollY, nullptr);
 	LineTo(_hDC, m_tRect.right - (int)(m_tInfo.fCX * 0.46f) - 1 + iScrollX, m_tRect.top + 1 + iScrollY);
