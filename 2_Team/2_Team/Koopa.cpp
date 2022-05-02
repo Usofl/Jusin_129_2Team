@@ -45,9 +45,9 @@ const int& CKoopa::Update(void)
 		return OBJ_DEAD;
 	}
 
-	if (OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX >= 5100 && OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX <= 5700)
+	if (OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX >= 5500 && OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX <= 6400)
 	{
-		if (m_dwJumpTiming + 7000 < GetTickCount())
+		if (m_dwJumpTiming + 6000 < GetTickCount())
 		{
 			m_bJump = true;
 			m_bAir = true;
@@ -113,7 +113,7 @@ void CKoopa::Release(void)
 
 void CKoopa::Jumping(void)
 {
-	float	fLineY = WINCY;
+	float	fLineY = 410;
 
 	if (!m_bMove_X)
 	{
@@ -122,13 +122,13 @@ void CKoopa::Jumping(void)
 	}
 		
 
-	m_tInfo.fY += (m_tInfo.fCY * 0.5f);
-	bool bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
-	m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
-	fLineY += (m_tInfo.fCY * 0.4f);
+	//m_tInfo.fY += (m_tInfo.fCY * 0.5f);
+	//bool bLineCol = CCollision::Collision_Line(*this, OBJMGR->Get_NotBeing_list(NOTBEING_LINE), fLineY);
+	//m_tInfo.fY -= (m_tInfo.fCY * 0.5f);
+	//fLineY += (m_tInfo.fCY * 0.5f);
 
 
-	if (fLineY > m_tInfo.fY)
+	if (fLineY - 20.f > m_tInfo.fY)
 	{
 		m_bJump = true;
 	}
@@ -155,6 +155,15 @@ void CKoopa::Jumping(void)
 				m_tInfo.fX += m_fKoopa_speed;
 			}
 
+			if (m_tInfo.fX > 6300)
+			{
+				m_tInfo.fX = 6300;
+			}
+			else if (m_tInfo.fX < 5500)
+			{
+				m_tInfo.fX = 5500;
+			}
+
 
 		/*	if (m_tInfo.fX > m_fPlayer_X)
 			{
@@ -173,7 +182,7 @@ void CKoopa::Jumping(void)
 				m_tInfo.fX += 3.f;
 				
 			}*/
-			if (bLineCol && m_tInfo.fY - 10.f > fLineY)
+			if (m_tInfo.fY - 10.f > fLineY)
 			{
 				Jump_Crash();
 				m_fJumpTime = 0.f;
@@ -183,6 +192,10 @@ void CKoopa::Jumping(void)
 				m_tInfo.fY = fLineY;
 				m_fPlayer_X = 0;
 			}
+		}
+		else
+		{
+			m_tInfo.fY = fLineY;
 		}
 	}
 }

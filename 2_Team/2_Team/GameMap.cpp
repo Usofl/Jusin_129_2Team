@@ -67,7 +67,7 @@ void CGameMap::Map_Maker(HDC _hDC)
 
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2750,400 }, { 3100,400 }));
 
-	OBJMGR->Add_Notbeing(NOTBEING_BLOCK, *CBlockFactory::Create(2410, 370));
+	OBJMGR->Add_Notbeing(NOTBEING_BLOCK, *CBlockFactory::Create(2410, 350));
 
 	OBJMGR->Add_Notbeing(NOTBEING_BLOCK, *CBlockFactory::Create(2250, 0));
 	OBJMGR->Add_Notbeing(NOTBEING_BLOCK, *CBlockFactory::Create(2750, 0));
@@ -103,7 +103,7 @@ void CGameMap::Map_Maker(HDC _hDC)
 	OBJMGR->Add_Notbeing(NOTBEING_PORTAL, *CPortalFactory::Create(4950, 230, 4350, 230));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 4900,300 }, { 5100,300 }));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5100,300 }, { 5400,500 }));
-	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5400,500 }, { 5800,500 }));
+	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5400,500 }, { 6400,500 }));
 
 
 	//m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));
