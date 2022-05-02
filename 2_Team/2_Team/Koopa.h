@@ -4,7 +4,7 @@
 #include "Koopa_Bullet.h"
 #include "Collision.h"
 #include "ObjMgr.h"
-
+#include "BmpMgr.h"
 
 
 

@@ -16,7 +16,7 @@ CGigant_Fistol::CGigant_Fistol(const POINT & _tPoint, const int & _iReverse, con
 	m_tInfo.fCY = 15.f * _iSize;
 
 	m_iHp = 10 * _iSize;
-	m_iAtt = 4 * _iSize;
+	m_iAtt = 5 * _iSize;
 
 	m_iReverse = _iReverse;
 }
@@ -35,11 +35,6 @@ void CGigant_Fistol::Initialize(void)
 
 const int & CGigant_Fistol::Update(void)
 {
-	if (0 >= m_iHp)
-	{
-		return OBJ_DEAD;
-	}
-
 	if (m_uiArea)
 	{
 		m_tInfo.fX += (m_fSpeed * m_iReverse);
@@ -48,6 +43,11 @@ const int & CGigant_Fistol::Update(void)
 	}
 	else
 	{
+		if (0 >= m_iHp && m_AreaStack.empty())
+		{
+			return OBJ_DEAD;
+		}
+
 		m_tInfo.fX = m_AreaStack.top();
 		m_AreaStack.pop();
 	}

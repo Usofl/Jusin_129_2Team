@@ -20,8 +20,8 @@ void CKoopa::Initialize(void)
 	m_tInfo.fX = 5500.f;
 	m_tInfo.fY = 250.f;
 
-	m_tInfo.fCX = 100.f;
-	m_tInfo.fCY = 250.f;
+	m_tInfo.fCX = 200.f;
+	m_tInfo.fCY = 181.f;
 
 	m_iHp = 300;
 
@@ -84,8 +84,19 @@ void CKoopa::Render(HDC _hDC)
 	SelectObject(_hDC, OldBrush);
 	DeleteObject(MyBrush);
 
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top - 20 + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom - 20 + iScrollY);
-	Rectangle(_hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Koopa");
+
+	GdiTransparentBlt(_hDC, 
+		int(m_tRect.left + iScrollX),
+		int(m_tRect.top) + iScrollY,
+		int(m_tInfo.fCX),
+		int(m_tInfo.fCY),
+		hMemDC,	
+		0,
+		0,
+		(int)m_tInfo.fCX,
+		(int)m_tInfo.fCY,
+		RGB(255, 255, 255));		
 }
 
 void CKoopa::Release(void)
