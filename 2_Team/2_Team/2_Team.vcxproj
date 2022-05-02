@@ -162,6 +162,7 @@
     <ClInclude Include="ItemMgr.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="Koopa_Crash.h" />
     <ClInclude Include="Ladder.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Koopa_Bullet.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="ItemMgr.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="Koopa_Crash.cpp" />
     <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="Koopa_Bullet.cpp" />

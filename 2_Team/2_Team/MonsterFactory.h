@@ -50,5 +50,14 @@ public:
 
 		return pObj;
 	}
+
+	static CObj*	Create_Crash_Koopa(float _fX, float _fY, float _fAngle)
+	{
+		CObj*	pObj = new CKoopa_Crash(_fAngle);
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+
+		return pObj;
+	}
 };
 
