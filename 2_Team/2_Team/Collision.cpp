@@ -15,6 +15,7 @@
 #include "Monster.h"
 
 CCollision::CCollision()
+
 {
 }
 

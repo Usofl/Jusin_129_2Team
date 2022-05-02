@@ -39,5 +39,5 @@ public:
 
 public:
 	static void Collision_Monster_Player();
-	
+
 };
