@@ -32,15 +32,17 @@ const int & CKoopa_Bullet::Update(void)
 {
 	if (!m_iHp)
 		return OBJ_DEAD;
-	
+
+	float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
+	float fPlayer_Y = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fY;
 
 	if (!m_bReverse)
 	{
 		float fPlayer_X = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fX;
 		float fPlayer_Y = OBJMGR->Get_Being_list(BEING_PLAYER).front()->Get_Info().fY;
 
-		float	fWidth = ((fPlayer_X - m_tInfo.fX));
-		float	fHeight = ((fPlayer_Y - m_tInfo.fY));
+		float	fWidth = (fPlayer_X - m_tInfo.fX);
+		float	fHeight = (fPlayer_Y - m_tInfo.fY);
 
 		float	fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
@@ -55,9 +57,9 @@ const int & CKoopa_Bullet::Update(void)
 		m_bReverse = true;
 	}
 
-	m_tInfo.fX += m_fSpeed * cosf(m_fAngle);
-	m_tInfo.fY -= m_fSpeed * sinf(m_fAngle);
-
+		m_tInfo.fX += m_fSpeed * cosf(m_fAngle);
+		m_tInfo.fY -= m_fSpeed * sinf(m_fAngle);
+	
 
 	//m_fAngle = (fRadian * 180.f) / PI;	
 
