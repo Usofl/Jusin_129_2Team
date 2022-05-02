@@ -44,7 +44,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 	
-	m_iHp = 50;
+	m_iHp = 80;
 
 	m_iReverse = 1;
 
