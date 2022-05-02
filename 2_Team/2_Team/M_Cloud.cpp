@@ -31,6 +31,7 @@ void CM_Cloud::Initialize(void)
 
 const int& CM_Cloud::Update(void)
 {
+
 	if (m_iHp <= 0)
 	{
 		return OBJ_DEAD;

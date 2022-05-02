@@ -39,7 +39,7 @@ void CPlayer::Initialize(void)
 	m_tInfo.fCX = 75.f;
 	m_tInfo.fCY = 75.f;
 	
-	m_iHp = 90;
+	m_iHp = 20;
 
 	m_iReverse = 1;
 
@@ -283,6 +283,12 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 	case ITEM_KEY:
 		break;
 	case ITEM_BOX:
+		break;
+	case ITEM_STAMINA:
+		m_iMp = 100;
+		break;
+	case ITEM_RECOVERY:
+		m_iHp = 100;
 		break;
 	default:
 		break;

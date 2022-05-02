@@ -7,6 +7,7 @@
 #include "Block.h"
 #include "Coin.h"
 #include "Ladder.h"
+#include "Key.h"
 #include "GomuFactory.h"
 
 
@@ -362,8 +363,11 @@ void CCollision::Collision_Player_Bullet()
 			{
 				OBJMGR->Add_Being(BEING_COUNTERBULLET, *CGomuFactory::Create_Counter_Bullet(Bullet->Get_Info())) ;
 			}
+			else
+			{
+				static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).front())->PlayerColiision();
+			}
 			Bullet->Set_Hp(0);
-			static_cast<CItem*>(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM).back())->PlayerColiision();
 		}
 	}
 }
@@ -428,7 +432,6 @@ void CCollision::Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_
 	{
 		if (IntersectRect(&rc, &player->Get_Rect(), &_iTEM->Get_Rect()))
 		{
-			player->Put_ItemType(static_cast<CItem*>(_iTEM)->Itemtype());
 			_iTEM->Set_Hp(0);
 			CUiMgr::Get_Instance()->Get_Uilist().front()->Get_Itemtype(static_cast<CLadder*>(_iTEM)->Itemtype());
 		}

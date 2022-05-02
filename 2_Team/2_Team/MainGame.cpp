@@ -95,11 +95,6 @@ void CMainGame::Late_Update(void)
 		m_pState->Late_Update();
 	}
 		
-
-	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
-		, CCoinMgr::Get_Instance()->Get_Coin_List());
-	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
-		, OBJMGR->Get_NotBeing_list(NOTBEING_ITEM));
 }
 
 void CMainGame::Render(void)
