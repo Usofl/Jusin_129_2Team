@@ -40,9 +40,6 @@ void CMainGame::Initialize(void)
 	m_pState = new CState;
 	m_hDC = GetDC(g_hWnd);
 
-	CObj* player = new CPlayer;
-	OBJMGR->Add_Being(BEING_PLAYER, *player);
-
 	OBJMGR->Initialize();
 	m_pState->Initialize();
 	UIMGR->Initialize();
