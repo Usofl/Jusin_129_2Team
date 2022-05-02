@@ -5,6 +5,7 @@
 #include "BlockFactory.h"
 #include "ObjMgr.h"
 #include "TrapFactory.h"
+#include "PortalFactory.h"
 
 CGameMap::CGameMap()
 {
@@ -56,6 +57,7 @@ void CGameMap::Map_Maker(HDC _hDC)
 	OBJMGR->Add_Notbeing(NOTBEING_WALL, *CLineFactory::Create_Line({ 2500,400 }, { 2500,600 }));
 
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2500,600 }, { 2750,600 }));
+
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2500,400 }, { 2750,400 }));
 
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 2500,400 }, { 2750,400 }));
@@ -92,11 +94,11 @@ void CGameMap::Map_Maker(HDC _hDC)
 	
 
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 4300,300 }, { 4400,300 }));
-	
+	OBJMGR->Add_Notbeing(NOTBEING_PORTAL, *CPortalFactory::Create(4350, 230));
 	OBJMGR->Add_Notbeing(NOTBEING_WALL, *CLineFactory::Create_Line({ 4400,300 }, { 4400,600 }));
 
 	OBJMGR->Add_Notbeing(NOTBEING_WALL, *CLineFactory::Create_Line({ 4900,300 }, { 4900,600 }));
-
+	OBJMGR->Add_Notbeing(NOTBEING_PORTAL, *CPortalFactory::Create(4950, 230));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 4900,300 }, { 5100,300 }));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5100,300 }, { 5400,500 }));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5400,500 }, { 5700,500 }));

@@ -187,6 +187,8 @@
     <ClInclude Include="NotBeing.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
+    <ClInclude Include="Portal.h" />
+    <ClInclude Include="PortalFactory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="ScrollMgr.h" />
@@ -232,6 +234,7 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
     <ClCompile Include="State.cpp" />
