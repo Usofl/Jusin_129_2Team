@@ -5,6 +5,9 @@
 #include "Life.h"
 #include "Ladder.h"
 #include "Key.h"
+#include "Recovery.h"
+#include "Stamina.h"
+#include "Room.h"
 
 class ItemFactory
 {
@@ -33,6 +36,24 @@ public:
 	static CObj*	Create_Key()
 	{
 		CObj* Obj = new CKey;
+		Obj->Initialize();
+		return Obj;
+	}
+	static CObj*	Create_Recovery()
+	{
+		CObj* Obj = new CRecovery;
+		Obj->Initialize();
+		return Obj;
+	}
+	static CObj*	Create_Stamina()
+	{
+		CObj* Obj = new CStamina;
+		Obj->Initialize();
+		return Obj;
+	}
+	static CObj*	Create_Room()
+	{
+		CObj* Obj = new CRoom;
 		Obj->Initialize();
 		return Obj;
 	}

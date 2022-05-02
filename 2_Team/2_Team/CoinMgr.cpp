@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CoinMgr.h"
+#include "ObjMgr.h"
 CCoinMgr*		CCoinMgr::m_pInstance = nullptr;
 
 CCoinMgr::CCoinMgr()

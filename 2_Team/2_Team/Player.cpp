@@ -289,6 +289,12 @@ void CPlayer::Put_ItemType(const int& _Itemtype)
 		break;
 	case ITEM_BOX:
 		break;
+	case ITEM_STAMINA:
+		m_iMp = 100;
+		break;
+	case ITEM_RECOVERY:
+		m_iHp = 100;
+		break;
 	default:
 		break;
 	}

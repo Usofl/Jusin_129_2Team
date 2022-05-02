@@ -2,6 +2,7 @@
 #include "ObjMgr.h"
 #include "Collision.h"
 #include "Player.h"
+#include "CoinMgr.h"
 #include "LineFactory.h"
 #include "BlockFactory.h"
 #include "TrapFactory.h"
@@ -42,10 +43,13 @@ void CObjMgr::Initialize(void)
 			iter->Initialize();
 		}
 	}
-	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Key());
+	OBJMGR->Add_Notbeing(ITEM_KEY, *ItemFactory::Create_Key());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Life());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Recovery());
+	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Stamina());
 	OBJMGR->Add_Notbeing(NOTBEING_ITEM, *ItemFactory::Create_Gun());
 	OBJMGR->Add_Notbeing(NOTBEING_LADDER, *ItemFactory::Create_Ladder());
+	OBJMGR->Add_Notbeing(NOTBEING_ROOM, *ItemFactory::Create_Room());
 	OBJMGR->Add_Being(BEING_MONSTER, *CMonsterFactory::Create_Monster(M_Cloud_TURTLE));
 }
 
@@ -125,13 +129,18 @@ void CObjMgr::Late_Update(void)
 	CCollision::Collision_Block_Block();
 
 	CCollision::Collision_Player_Bullet();
+	CCollision::Collision_Player_Ladder(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, OBJMGR->Get_NotBeing_list(NOTBEING_LADDER));
+	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, CCoinMgr::Get_Instance()->Get_Coin_List());
+	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
+		, OBJMGR->Get_NotBeing_list(NOTBEING_ITEM));
+	CCollision::Collision_Player_Key(*OBJMGR->Get_Being_list(BEING_PLAYER).front(), OBJMGR->Get_NotBeing_list(ITEM_KEY));
 
 	CCollision::Collision_Fistol_Monster();
 	CCollision::Collision_Gigant_Monster();
 	CCollision::Collision_Counter_Monster();
-	//CCollision::Collision_Player_Ladder(OBJ);
-	//CCollision::Collision_Key_Line(OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), OBJMGR->Get_NotBeing_list(NOTBEING_LINE));
-	//CCollision::Collision_Line(OBJMGR->Get_NotBeing_list(NOTBEING_LINE), OBJMGR->Get_NotBeing_list(NOTBEING_ITEM), 0);
+	//CCollision::Collision_Player_Room();
 }
 
 void CObjMgr::Render(HDC _hdc)

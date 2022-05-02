@@ -142,6 +142,15 @@
     <Filter Include="01. Manager\06. BmpMgr\00. MyBmp">
       <UniqueIdentifier>{a9634bd6-b17e-4eb5-901c-fcc199d1dfc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\05.Recovery">
+      <UniqueIdentifier>{8b803241-f0a3-4eb8-80e0-42292f4e69a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\06.Stamina">
+      <UniqueIdentifier>{9940ac67-2346-40cf-955e-f52ac94fe72e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\01. NotBeing\02. Item\07.Room">
+      <UniqueIdentifier>{738f94c4-e406-4979-ac84-29c9d7cc0c02}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01. Obj\01. NotBeing\03. Portal">
       <UniqueIdentifier>{c25fe233-fdc6-4a20-8108-a72e7f7ef57e}</UniqueIdentifier>
     </Filter>
@@ -312,6 +321,15 @@
     <ClInclude Include="MyBmp.h">
       <Filter>01. Manager\06. BmpMgr\00. MyBmp</Filter>
     </ClInclude>
+    <ClInclude Include="Recovery.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\05.Recovery</Filter>
+    </ClInclude>
+    <ClInclude Include="Stamina.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\06.Stamina</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>01. Obj\01. NotBeing\02. Item\07.Room</Filter>
+    </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>01. Obj\01. NotBeing\03. Portal</Filter>
     </ClInclude>
@@ -430,6 +448,15 @@
     </ClCompile>
     <ClCompile Include="Koopa_Bullet.cpp">
       <Filter>01. Obj\00. Being\01. Monster\M_Bullet\Koopa_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Recovery.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\05.Recovery</Filter>
+    </ClCompile>
+    <ClCompile Include="Stamina.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\06.Stamina</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>01. Obj\01. NotBeing\02. Item\07.Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

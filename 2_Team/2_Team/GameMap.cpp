@@ -101,7 +101,7 @@ void CGameMap::Map_Maker(HDC _hDC)
 	OBJMGR->Add_Notbeing(NOTBEING_PORTAL, *CPortalFactory::Create(4950, 230, 4350, 230));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 4900,300 }, { 5100,300 }));
 	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5100,300 }, { 5400,500 }));
-	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5400,500 }, { 5700,500 }));
+	OBJMGR->Add_Notbeing(NOTBEING_LINE, *CLineFactory::Create_Line({ 5400,500 }, { 5800,500 }));
 
 
 	//m_NotBeing_list[NOTBEING_BLOCK].push_back(CBlockFactory::Create(200, 0));

@@ -5,6 +5,7 @@
 #include "M_Cloud.h"
 #include "Koopa.h"
 #include "Warrior.h"
+#include "Key.h"
 
 #include "MonsterFactory.h" 
 #include "GomuFactory.h"
@@ -93,11 +94,6 @@ void CMainGame::Late_Update(void)
 		m_pState->Late_Update();
 	}
 		
-
-	CCollision::Collision_Player_Coin(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
-		, CCoinMgr::Get_Instance()->Get_Coin_List());
-	CCollision::Collision_Player_Item(*OBJMGR->Get_Being_list(BEING_PLAYER).front()
-		, OBJMGR->Get_NotBeing_list(NOTBEING_ITEM));
 }
 
 void CMainGame::Render(void)
@@ -152,11 +148,16 @@ void CMainGame::Key_Input(void)
 		if (GetAsyncKeyState('R'))
 		{
 			if (m_pState->Get_State() == STATE_GAME)
-				m_pState->Set_Pause(STATE_PAUSE);
+				m_pState->Set_State(STATE_PAUSE);
 			else if (m_pState->Get_State() == STATE_PAUSE)
-				m_pState->Set_Pause(STATE_GAME);
+				m_pState->Set_State(STATE_GAME);
 			else if (m_pState->Get_State() == STATE_OVER)
-				m_pState->Set_Pause(STATE_GAME);
+				m_pState->Set_State(STATE_GAME);
+		}
+		else if (GetAsyncKeyState('G') && CCollision::Collision_Player_Room)
+		{
+			if(static_cast<CKey*>(OBJMGR->Get_NotBeing_list(ITEM_KEY).front())->GameOver())
+				m_pState->Set_State(STATE_END);
 		}
 		m_dwPauseTime = GetTickCount();
 	}

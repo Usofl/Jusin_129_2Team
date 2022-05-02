@@ -27,11 +27,12 @@ public:
 
 	static void Collision_Player_Coin(CObj& _Obj, std::list<CCoin*>& m_Coin_List);
 	static void Collision_Player_Item(CObj& _Obj, std::list<CObj*>& m_Item_List);
-	static void Collision_Key_Line(std::list<CObj*>& m_Item_List, std::list<CObj*>& m_Line_List);
 	static void Collision_Player_Ladder(CObj& _Obj, std::list<CObj*>& m_Ladder_List);
 	static void Collision_Fistol_Monster();
 	static void Collision_Gigant_Monster();
 	static void Collision_Counter_Monster();
 
 	static bool Check_Sphere(CObj& pDest, CObj& pSour);
+	static bool Collision_Player_Room();
+	static void Collision_Player_Key(CObj& _Obj, std::list<CObj*>& m_Key_List);
 };

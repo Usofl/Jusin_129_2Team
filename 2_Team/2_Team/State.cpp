@@ -30,8 +30,8 @@ void CState::Update()
 		}
 		else if (IntersectRect(&m_tColli, &m_tExitRect, &m_tMouseRect))
 		{
-			m_iState = STATE_OVER;
-			//DestroyWindow(g_hWnd);
+			DestroyWindow(g_hWnd);
+			//m_iState = STATE_OVER;
 		}
 	}
 
@@ -86,6 +86,11 @@ void CState::Render(HDC hDC)
 		TextOut(hDC, WINCX / 2 - 20, WINCY / 2 - 50, TEXT("X"), 1);
 		TextOut(hDC, WINCX / 2, WINCY / 2 - 50, Temp, lstrlen(Temp));
 	}
+	else if (m_iState == STATE_END)
+	{
+		TextOut(hDC, WINCX / 2 - 50 , WINCY / 2, TEXT("게임 종료"), 5);
+	}
+
 	else
 	{
 		Rectangle(hDC, m_tStartRect.left, m_tStartRect.top, m_tStartRect.right, m_tStartRect.bottom);
